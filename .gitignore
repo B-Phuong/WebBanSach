@@ -1,2 +1,10 @@
+#bỏ toàn bộ file trong thư mục node_module
 /node_modules/*
-/package-lock.json
+#bỏ 1 file
+/package-lock.json  
+
+
+#Một số ghi chú khác
+#Dấu ! phía trước có ý nghĩa phủ định: !abc/example.exe
+#Sử dụng 1 * để tìm các file có cùng định dạng. Ví dụ như bạn muốn ignore tất cả các file .xml trong project: *.xml
+#Trường hợp khác của 1 * nếu bạn chỉ rõ đường dẫn ví dụ: config/*.xml thì nó chỉ có hiệu lực cho các file config/abc.xml mà không có hiệu lực cho các file config/sub/abc.xml.

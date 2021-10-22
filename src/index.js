@@ -1,0 +1,23 @@
+const express = require('express');
+const app = express();
+const port = 3000;  
+const path = require('path');
+const route = require('./Server/route');
+const db = require('./Server/config/database');
+
+//Connect to DB
+db.connect();
+
+//đặt đường dẫn luôn vào src/Server 
+// app.use(express.static(path.join(__dirname, 'Server')));
+app.use(express.urlencoded({   //có thể dùng để đọc req.body
+  extended: true
+}));
+app.use(express.json());
+
+route(app);
+
+//localhost 127.0.0.1
+app.listen(port, () => {
+  console.log(`App listening at http://localhost:${port}`)
+})
