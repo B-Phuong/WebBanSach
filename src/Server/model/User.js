@@ -8,3 +8,4 @@ const user = new Schema({
     trangThai: {type: Boolean}
 },{timestamps: true});
 module.exports = Mongoose.model('User', user)
+
