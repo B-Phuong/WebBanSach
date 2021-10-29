@@ -4,9 +4,13 @@ const port = 3000;
 const path = require('path');
 const route = require('./Server/route');
 const db = require('./Server/config/database');
+var bodyParser = require('body-parser');
+
+
 
 //Connect to DB
 db.connect();
+// Without middleware
 
 //đặt đường dẫn luôn vào src/Server 
 // app.use(express.static(path.join(__dirname, 'Server')));
