@@ -4,9 +4,9 @@ const { mutipleMongoseToObject } = require('../util/mongoose');
 
 class SignInController{
 
-    find(req, res, next) {
+    find(req, res){
         var username = req.body.username
-        var password = req.body.username
+        var password = req.body.password
         AccountModel.findOne({
             username:username,
             password:password
