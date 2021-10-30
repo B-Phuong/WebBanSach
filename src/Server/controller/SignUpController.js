@@ -1,10 +1,8 @@
 const Account = require('../model/Account');
+const AccountModel = require('../model/Account');
 const { mutipleMongoseToObject } = require('../util/mongoose');
 
 class SignUpController{
-    
-
-
 create(req, res) {
     // kiểm tra validate request
     var username = req.body.username
