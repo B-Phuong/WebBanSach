@@ -2,37 +2,33 @@ const Account = require('../model/Account');
 const { mutipleMongoseToObject } = require('../util/mongoose');
 
 class SignUpController{
-    show(req, res, next) {
-        Account.find({})
-            .then(data =>              
-                res.json(data)
-            )
-            .catch(next);
-        }
+    
+
 
 create(req, res) {
     // kiểm tra validate request
-    if(!req.body){
-        res.status(400).send({ message : "Content can not be emtpy!"});
-        return;
-    }
-    const account = new Account({        
-        username:  req.body.username,
-        password:  req.body.password,
+    var username = req.body.username
+    var password = req.body.password
+    Account.findOne({
+        username:username
     })
 
-    // lưu vào database
-    account
-        .save()
-        .then(data => {
-            res.send(data)
-        })
-        .catch(err =>{
-            res.status(500).send({
-                message : err.message || "Some error occurred while creating a create operation"
-            });
-        });
-
+    .then(data=>{
+        if(data){
+            res.json('User này đã tồn')
+        }else{
+            return Account.create({
+                username: username,
+                password: password
+            })
+        }
+    })
+    .then(data=>{
+        res.json('Tạo tài khoản thành công')
+    })
+    .catch(err=>{
+        res.status(500).json('Tạo tài khoản thất bại')
+    })
 }
 }
 module.exports = new SignUpController();
