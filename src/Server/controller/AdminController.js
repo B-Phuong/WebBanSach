@@ -1,5 +1,5 @@
-
 const User = require("../model/User");
+const Account = require("../model/Account");
 const { mutipleMongoseToObject } = require("../util/mongoose");
 
 class AdminController {
@@ -30,18 +30,15 @@ class AdminController {
             .send({ message: "Erro retrieving user with id " + id });
         });
     } else {
-        User.find()
+      User.find()
         .then((user) => {
           res.send(user);
         })
         .catch((err) => {
-          res
-            .status(500)
-            .send({
-              message:
-                err.message ||
-                "Error Occurred while retriving user information",
-            });
+          res.status(500).send({
+            message:
+              err.message || "Error Occurred while retriving user information",
+          });
         });
     }
   }
@@ -58,11 +55,9 @@ class AdminController {
     User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
       .then((data) => {
         if (!data) {
-          res
-            .status(404)
-            .send({
-              message: `Cannot Update user with ${id}. Maybe user not found!`,
-            });
+          res.status(404).send({
+            message: `Cannot Update user with ${id}. Maybe user not found!`,
+          });
         } else {
           res.send(data);
         }
@@ -70,35 +65,120 @@ class AdminController {
       .catch((err) => {
         res.status(500).send({ message: "Error Update user information" });
       });
-  };
+  }
 
   // Delete a user with specified user id in the request
-    delete(req, res){
-    const id = req.params.id;
+  delete(req, res) {
+    const id = req.params._id;
 
     User.findByIdAndDelete(id)
-        .then(data => {
-            if(!data){
-                res.status(404).send({ message : `Cannot Delete with id ${id}. Maybe id is wrong`})
-            }else{
-                res.send({
-                    message : "User was deleted successfully!"
-                })
-            }
-        })
-        .catch(err =>{
-            res.status(500).send({
-                message: "Could not delete User with id=" + id
-            });
+      .then((data) => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot Delete with id ${id}. Maybe id is wrong`,
+          });
+        } else {
+          res.send({
+            message: "User was deleted successfully!",
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: "Could not delete User with id=" + id,
         });
-}
+      });
+  }
+  // khóa tài khoản user
+  block(req, res, next) {
+ 
 
+    Account.updateOne({ maNguoiDung: req.params.maNguoiDung }, {conHoatDong:false})
+      .then((data) => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot block with userId ${id}. Maybe id is wrong`,
+          });
+        } else {
+          res.send({
+            
+              message: "User was blocked!",
+              data
+            
+          });
+        }
+      })
+      .catch(next);
+  }
+
+  // tạo tài khoản nhân viên
+  // khóa tài khoản user
+ addStaff(req, res, next) {
+   console.log(req.params)
+    // validate request
+    if (!req.body) {
+      res.status(400).send({ message: "Content can not be emtpy!" });
+      return;
+    }
+    var abc = Account.findOne({tenDangNhap: req.tenDangNhap})
+        .then((user) => {
+          if(user)
+          {
+            res.send({ message: "Tài khoản đã tồn tại !!" })
+             
+          }
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message:
+              err.message || "Error Occurred while retriving user information",
+          });
+        });
+    // new user
+    console.log("abc :" + abc )
+    const user = new User({
+      tenUser:  req.body.tenUser,
+      sDT:  req.body.sDT,
+      diaChi:  req.body.diaChi,
+      gioHang:  req.body.gioHang,
+      gioiTinh:  req.body.gioiTinh,
+    });
    
+    // lưu vào database
+    user
+      .save()
+      .then((data) => {
+        // new account
+        const account = new Account({
+          tenDangNhap: req.body.tenDangNhap,
+          matKhau: req.body.matKhau,
+          maNguoiDung: data['id'],
+          vaiTro: 'nhân viên',
+          conHoatDong: true,
+        });
+
+        // lưu vào database
+        account
+          .save()
+          .then((data) => {
+            res.send(data);
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message:
+                err.message ||
+                "Some error occurred while creating a create operation",
+            });
+          });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message ||
+            "Some error occurred while creating a create operation",
+        });
+      });
+  }
 }
 
-
-
-
-
-module.exports = new AdminController;
-
+module.exports = new AdminController();

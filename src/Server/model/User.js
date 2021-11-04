@@ -1,5 +1,8 @@
 const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
+
+
+
 const user = new Schema({
     tenNguoiDung:  {type: String, maxlength: 50},
     gioiTinh:  {type: Boolean},

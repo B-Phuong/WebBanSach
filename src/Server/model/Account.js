@@ -1,25 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const account = new Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-      },
-    password: {
-        type: String,
-        required: true,
-      },
-    isAdmin: {
-        type: Boolean,
-        required: true,
-        default: false,
-      },
-    active: {
-        type: Boolean,
-        required: true,
-        default: true,
-    },
+
+
+    tenDangNhap: {type: String},
+    matKhau: {type: String},
+    maNguoiDung: {type: String},
+    vaiTro: {type: String},
+    conHoatDong: {type: String, default: true},
+
+
 },{timestamps: true});
 
 const AccountModel = mongoose.model('Account', account);
