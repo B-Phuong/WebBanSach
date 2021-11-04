@@ -45,14 +45,18 @@ class HoaDonController {
 }
     duyetdon(req, res){
         const hoadon = HoaDon.findById(req.params.id)
-            if (hoadon) {
-                hoadon.daDuyet = true;
-                const updatedOrder = hoadon.save()
-                res.json(hoadon.save())
+        .then(data =>{            
+            if (data) {
+                data.daDuyet = true;
+                data.save()
+                res.json("Thành công")
             } else {
                 res.status(404)
                 throw new Error('Don khong ton tai')
             }
+
+        })
+        .catch(er=>res.json(err))
     }
     huydon(req,res){
         const hoadon = HoaDon.findById(req.params.id)
