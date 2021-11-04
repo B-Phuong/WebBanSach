@@ -23,7 +23,8 @@ class HoaDonController {
     const hoadon = new HoaDon({        
         idUser:  req.body.idUser,
         ngayDatHang:  req.body.ngayDatHang,
-        trangThai: req.body.trangThai,
+        daDuyet: req.body.daDuyet,
+        daHuy: req.body.daHuy,
         tongTien:  req.body.tongTien,
         donViGiaoHang:  req.body.donViGiaoHang,
         soLuong:  req.body.soLuong
@@ -42,7 +43,27 @@ class HoaDonController {
         });
 
 }
-
-  
+    duyetdon(req, res){
+        const hoadon = HoaDon.findById(req.params.id)
+            if (hoadon) {
+                hoadon.daDuyet = true;
+                const updatedOrder = hoadon.save()
+                res.json(hoadon.save())
+            } else {
+                res.status(404)
+                throw new Error('Don khong ton tai')
+            }
+    }
+    huydon(req,res){
+        const hoadon = HoaDon.findById(req.params.id)
+            if (hoadon) {
+                hoadon.daHuy = true
+                const updatedOrder = hoadon.save()
+                res.json(updatedOrder)
+            } else {
+                res.status(404)
+                throw new Error('Don khong ton tai')
+            }
+    }
 }
 module.exports = new HoaDonController();
