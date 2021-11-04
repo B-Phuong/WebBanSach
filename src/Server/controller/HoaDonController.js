@@ -58,16 +58,6 @@ class HoaDonController {
         })
         .catch(er=>res.json(err))
     }
-    huydon(req,res){
-        const hoadon = HoaDon.findById(req.params.id)
-            if (hoadon) {
-                hoadon.daHuy = true
-                const updatedOrder = hoadon.save()
-                res.json(updatedOrder)
-            } else {
-                res.status(404)
-                throw new Error('Don khong ton tai')
-            }
-    }
+ 
 }
 module.exports = new HoaDonController();
