@@ -69,7 +69,7 @@ class AdminController {
 
   // Delete a user with specified user id in the request
   delete(req, res) {
-    const id = req.params.id;
+    const id = req.params._id;
 
     User.findByIdAndDelete(id)
       .then((data) => {
@@ -91,9 +91,9 @@ class AdminController {
   }
   // khóa tài khoản user
   block(req, res, next) {
-    const id = req.params.id;
+ 
 
-    User.findOne({ maNguoiDung: req.params.maNguoiDung })
+    Account.updateOne({ maNguoiDung: req.params.maNguoiDung }, {conHoatDong:false})
       .then((data) => {
         if (!data) {
           res.status(404).send({
@@ -101,7 +101,10 @@ class AdminController {
           });
         } else {
           res.send({
-            message: "User was blocked!",
+            
+              message: "User was blocked!",
+              data
+            
           });
         }
       })
@@ -110,14 +113,29 @@ class AdminController {
 
   // tạo tài khoản nhân viên
   // khóa tài khoản user
-  addStaff(req, res, next) {
+ addStaff(req, res, next) {
+   console.log(req.params)
     // validate request
     if (!req.body) {
       res.status(400).send({ message: "Content can not be emtpy!" });
       return;
     }
-
+    var abc = Account.findOne({tenDangNhap: req.tenDangNhap})
+        .then((user) => {
+          if(user)
+          {
+            res.send({ message: "Tài khoản đã tồn tại !!" })
+             
+          }
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message:
+              err.message || "Error Occurred while retriving user information",
+          });
+        });
     // new user
+    console.log("abc :" + abc )
     const user = new User({
       tenUser:  req.body.tenUser,
       sDT:  req.body.sDT,
@@ -125,7 +143,7 @@ class AdminController {
       gioHang:  req.body.gioHang,
       gioiTinh:  req.body.gioiTinh,
     });
-
+   
     // lưu vào database
     user
       .save()
