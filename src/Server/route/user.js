@@ -3,7 +3,7 @@ const router = express.Router();
 
 const userController = require('../controller/UserController');
 router.get('/info/:id', userController.info);
-// router.put('/edit/:bidanh', userController.edit); 
+router.put('/edit/:id', userController.edit); 
 // router.delete('/delete/:id', userController.delete); 
 
 
