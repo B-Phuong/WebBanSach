@@ -42,6 +42,22 @@ class HoaDonController {
         });
 
 }
+//[PUT] /hoadon/chapNhanHuy
+    acceptCancel(req, res){
+        HoaDon.findOneAndUpdate({_id:req.params.id},{trangThai:'Đã hủy'})
+        .then(data=>{
+            if(data) {
+                res.status(200).json('Đã chấp nhận hủy đơn '+req.params.id)
+                // const {trangThai,...rest} = data
+                // update={
+                //     ...rest,
+                //     trangThai:'Đã hủy'
+                // }
+            }
+            else res.json(err||'Yêu cầu hủy chưa được chấp nhận')
+        })
+        .catch(err=>res.json(err))
+    }
 
   
 }
