@@ -11,9 +11,8 @@ var bodyParser = require('body-parser');
 //Connect to DB
 db.connect();
 // Without middleware
-
 //đặt đường dẫn luôn vào src/Server 
-// app.use(express.static(path.join(__dirname, 'Server')));
+app.use('/',express.static(path.join(__dirname, 'Server/views')));
 app.use(express.urlencoded({   //có thể dùng để đọc req.body
   extended: true
 }));

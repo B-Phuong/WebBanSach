@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const account = new Schema({
 
 
-    tenDangNhap: {type: String},
+    tenDangNhap: {type: String, unique: true},
     matKhau: {type: String},
     maNguoiDung: {type: String},
     vaiTro: {type: String},
