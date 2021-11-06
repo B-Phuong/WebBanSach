@@ -8,8 +8,8 @@
     <body>
         <h1>Đăng ký</h1>
         <form id="reg-form">
-            <input type="text" id="tenDangNhap" placeholder="tenDangNhap"/>
-            <input type="password" id="matKhau" placeholder="matKhau"/>
+            <input type="text" autocomplete="off" id="tenDangNhap" placeholder="tenDangNhap"/>
+            <input type="password" autocomplete="off" id="matKhau" placeholder="matKhau"/>
             <input type="submit" value="Submit Form"/>
         </form>
         <script>
@@ -18,8 +18,8 @@
 
             function registerUser(event){
                 event.preventDefault()
-                const tenDangNhap = document.getElementById('tenDangNhap')
-                const matKhau = document.getElementById('matKhau')
+                const tenDangNhap = document.getElementById('tenDangNhap').value
+                const matKhau = document.getElementById('matKhau').value
                 const result = fetch('/signup/createaccount',{
                     method: 'POST',
                     headers:{
