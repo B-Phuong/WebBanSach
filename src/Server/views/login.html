@@ -3,24 +3,24 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Đăng ký</title>
+        <title>Đăng nhập</title>
     </head>
     <body>
-        <h1>Đăng ký</h1>
-        <form id="reg-form">
+        <h1>Đăng Nhập</h1>
+        <form id="login">
             <input type="text" autocomplete="off" id="tenDangNhap" placeholder="tenDangNhap"/>
             <input type="password" autocomplete="off" id="matKhau" placeholder="matKhau"/>
             <input type="submit" value="Submit Form"/>
         </form>
         <script>
-            const form = document.getElementById('reg-form')
-            form.addEventListener('submit', registerUser)
+            const form = document.getElementById('login')
+            form.addEventListener('submit', login)
 
-            async function registerUser(event){
+            async function login(event){
                 event.preventDefault()
                 const tenDangNhap = document.getElementById('tenDangNhap').value
                 const matKhau = document.getElementById('matKhau').value
-                const result = await fetch('/signup/createaccount',{
+                const result = await fetch('/signin/dangnhap',{
                     method: 'POST',
                     headers:{
                         'Content-Type': 'application/json'
@@ -30,9 +30,14 @@
                         matKhau
                     })
                 }).then((res)=> res.json())
+
                 if(result.status ==='ok'){
+                    
+                    console.log('Got the token: ', result.data)
+                    localStorage.setItem('token', result.data)
                     arlet('Success')
                 }else{
+                    
                     alert(result.error)
                 }
             }

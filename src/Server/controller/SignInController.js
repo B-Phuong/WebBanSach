@@ -22,13 +22,13 @@ class SignInController{
                 
             },JWT_SECRET
             )
-            return res.json({status:'Đăng nhập thành công', data: token})
+            return res.json({status:'ok', data: token})
         }
         res.json({status:'error', error:'tên đăng nhập và mật khẩu không tồn tại'})
     }
 
     async doimatkhau(req, res){
-        const{token, newpassword: plainTextPassword} = req.body
+        const { token, newpassword:plainTextPassword } = req.body
         if(!plainTextPassword || typeof plainTextPassword !=='string'){
             return res.json({status:"error", error:"Mật khẩu không hợp lệ"})
         }
@@ -36,23 +36,21 @@ class SignInController{
             return res.json({status:"error", error:"Mật khẩu phải trên 6 kí tự"})
         }
         try{
-          const user = jwt.verify(token, JWT_SECRET)
-          //...
-
-          const _id = user.id
-
-          const matKhau = await bcrypt.hash(plainTextPassword)
-
-          await Account.updateOne(
-              { _id },
-              {
-              $set:{matKhau}
-          })
-          res.json({status:'ok'})
+            const user = jwt.verify(token, JWT_SECRET)
+            const _id = user.id
+            const password = await bcrypt.hash(plainTextPassword, 10)
+            await Account.updateOne(
+                { _id },
+                {
+                    $set: {matKhau: password}
+                }
+             )
         }catch(error){
-            res.json({status: 'error', error:''})
+            console.log(error)
+            res.json({status:'error', error:';))'})
         }
-        console.log('JWT decoded:', user)
+
+        res.json({status:'ok'})
     }
 }
 module.exports = new SignInController();

@@ -3,12 +3,11 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Đăng ký</title>
+        <title>Đổi mật khẩu</title>
     </head>
     <body>
-        <h1>Đăng ký</h1>
+        <h1>Đổi mật khẩu</h1>
         <form id="reg-form">
-            <input type="text" autocomplete="off" id="tenDangNhap" placeholder="tenDangNhap"/>
             <input type="password" autocomplete="off" id="matKhau" placeholder="matKhau"/>
             <input type="submit" value="Submit Form"/>
         </form>
@@ -18,19 +17,20 @@
 
             async function registerUser(event){
                 event.preventDefault()
-                const tenDangNhap = document.getElementById('tenDangNhap').value
                 const matKhau = document.getElementById('matKhau').value
-                const result = await fetch('/signup/createaccount',{
+
+                const result = await fetch('/signin/doimatkhau',{
                     method: 'POST',
                     headers:{
                         'Content-Type': 'application/json'
                     },
                     body:JSON.stringify({
-                        tenDangNhap,
-                        matKhau
+                        newpassword:matKhau,
+                        token: localStorage.getItem('token')
                     })
                 }).then((res)=> res.json())
                 if(result.status ==='ok'){
+                    //everything dai dô bư
                     arlet('Success')
                 }else{
                     alert(result.error)
