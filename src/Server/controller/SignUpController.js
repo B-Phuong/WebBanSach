@@ -4,7 +4,7 @@ const { mutipleMongoseToObject } = require('../util/mongoose');
 
 class SignUpController{
 async create(req, res) {
-    const{tenDangNhap, matKhau:plainTextPassword} = req.body
+    const{tenDangNhap, matKhau: plainTextPassword} = req.body
 
     if(!tenDangNhap || typeof tenDangNhap !=='string'){
         return res.json({status:"error", error:"Tên đăng nhập không hợp lệ"})
@@ -23,10 +23,9 @@ async create(req, res) {
         })
         console.log('Tài khoản được tạo thành công', response)
     }catch(error){
-        if(error.code === 11000){
-        return res.json({status:'error', error:'Tài khoản đã tồn tại'})
+        if(error.code=== 11000){
+            return res.json({status:'error', error:'Tài khoản đã tồn tại trong hệ thống'})
         }
-        throw error
     }
     // console.log(await bcrypt.hash(matKhau, 10))
 
