@@ -90,91 +90,94 @@ class AdminController {
       });
   }
   // khóa tài khoản user
+  // [PUT] /admin/blockuer/:id
   block(req, res, next) {
-    Account.updateOne(
-      { maNguoiDung: req.params.maNguoiDung },
+    User.updateOne(
+      { _id: req.params.id },
       { conHoatDong: false }
     )
       .then((data) => {
         if (!data) {
-          res.status(404).send({
-            message: `Cannot block with userId ${id}. Maybe id is wrong`,
+          return res.status(404).send({
+            status: 400,
+            message: `Cannot block with userId ${req.params.id}. Maybe id is wrong`,
+            data : null,
           });
         } else {
           res.send({
+            status: 200,
             message: "User was blocked!",
-            data,
+            data: data,
           });
         }
       })
-      .catch(next);
+      .catch( 
+        () =>{
+        res.status(500).send({
+        message: `Cannot block with userId ${req.params.id}. Maybe id is wrong222`,
+      })});
   }
 
   // tạo tài khoản nhân viên
-  // khóa tài khoản user
+  // [POST] /admin/addstaff
   addStaff(req, res, next) {
-    // kiểm tra nếu body thiếu 1 trong những thuộc tính bắt buộc thì thông báo
-    if (!req.body.tenUser || !req.body.sDT || !req.body.tenDangNhap || !req.body.matKhau) { 
-      res.status(400).send({ message: "tên user, số điện thoại, tên đăng nhập, mật khẩu không được bỏ trống" });
+    
+    //kiểm tra các trường bắt buộc
+    if (
+      !req.body.tenUser ||
+      !req.body.sDT ||
+      !req.body.tenDangNhap ||
+      !req.body.matKhau
+    ) {
+      res.status(400).send({
+        status: 400,
+        message:
+          "tên user, số điện thoại, tên đăng nhập, mật khẩu không được bỏ trống",
+        data: null,  
+      });
       return;
     }
-    var abc = Account.find({ tenDangNhap: req.body.tenDangNhap })
+
+    // kiểm tra tài khoản đã tồn tại chưa
+    User.find({ tenDangNhap: req.body.tenDangNhap })
       .then((user) => {
         if (user.length > 0) {
-          return res.send({ message: "Tài khoản đã tồn tại !!" });
-        } else {
-          // new user
-          const user = new User({
-            tenUser: req.body.tenUser,
-            sDT: req.body.sDT,
-            diaChi: req.body.diaChi,
-            gioHang: req.body.gioHang,
-            gioiTinh: req.body.gioiTinh,
+          return res.send({
+            status: 400,
+            message: "Tài khoản đã tồn tại !!",
+            data: null,
           });
-
-          // lưu vào database
+        } else {
+          // tạo user
+          const user = new User(req.body);
           user
             .save()
-            .then((data) => {
-              // new account
-              const account = new Account({
-                tenDangNhap: req.body.tenDangNhap,
-                matKhau: req.body.matKhau,
-                maNguoiDung: data["id"],
-                vaiTro: "nhân viên",
-                conHoatDong: true,
-              });
-
-              // lưu vào database
-              account
-                .save()
-                .then((data) => {
-                  res.send(data);
-                })
-                .catch((err) => {
-                  res.status(500).send({
-                    message:
-                      err.message ||
-                      "Some error occurred while creating a create operation",
-                  });
-                });
-            })
-            .catch((err) => {
-              res.status(500).send({
-                message:
-                  err.message ||
-                  "Some error occurred while creating a create operation",
-              });
+            .then((user) =>
+              res.send({
+                status: 200,
+                message: "thêm nhân viên thành công",
+                data: user,
+              })
+            )
+            .catch(() =>{
+              res.status(500).json({
+                status: 500,
+                message: "Lỗi thêm nhân viên, vui lòng thử lại!!!",
+                data: null,
+              })
             });
         }
       })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message || "có lỗi trong quá trình kiểm tra tài khoản! vui lòng thử lại",
-        });
-      });
+      .catch(() =>{
+        res.status(500).json({
+          status: 500,
+          message: "Lỗi thêm nhân viên, vui lòng thử lại!!!",
+          data: null,
+        })
+      } );
   }
+
+  
 }
 
 module.exports = new AdminController();

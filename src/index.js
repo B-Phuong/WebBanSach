@@ -6,7 +6,7 @@ const route = require('./Server/route');
 const db = require('./Server/config/database');
 var bodyParser = require('body-parser');
 
-
+app.use(bodyParser.urlencoded({ extended: false }))
 
 //Connect to DB
 db.connect();

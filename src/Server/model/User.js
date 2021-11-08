@@ -14,7 +14,11 @@ const user = new Schema({
         hinhAnh:{type: String},
         soLuong: {type: Number},
         tongTien: {type: Number}
-    }]
+    }],
+    tenDangNhap: {type: String},
+    matKhau: {type: String},
+    vaiTro: {type: String},
+    conHoatDong: {type: Boolean, default: true},
 },{timestamps: true});
 module.exports = Mongoose.model('User', user)
 
