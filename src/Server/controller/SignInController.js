@@ -52,5 +52,11 @@ class SignInController{
 
         res.json({status:'ok'})
     }
+    //GET
+    dangxuat(req, res){
+        if (typeof window !== 'undefined') {
+            localStorage.clear();
+        }
+    }
 }
 module.exports = new SignInController();
