@@ -1,14 +1,47 @@
 const User = require("../model/User");
-const Account = require("../model/Account");
+const Book = require("../model/Book");
 const { mutipleMongoseToObject } = require("../util/mongoose");
 
-class AdminController {
-  // với re là require và res là response
-  //[GET] /user/show
-  show(req, res, next) {
-    User.find({})
-      .then((data) => res.json(data))
-      .catch(next);
+class CartController {
+  // thêm sản phẩm vào giỏ hàng
+  //[PUT] /cart/:iduser
+  addBooks(req, res, next) {
+    // User.findById(req.params.iduser)
+    //   .then((data) => {
+    //     if(!data) return res.status(404).json({
+    //       status: 404,
+    //       message: 'không tìm thấy Id User'
+    //     })
+    //     var book = {
+    //       maSach: req.body.maSach,
+    //       tenSach: req.body.tenSach,
+    //       hinhAnh: req.body.hinhAnh,
+    //       soLuong: req.body.soLuong,
+    //       tongTien: req.body.tongTien,
+    //     }
+    //     var giohang=[]
+    //     // if(!data.gioHang) // nếu giỏ hàng chưa có thì khởi tạo
+    //     //   giohang = []
+    //     giohang.push(book)
+    //     console.log(giohang)
+    //     User.updateOne({_id:req.params.iduser},{gioHang:giohang})
+    //         .then((data)=> res.send(data))
+    //   })
+    //   .catch(next);
+    var book = {
+      maSach: req.body.maSach,
+      tenSach: req.body.tenSach,
+      hinhAnh: req.body.hinhAnh,
+      soLuong: req.body.soLuong,
+      tongTien: req.body.tongTien,
+    }
+    var giohang=[]
+    // if(!data.gioHang) // nếu giỏ hàng chưa có thì khởi tạo
+    //   giohang = []
+    giohang.push(book)
+    console.log(giohang)
+    User.updateOne({_id:req.params.iduser},{gioHang:giohang})
+        .then((data)=> res.send(data))
   }
 
   //[Get] /User/:id
@@ -124,7 +157,7 @@ class AdminController {
     
     //kiểm tra các trường bắt buộc
     if (
-      !req.body.tenNguoiDung ||
+      !req.body.tenUser ||
       !req.body.sDT ||
       !req.body.tenDangNhap ||
       !req.body.matKhau
@@ -180,4 +213,4 @@ class AdminController {
   
 }
 
-module.exports = new AdminController();
+module.exports = new CartController();
