@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //Connect to DB
 db.connect();
 // Without middleware
-
+app.use('/',express.static(path.join(__dirname, 'Server/views')));
 //đặt đường dẫn luôn vào src/Server 
 // app.use(express.static(path.join(__dirname, 'Server')));
 app.use(express.urlencoded({   //có thể dùng để đọc req.body

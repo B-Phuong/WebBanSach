@@ -1,6 +1,6 @@
 
 const Book = require('../model/Book');
-const KindOfBook = require('../model/KindOfBook');
+const Genres = require('../model/Genres');
 
 class BookController {
     // với re là reqiure và res là response
@@ -65,7 +65,7 @@ class BookController {
     filter(req, res) {
         const id = req.params.id;
         // const theloai = req.params.theloai;
-        // KindOfBook.find({tenTheLoai:theloai})
+        // Genres.find({tenTheLoai:theloai})
         // .then(data=>{
         //     if(data) { const id = data
         //     console.log(id)}

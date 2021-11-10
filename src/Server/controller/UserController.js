@@ -1,6 +1,6 @@
 const User = require("../model/User");
 const Book = require("../model/Book");
-const HoaDon = require("../model/HoaDon");
+const Bill = require("../model/Bill");
 
 class UserController {
   // với re là reqiure và res là response
@@ -45,7 +45,7 @@ class UserController {
   // test --> http://localhost:3000/user/purchase/%C4%91ang%20giao
   getOrderByStatus(req, res, next) {
     console.log(req.params.orderstatus)
-    HoaDon.find({ trangThai: req.params.orderstatus }).then((oders) => {
+    Bill.find({ trangThai: req.params.orderstatus }).then((oders) => {
       res.send({
         status:200,
         data:oders

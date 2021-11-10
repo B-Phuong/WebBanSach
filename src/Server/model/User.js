@@ -15,7 +15,7 @@ const user = new Schema({
         soLuong: {type: Number},
         tongTien: {type: Number}
     }],
-    tenDangNhap: {type: String},
+    tenDangNhap: {type: String,  unique: true  },
     matKhau: {type: String},
     vaiTro: {type: String},
     conHoatDong: {type: Boolean, default: true},
