@@ -22,7 +22,11 @@ class AuthController {
     try{
         const response = await User.create({
             tenDangNhap,
-            matKhau
+            matKhau,
+            tenNguoiDung,
+            gioiTinh,
+            sDT,
+            diaChi
         })
         console.log('Tài khoản được tạo thành công', response)
     }catch (error) {
