@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { validationBook, isRequestValidated } = require('../validator/value');
+const { validationBook, isRequestValidated } = require('../validators/value');
 const multer = require("multer");
 //const shortid = require("shortid");
 const path = require( "path");
