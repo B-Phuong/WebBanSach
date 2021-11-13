@@ -1,16 +1,15 @@
-const User = require("../model/User");
+const User = require("../../model/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const shortid = require("shortid");
 const JWT_SECRET = 'aomalazadanobitadamvomomshizuka'
-const {validationResult} = require('express-validator');
 class AuthController {
     //signup
     async signup(req, res) {
         User.findOne({ email: req.body.email }).exec(async (error, user) => {
             if (user)
                 return res.status(400).json({
-                    error: "Tài khoản đã có người đăng ký",
+                    error: "Tài khoản admin đã có người đăng ký",
                 });
 
             const { tenNguoiDung, email, matKhau } = req.body;
@@ -20,6 +19,7 @@ class AuthController {
                 email,
                 hash_matKhau,
                 tenTaiKhoan: shortid.generate(),
+                vaiTro: 'admin'
             });
 
             _user.save((error, user) => {
@@ -31,7 +31,7 @@ class AuthController {
 
                 if (user) {
                     return res.status(201).json({
-                        message: "Tài khoản tạo thành công"
+                        message: "Tài khoản admin được tạo thành công"
                     });
                 }
             });
@@ -42,7 +42,7 @@ class AuthController {
             .exec((error, user) => {
                 if (error) return res.status(400).json({ error });
                 if (user) {
-                    if (user.authenticate(req.body.matKhau)) {
+                    if (user.authenticate(req.body.matKhau)&& user.role ==='admin') {
                         const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '1h' });
                         const { _id, tenNguoiDung, email, vaiTro } = user;
                         res.status(200).json({
