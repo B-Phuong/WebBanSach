@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import Layout from '../../components/Layout'
 import { Container, Form, Row, Col, Button } from 'react-bootstrap'
 import { Input } from '../../components/UI/input'
 import { login } from '../../actions';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import { Redirect } from 'react-router-dom'
+import { isUserLoggedIn } from '../../actions';
 /**
 * @author
 * @function Signin
@@ -11,18 +13,28 @@ import {useDispatch} from 'react-redux';
 
 export const Signin = (props) => {
 
+  const[email, setEmail] = useState('');
+  const[matKhau, setMatkhau] = useState('');
+  const[error, setError] = useState('');
+  const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
-
+  useEffect(()=>{
+    if(!auth.authenticate){
+      dispatch(isUserLoggedIn());
+    }
+  },[]);
 
   const userLogin = (e) => {
 
     e.preventDefault();
 
     const user = {
-      email: 'souldippy@gmail.com',
-      password: '123456'
+      email, matKhau
     }
     dispatch(login(user));
+  }
+  if(auth.authenticate){
+    return <Redirect to={`/`}/>
   }
   return (
     <Layout>
@@ -33,16 +45,16 @@ export const Signin = (props) => {
               <Input
                 Label="Email"
                 placeholder="Nhập email"
-                value=""
+                value={email}
                 type="Email"
-                onChange={() => { }}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 Label="Mật khẩu"
                 placeholder="Nhập mật khẩu"
-                value=""
+                value={matKhau}
                 type="password"
-                onChange={() => { }}
+                onChange={(e) => setMatkhau(e.target.value)}
               />
               <Form.Group className="mb-3" >
               </Form.Group>

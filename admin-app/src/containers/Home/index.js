@@ -11,7 +11,7 @@ export const Home = (props) => {
     <Layout>
       <div class="jumbotron" style ={{margin: '5rem', background:'#fff'}}className="text-center">
         <h1>Chào mừng đến với Admin DashBoard</h1>
-        <p>lorem</p>
+        <p></p>
       </div>
     </Layout>
   )

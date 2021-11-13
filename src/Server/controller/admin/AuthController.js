@@ -42,7 +42,7 @@ class AuthController {
             .exec((error, user) => {
                 if (error) return res.status(400).json({ error });
                 if (user) {
-                    if (user.authenticate(req.body.matKhau)&& user.role ==='admin') {
+                    if (user.authenticate(req.body.matKhau)&& user.vaiTro ==='admin') {
                         const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '1h' });
                         const { _id, tenNguoiDung, email, vaiTro } = user;
                         res.status(200).json({
