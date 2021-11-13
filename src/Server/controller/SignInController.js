@@ -1,5 +1,3 @@
-const AccountModel = require('../model/Account');
-const Account = require('../model/Account');
 const { mutipleMongoseToObject } = require('../util/mongoose');
 
 class SignInController{

@@ -13,9 +13,11 @@ const bill = new Schema(
     },
     chiTietHoaDon: [
       {
+        maSach: { type: String, required: true },
         tenSach: { type: String, required: true },
         soLuong: { type: Number, required: true },
-        tongTien: { type: Number, required: true },
+        giamGia: { type: Number, default:0 },
+        giaTien: { type: Number, default:0 },
       },
     ],
     diaChiGiaoHang: { type: String, required: [true, "Chưa có địa chỉ giao hàng"] },

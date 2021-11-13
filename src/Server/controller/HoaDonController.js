@@ -1,4 +1,4 @@
-const HoaDon = require("../model/HoaDon");
+const HoaDon = require("../model/Bill");
 const { mutipleMongoseToObject } = require("../util/mongoose");
 
 class HoaDonController {
@@ -70,6 +70,7 @@ class HoaDonController {
       })
       .catch((err) => res.json(err));
   }
+  
 
   
 }

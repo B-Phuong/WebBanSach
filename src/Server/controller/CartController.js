@@ -5,212 +5,102 @@ const { mutipleMongoseToObject } = require("../util/mongoose");
 class CartController {
   // thêm sản phẩm vào giỏ hàng
   //[PUT] /cart/:iduser
-  addBooks(req, res, next) {
-    // User.findById(req.params.iduser)
-    //   .then((data) => {
-    //     if(!data) return res.status(404).json({
-    //       status: 404,
-    //       message: 'không tìm thấy Id User'
-    //     })
-    //     var book = {
-    //       maSach: req.body.maSach,
-    //       tenSach: req.body.tenSach,
-    //       hinhAnh: req.body.hinhAnh,
-    //       soLuong: req.body.soLuong,
-    //       tongTien: req.body.tongTien,
-    //     }
-    //     var giohang=[]
-    //     // if(!data.gioHang) // nếu giỏ hàng chưa có thì khởi tạo
-    //     //   giohang = []
-    //     giohang.push(book)
-    //     console.log(giohang)
-    //     User.updateOne({_id:req.params.iduser},{gioHang:giohang})
-    //         .then((data)=> res.send(data))
-    //   })
-    //   .catch(next);
-    var book = {
-      maSach: req.body.maSach,
-      tenSach: req.body.tenSach,
-      hinhAnh: req.body.hinhAnh,
-      soLuong: req.body.soLuong,
-      tongTien: req.body.tongTien,
-    }
-    var giohang=[]
-    // if(!data.gioHang) // nếu giỏ hàng chưa có thì khởi tạo
-    //   giohang = []
-    giohang.push(book)
-    console.log(giohang)
-    User.updateOne({_id:req.params.iduser},{gioHang:giohang})
-        .then((data)=> res.send(data))
-  }
-
-  //[Get] /User/:id
-  find(req, res, next) {
-    if (req.query.id) {
-      const id = req.query.id;
-
-      User.findById(id)
-        .then((data) => {
-          if (!data) {
-            res.status(404).send({ message: "Not found user with id " + id });
-          } else {
-            res.send(data);
-          }
-        })
-        .catch((err) => {
-          res
-            .status(500)
-            .send({ message: "Erro retrieving user with id " + id });
-        });
-    } else {
-      User.find()
-        .then((user) => {
-          res.send(user);
-        })
-        .catch((err) => {
-          res.status(500).send({
-            message:
-              err.message || "Error Occurred while retriving user information",
-          });
-        });
-    }
-  }
-
-  // Update a new idetified user by user id
-  update(req, res) {
-    if (!req.body) {
-      return res
-        .status(400)
-        .send({ message: "Data to update can not be empty" });
-    }
-
-    const id = req.params.id;
-    User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-      .then((data) => {
-        if (!data) {
-          res.status(404).send({
-            message: `Cannot Update user with ${id}. Maybe user not found!`,
-          });
-        } else {
-          res.send(data);
-        }
-      })
-      .catch((err) => {
-        res.status(500).send({ message: "Error Update user information" });
-      });
-  }
-
-  // Delete a user with specified user id in the request
-  delete(req, res) {
-    const id = req.params._id;
-
-    User.findByIdAndDelete(id)
-      .then((data) => {
-        if (!data) {
-          res.status(404).send({
-            message: `Cannot Delete with id ${id}. Maybe id is wrong`,
-          });
-        } else {
-          res.send({
-            message: "User was deleted successfully!",
-          });
-        }
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: "Could not delete User with id=" + id,
-        });
-      });
-  }
-  // khóa tài khoản user
-  // [PUT] /admin/blockuer/:id
-  block(req, res, next) {
-    User.updateOne(
-      { _id: req.params.id },
-      { conHoatDong: false }
-    )
-      .then((data) => {
-        if (!data) {
-          return res.status(404).send({
-            status: 400,
-            message: `Cannot block with userId ${req.params.id}. Maybe id is wrong`,
-            data : null,
-          });
-        } else {
-          res.send({
-            status: 200,
-            message: "User was blocked!",
-            data: data,
-          });
-        }
-      })
-      .catch( 
-        () =>{
-        res.status(500).send({
-        message: `Cannot block with userId ${req.params.id}. Maybe id is wrong222`,
-      })});
-  }
-
-  // tạo tài khoản nhân viên
-  // [POST] /admin/addstaff
-  addStaff(req, res, next) {
-    
-    //kiểm tra các trường bắt buộc
-    if (
-      !req.body.tenUser ||
-      !req.body.sDT ||
-      !req.body.tenDangNhap ||
-      !req.body.matKhau
-    ) {
-      res.status(400).send({
-        status: 400,
-        message:
-          "tên user, số điện thoại, tên đăng nhập, mật khẩu không được bỏ trống",
-        data: null,  
-      });
-      return;
-    }
-
-    // kiểm tra tài khoản đã tồn tại chưa
-    User.find({ tenDangNhap: req.body.tenDangNhap })
+  async addBookToCart(req, res, next) {
+    console.log(req.body.user._id.$oid);
+    await User.findById({ _id: req.body.user._id.$oid }) // sau này có token thì sữa lại lấy user từ token
       .then((user) => {
-        if (user.length > 0) {
-          return res.send({
-            status: 400,
-            message: "Tài khoản đã tồn tại !!",
-            data: null,
+        if (!user)
+          return res.status(404).json({
+            status: 404,
+            message: "không tìm thấy Id User",
           });
-        } else {
-          // tạo user
-          const user = new User(req.body);
-          user
-            .save()
-            .then((user) =>
-              res.send({
-                status: 200,
-                message: "thêm nhân viên thành công",
-                data: user,
-              })
-            )
-            .catch(() =>{
-              res.status(500).json({
-                status: 500,
-                message: "Lỗi thêm nhân viên, vui lòng thử lại!!!",
-                data: null,
-              })
-            });
-        }
-      })
-      .catch(() =>{
-        res.status(500).json({
-          status: 500,
-          message: "Lỗi thêm nhân viên, vui lòng thử lại!!!",
-          data: null,
-        })
-      } );
-  }
+          
+        else {
+          var book = {
+            maSach: req.body.maSach,
+            tenSach: req.body.tenSach,
+            hinhAnh: req.body.hinhAnh,
+            soLuong: req.body.soLuong,
+            giaGoc: req.body.giaTien,
+            giamGia: req.body.giamGia,
+          };
+          console.log(book);
+          book.tongTien =
+            (book.giaGoc - (book.giaGoc * book.giamGia) / 100) * book.soLuong;
+          // if(!data.gioHang) // nếu giỏ hàng chưa có thì khởi tạo
+          //   giohang = []
+          var giohangnew;
+          if (!user.gioHang) giohangnew = [];
+          else giohangnew = user.gioHang;
+          //kiểm tra nếu sản phẩm có ở giỏ hàng trước rồi thì cập nhật số lượng
+          // if(user.gioHang[id])
+          var isItemExist = user.gioHang.some((item, index) => {
+            return item.maSach === book.maSach;
+          });
 
-  
+          if (isItemExist) {
+            // nếu đã có trong giỏ hàng rồi thì cập nhật số lượng
+            var findBookInCart = user.gioHang.filter((item, index) => {
+              return item.maSach === book.maSach;
+            });
+            var soLuongBanDauTrongGio = findBookInCart.soLuong;
+            var SoLuongCanThemVaoGio = book.soLuong;
+
+            Book.findById({ _id: book.maSach }).then((data) => {
+              if (!data) {
+                res.status(400).json({ message: "Lỗi khi tìm sách"});
+              } else {
+                if ( // kiểm tra số lượng cần thêm vào đủ không
+                  data.soLuongConLai >=
+                  SoLuongCanThemVaoGio + soLuongBanDauTrongGio
+                ) {
+                  // đủ thì thêm
+                  var updateNumberBook = new Promise(function (resolve, reject) {
+                    Book.updateOne({ _id: book.maSach },{soLuongConLai: data.soLuongConLai - SoLuongCanThemVaoGio}).then((result) => {
+                      resolve(result)
+                    }).catch((err) => {reject(err)});
+                  });
+                  var newCart = user.gioHang.map(x=> {return x})
+                  // cập nhật lại số lượng
+                  for(index in newCart){
+                    if(newCart[index].maSach == book.maSach)
+                    {
+                      newCart[index].soLuong = soLuongBanDauTrongGio + SoLuongCanThemVaoGio
+                      newCart[index].tongTien = (newCart[index].giaTien - (newCart[index].giaTien * newCart[index].giamGia) / 100) * newCart[index].soLuong;
+                      break
+                    } 
+                    
+                  }
+
+                  var updateBookInCart = new Promise(function (resolve, reject) {
+                    User.updateOne({ _id: req.body.user._id.$oid },{gioHang:newCart}).then((updated) => {
+                      resolve(updated)
+                    });
+                  });
+
+                  Promise.all([updateNumberBook,updateBookInCart])
+                      .then((bookupdated,cartupdated)=>{
+                        res.status(200).json({ message: 'thêm thành công vào giỏ hàng'})
+                      })
+                      .catch(err => {return res.status(500).json({ message: err})})
+                      
+                } 
+                else {
+                  res
+                    .status(400)
+                    .json({
+                      message:
+                        "Số lượng sách không đủ để thêm vào giỏ hàng, vui lòng thử lại",
+                    });
+                }
+              }
+            }//49
+          }// 41
+          
+      }
+    }
+      .catch((err) => res.status(400).json({ message: err }));
+  }
 }
 
 module.exports = new CartController();

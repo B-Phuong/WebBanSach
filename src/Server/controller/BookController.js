@@ -1,6 +1,6 @@
 
 const Book = require('../model/Book');
-const KindOfBook = require('../model/KindOfBook');
+const KindOfBook = require('../model/Genres');
 
 class BookController {
     // với re là reqiure và res là response

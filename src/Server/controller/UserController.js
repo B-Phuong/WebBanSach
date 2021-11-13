@@ -1,6 +1,6 @@
 const User = require("../model/User");
 const Book = require("../model/Book");
-const HoaDon = require("../model/HoaDon");
+const HoaDon = require("../model/Bill");
 
 class UserController {
   // với re là reqiure và res là response
@@ -15,11 +15,9 @@ class UserController {
         // else res.status(400).json({ message: 'Không tìm thấy thông tin người dùng' })
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({
-            message: "Không tìm thấy thông tin người dùng" || "Lỗi hệ thống",
-          });
+        res.status(500).json({
+          message: "Không tìm thấy thông tin người dùng" || "Lỗi hệ thống",
+        });
       });
   }
   //[GET] /user/edit:id
@@ -31,12 +29,10 @@ class UserController {
         // else res.status(500).json({ message: 'Vui lòng thử lại' });
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({
-            message:
-              "Không thể tìm thấy sách bạn muốn chỉnh sửa" || "Lỗi hệ thống",
-          });
+        res.status(500).json({
+          message:
+            "Không thể tìm thấy sách bạn muốn chỉnh sửa" || "Lỗi hệ thống",
+        });
       });
   }
 
@@ -44,13 +40,100 @@ class UserController {
   // [GET] /user/purchase/:oderstatus
   // test --> http://localhost:3000/user/purchase/%C4%91ang%20giao
   getOrderByStatus(req, res, next) {
-    console.log(req.params.orderstatus)
-    HoaDon.find({ trangThai: req.params.orderstatus }).then((oders) => {
-      res.send({
-        status:200,
-        data:oders
+    console.log(req.params.orderstatus);
+    HoaDon.find({ trangThai: req.params.orderstatus })
+      .then((oders) => {
+        res.send({
+          status: 200,
+          data: oders,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json(err);
       });
-    }).catch((err) => {res.status(500).json(err)})
+  }
+
+  // đặt mua sách
+  // [POST] /user/orders
+  async orderBooks(req, res, next) {
+    //return res.send({ message :'vãi nồi'})
+    //  HoaDon.updateMany({},{"$set":{"tongTien": this +  1}})
+    //  .then(data=> {
+    //    return res.send(data)
+    //  })
+
+    const { listbooksOder } = req.body;
+    if (!Array.isArray(listbooksOder)) {
+      // nếu không phải là mảng danh sách book
+      return res.status(400).json({
+        message: "Lỗi, vui lòng kiểm tra listbooks",
+      });
+    }
+    // lấy ds Id để kiểm tra số lượng sách còn đủ không
+    const listIdBooks = await listbooksOder.map((book) => {
+      return book.maSach;
+    });
+    let checkAvailableBooks = await Book.find({ _id: listIdBooks })
+      .then((listBook) => {
+        // kiểm tra số lượng oder >
+        let checkAvailable = listBook.every((book, index) => {
+          return book.soLuongConLai >= listbooksOder[index].soLuong; // số lượng còn lại phải lớn hơn hoặc bằng số lượng đặt
+        });
+        if (!checkAvailable)
+          res.status(404).json({ message: "sách Không đủ số lượng để đặt" });
+        else {
+          // tính tổng tiền
+          var tongtien = 0;
+          listbooksOder.forEach(
+            (book) =>
+              (tongtien +=
+                (book.giaTien - (book.giaTien * book.giamGia) / 100) *
+                book.soLuong)
+          );
+
+          // tạo hóa đơn
+          var hoadon = new HoaDon();
+          hoadon.phiGiaoHang = req.body.phiGiaoHang;
+          hoadon.tongTien = tongtien + req.body.phiGiaoHang;
+          hoadon.maKhachHang = req.body.user._id.$oid.toString();
+          // thêm books vào chi tiết hóa đơn
+          listbooksOder.forEach((hd) => {
+            hoadon.chiTietHoaDon.push(hd);
+          });
+          hoadon.diaChiGiaoHang = req.body.diaChiGiaoHang;
+
+          let luuhoadon = new Promise( async (resolve, reject)=>{
+           await hoadon
+            .save()
+            .then(data=> resolve(data))
+            .catch(err=> reject(err))
+          }) 
+            
+          let truSoluongSach = new Promise( async (resolve, reject) => {
+            listBook.forEach( async (book, index) => {
+              // nếu cột số lượng bán chưa có thì gán = số lượng vừa được đặt
+              var soluongban = (!book.soLuongBan) ? listbooksOder[index].soLuong : book.soLuongBan + listbooksOder[index].soLuong // cập nhật số lượng bán
+            await  Book.updateOne({_id:listBook[index]._id},{soLuongConLai: book.soLuongConLai - listbooksOder[index].soLuong,soLuongBan:soluongban })
+            })
+            resolve("đã cập nhật số lượng sách còn lại")
+          })
+          let bookQuery = Book.find({})
+          let billQuery = HoaDon.find({})
+          Promise.all([truSoluongSach,luuhoadon])
+            .then((data) => {
+              res.status(200).json({
+                    status: 200,
+                    message: "Tạo hóa đơn thành công",
+                    data: data[1],
+              })
+            }) // lỗi khi lưu hóa đơn hoặc trừ số lượng sách bị lỗi
+            .catch((err) => { return res.status(400).json({ error : err })})
+        }
+      })
+      .catch((err) => { // lỗi khi kiểm tra số lượng còn có đủ không
+        res.status(400).json({ error: err });
+      });
+    //return await res.status(200).json("Lỗi rồi 3 ơi")
   }
 }
 

@@ -31,6 +31,7 @@ const Book = new Schema({
     }],
     ISBN : {type:String},
     tacGia : {type:String, require:[true, "Hãy nhập tác giả"]}, 
+    soLuongBan : {type:Number, default:0}, 
 
 },{timestamps: true});
 module.exports = Mongoose.model('Book',Book)
