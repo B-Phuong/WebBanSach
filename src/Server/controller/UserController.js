@@ -1,6 +1,6 @@
 const User = require("../model/User");
 const Book = require("../model/Book");
-const HoaDon = require("../model/HoaDon");
+const HoaDon = require("../model/Bill");
 
 class UserController {
   // với re là reqiure và res là response
