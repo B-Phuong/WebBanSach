@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Form, Row, Col, Button } from 'react-bootstrap'
 import Layout from '../../components/Layout';
 import { Input } from '../../components/UI/input';
+
 /**
 * @author
 * @function Signup
