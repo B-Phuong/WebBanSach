@@ -1,10 +1,10 @@
-const HoaDon = require("../model/Bill");
+const Bill = require("../model/Bill");
 const { mutipleMongoseToObject } = require("../util/mongoose");
 
-class HoaDonController {
-  //[GET] /HoaDon/
+class BillController {
+  //[GET] /Bill/
   show(req, res, next) {
-    HoaDon.find({})
+    Bill.find({})
       .then((data) => res.json(data))
       .catch(next);
   }
@@ -17,7 +17,7 @@ class HoaDonController {
     }
 
     //  tạo mới hóa đơn
-    const hoadon = new HoaDon({
+    const Bill = new Bill({
       idUser: req.body.idUser,
       ngayDatHang: req.body.ngayDatHang,
       daDuyet: req.body.daDuyet,
@@ -28,7 +28,7 @@ class HoaDonController {
     });
 
     // lưu vào database
-    hoadon
+    Bill
       .save()
       .then((data) => {
         res.send(data);
@@ -42,7 +42,7 @@ class HoaDonController {
       });
   }
   duyetdon(req, res) {
-    const hoadon = HoaDon.findById(req.params.id)
+    const Bill = Bill.findById(req.params.id)
       .then((data) => {
         if (data) {
           data.trangThai = "da duyet";
@@ -57,7 +57,7 @@ class HoaDonController {
   }
 
   acceptCancel(req, res) {
-    HoaDon.findOneAndUpdate({ _id: req.params.id }, { trangThai: "Đã hủy" })
+    Bill.findOneAndUpdate({ _id: req.params.id }, { trangThai: "Đã hủy" })
       .then((data) => {
         if (data) {
           res.status(200).json("Đã chấp nhận hủy đơn " + req.params.id);
@@ -73,4 +73,4 @@ class HoaDonController {
   
 
 }
-module.exports = new HoaDonController();
+module.exports = new BillController();

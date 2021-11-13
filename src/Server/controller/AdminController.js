@@ -1,5 +1,4 @@
 const User = require("../model/User");
-
 const { mutipleMongoseToObject } = require("../util/mongoose");
 
 class AdminController {
