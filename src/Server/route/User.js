@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controller/UserController');
+
 const hoaDonController = require('../controller/HoaDonController');
 router.get('/purchase/:orderstatus', userController.getOrderByStatus);
-router.get('/info/:id', userController.info);
 router.post('/orders', userController.orderBooks);
-router.put('/edit/:id', userController.edit); 
+router.get('/:id', userController.info);
+router.put('/:id', userController.edit); 
 // router.delete('/delete/:id', userController.delete); 
 
 

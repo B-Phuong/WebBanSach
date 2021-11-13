@@ -72,6 +72,5 @@ class HoaDonController {
   }
   
 
-  
 }
 module.exports = new HoaDonController();

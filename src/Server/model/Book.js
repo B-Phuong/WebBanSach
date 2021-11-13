@@ -24,6 +24,7 @@ const Book = new Schema({
         ref: genres,
       },
     soLuongConLai: {type: Number, require:[true, "Chưa nhập số lượng"]},
+    soLuongBan:  {type: Number, default:0},
     phanHoi: [{
         idUser:  {type: String},
         xepHang:  {type: Number},
