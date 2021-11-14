@@ -44,17 +44,27 @@ export const isUserLoggedIn = () => {
         } else {
             dispatch({
                 type: authConstants.LOGIN_FAILURE,
-                payload: {error: 'Đăng nhập thất bại'}
+                payload: { error: 'Đăng nhập thất bại' }
             });
         }
     }
 }
 
-export const signout = () =>{
-    return async dispatch =>{
-        localStorage.clear();
-        dispatch({
-            type: authConstants.LOGOUT_REQUEST
-        });
+export const signout = () => {
+    return async dispatch => {
+
+        dispatch({type: authConstants.LOGOUT_REQUEST});
+        const res = await axios.post(`/admin/signout`);
+
+        if (res.status === 200) {
+            localStorage.clear();
+            dispatch({type: authConstants.LOGOUT_SUCCESS});
+        } else {
+            dispatch({
+                type: authConstants.LOGOUT_FAILURE,
+                payload:{error:res.data.error}
+            });
+        }
+
     }
 }
