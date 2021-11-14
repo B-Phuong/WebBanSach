@@ -1,49 +1,69 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Form, Row, Col, Button } from 'react-bootstrap'
 import Layout from '../../components/Layout';
 import { Input } from '../../components/UI/input';
 import { Redirect } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {signup} from '../../actions'
 /**
 * @author
 * @function Signup
 **/
 
 export const Signup = (props) => {
+
+  const[tenNguoiDung, settenNguoiDung] = useState('');
+  const[email, setEmail] = useState('');
+  const[matKhau, setMatkhau] = useState('');
+  const[error, setError] = useState('');
   const auth = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+
+
+  const userSignup = (e) =>{
+    e.preventDefault();
+    const user = {
+      tenNguoiDung, email, matKhau
+    }
+    dispatch(signup(user));
+  }
+
   if(auth.authenticate){
     return <Redirect to={`/`}/>
   }
 
-
-
+  if(user.loading){
+    return <p>Loading...!</p>
+  }
 
   return (
     <Layout>
       <Container>
+        {user.message}
         <Row style={{ marginTop: '50px' }}>
           <Col md={{ span: 6, offset: 3 }}>
-            <Form>
+            <Form onSubmit={userSignup}> 
               <Input
                 Label="Tên người dùng"
                 placeholder="Nhập tên người dùng"
-                value=""
+                value={tenNguoiDung}
                 type="text"
-                onChange={() => { }}
+                onChange={(e) => settenNguoiDung(e.target.value)}
               />
               <Input
                 Label="Email"
                 placeholder="Nhập email"
-                value=""
+                value={email}
                 type="text"
-                onChange={() => { }}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 Label="Mật khẩu"
                 placeholder="Nhập mật khẩu"
-                value=""
+                value={matKhau}
                 type="password"
-                onChange={() => { }}
+                onChange={(e) => setMatkhau(e.target.value)}
               />
               <Form.Group className="mb-3" >
               </Form.Group>
