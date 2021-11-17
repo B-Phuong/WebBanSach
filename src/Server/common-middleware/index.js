@@ -12,15 +12,21 @@ exports.requireSignin = (req, res, next) =>{
 }
 
 exports.userMiddleware =(req, res, next) =>{
-    if(req.user.role!=='user'){
+    if(req.user.vaiTro!=='user'){
         return res.status(400).json({message:'Bạn không có quyền!!'})
     }
     next();
 }
 
 exports.adminMiddleware =(req, res, next) =>{
-    if(req.user.role!=='admin'){
+    if(req.user.vaiTro!=='admin'){
         return res.status(400).json({message:'Bạn không có quyền!!'})
     }
     next();
 }
+exports.superAdminMiddleware = (req, res, next) => {
+    if (req.user.vaiTro !== "super-admin") {
+      return res.status(200).json({ message: "Super Admin access denied" });
+    }
+    next();
+  };
