@@ -5,7 +5,7 @@ const { mutipleMongoseToObject } = require("../util/mongoose");
 class CartController {
   // thêm sản phẩm vào giỏ hàng
   //[PUT] /cart/:iduser
-  async addBookToCart(req, res, next) {
+  // async addBookToCart(req, res, next) {
   //   console.log(req.body.user._id.$oid);
   //   await User.findById({ _id: req.body.user._id.$oid }) // sau này có token thì sữa lại lấy user từ token
   //     .then((user) => {
@@ -100,7 +100,7 @@ class CartController {
   //     }
   //   }
   //     .catch((err) => res.status(400).json({ message: err }));
-  }
+  // }
 }
 
 module.exports = new CartController();

@@ -1,0 +1,13 @@
+.book {
+    /* border: 5px solid green; */
+    max-width: 300px;
+    max-height: 300px;
+    margin: 10px
+}
+.name{
+    display:block; width: 300px;
+    color: #c7e3ee;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: Ellipsis;
+}

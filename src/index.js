@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;  
+const port = 3000;
 const path = require('path');
 const route = require('./Server/route');
 const db = require('./Server/config/database');
@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //Connect to DB
 db.connect();
 // Without middleware
-app.use('/',express.static(path.join(__dirname, 'Server/views')));
+app.use('/', express.static(path.join(__dirname, 'Server/views')));
 //đặt đường dẫn luôn vào src/Server 
 // app.use(express.static(path.join(__dirname, 'Server')));
 app.use(express.urlencoded({   //có thể dùng để đọc req.body
