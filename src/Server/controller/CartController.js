@@ -8,7 +8,7 @@ class CartController {
   // thêm sản phẩm vào giỏ hàng
   //[PUT] /cart/:iduser
   async addBookToCart(req, res, next) {
-    var { maSach, tenSach, hinhAnh, soLuong, giaTien, giamGia } = req.body;
+    var { maSach, soLuong } = req.body;
     let userId = req.body.user._id.$oid 
     // kiểm tra mã sách có phải ObjectId (String is of 12 bytes or a string of 24 hex)
     // nếu không kiểm tra thì sẽ bị treo khi gửi request findById khi sai điều kiện: "String is of 12 bytes or a string of 24 hex "
@@ -35,14 +35,11 @@ class CartController {
           var isItemExist = user.gioHang.some((item, index) => {
             return item.maSach === maSach;
           });
-          console.log(isItemExist)
           if (isItemExist) { 
             // item đã có trong giỏ hàng trước đó --> cập nhật số lượng
             var findBookInCart = user.gioHang.filter((item, index) => {
               return item.maSach === maSach;
             });
-            let soLuongBanDauTrongGio = findBookInCart[0].soLuong;
-            var SoLuongCanThemVaoGio = soLuong;
             //console.log('findbook',findBookInCart)
             // kiểm tra còn số sách trong giỏ hàng sau thêm có vượt số lượng hiện có của sách không
             await Book.findById(maSach).then(async (data) => {
@@ -50,6 +47,8 @@ class CartController {
                 return res.status(400).json({ message: "Id Sách không tồn tại"});
               } 
               else{ // tiến hành cập nhật số lượng trong giỏ
+                let soLuongBanDauTrongGio = findBookInCart[0].soLuong;
+                var SoLuongCanThemVaoGio = soLuong;
                 if(data.soLuongConLai >= soLuongBanDauTrongGio + SoLuongCanThemVaoGio){
                   // đủ số lượng --> tiến hành cập nhật giỏ hàng
                   // cập nhật lại số lượng
@@ -57,10 +56,10 @@ class CartController {
                     
                     if(item.maSach === maSach)
                     {
-                      item.tenSach = tenSach
-                      item.hinhAnh = hinhAnh
-                      item.giaGoc = giaTien
-                      item.giamGia = giamGia
+                      item.tenSach = data.tenSach
+                      item.hinhAnh = data.hinhAnh
+                      item.giaGoc = data.giaTien
+                      item.giamGia = data.giamGia
                       item.soLuong = soLuongBanDauTrongGio + SoLuongCanThemVaoGio
                       item.tongTien = (item.giaGoc - (item.giaGoc * item.giamGia) / 100) * item.soLuong;
                       break
@@ -93,14 +92,13 @@ class CartController {
                   // đủ số lượng --> tiến hành cập nhật giỏ hàng
                   // cập nhật lại số lượng
                   let itemNeedAddtoCart = {
-                    gacon:'okeanh',
-                    maSach: maSach,
-                    tenSach : tenSach,
-                    hinhAnh : hinhAnh,
-                    giaGoc : giaTien,
-                    giamGia : giamGia,
+                    maSach: data.maSach,
+                    tenSach : data.tenSach,
+                    hinhAnh : data.hinhAnh,
+                    giaGoc : data.giaTien,
+                    giamGia : data.giamGia,
                     soLuong : soLuong,
-                    tongTien : (giaTien - (giaTien * giamGia) / 100) * soLuong
+                    tongTien : (data.giaTien - (data.giaTien * data.giamGia) / 100) * soLuong
                   }
                   console.log('item',itemNeedAddtoCart)
                   newCart.push(itemNeedAddtoCart)
