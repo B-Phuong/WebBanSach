@@ -12,8 +12,14 @@ const Category  = new Schema({
         required: true, 
         unique: true
     },
-    parentId:{
-        type: String
+    categoryImage: { type: String },
+    parentId: {
+      type: String,
+    },
+    createdBy: {
+      type: Mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     }
 
 },{timestamps: true});

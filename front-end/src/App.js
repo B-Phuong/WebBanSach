@@ -8,7 +8,8 @@ import { Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { isUserLoggedIn } from './actions';
 import { Sach } from './containers/Sach';
-import Donhang from './containers/Donhang';
+import donHang from './containers/donHang'
+import { Category } from './containers/Category';
 import Book from './containers/Book';
 import BookDetail from './containers/BookDetail/detail';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
@@ -29,6 +30,9 @@ function App() {
         <PrivateRoute path="/" exact component={Home} />
         <PrivateRoute path="/orders" component={Donhang} />
         <Route path="/book/:id" component={BookDetail} />
+        <PrivateRoute path="/category" component={Category} />
+        <PrivateRoute path="/book"  component={Sach} />
+        <PrivateRoute path="/orders" component={donHang} />
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
       </Switch>
