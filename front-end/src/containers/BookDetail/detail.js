@@ -45,7 +45,7 @@ const BookDetail = (props) => {
 
                 </div>
 
-                <div className='sidebar'>
+                <div className='detail-sidebar'>
 
                     <h3 style={{ margin: '20px' }}>{book.tenSach}</h3>
                     <div style={{ height: '50px', width: '550px', margin: '20px' }}>
