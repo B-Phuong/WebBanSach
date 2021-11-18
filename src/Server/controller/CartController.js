@@ -35,6 +35,7 @@ class CartController {
           var isItemExist = user.gioHang.some((item, index) => {
             return item.maSach === maSach;
           });
+          console.log(isItemExist)
           if (isItemExist) { 
             // item đã có trong giỏ hàng trước đó --> cập nhật số lượng
             var findBookInCart = user.gioHang.filter((item, index) => {
@@ -67,7 +68,7 @@ class CartController {
                   }
                   await User.updateOne({_id: userId}, {gioHang: newCart})
                   .then( cartUpdated =>{
-                    return  res.status(200).json({success : cartUpdated})
+                    return  res.status(200).json({message : "Số lượng sách đã cập nhật trong giỏ hàng", newCart})
                   })
                   .catch(err =>{return res.status(400).json({ err})})
                 }
@@ -80,8 +81,45 @@ class CartController {
             })
             .catch(err=>{return res.status(500).json(err)} )
           }
-          else{
-            return res.status(500).json({message: 'từ từ bạn'})
+          else{ // thêm mới vào giỏ hàng
+            // kiểm tra còn số sách trong giỏ hàng sau thêm có vượt số lượng hiện có của sách không
+            await Book.findById(maSach).then(async (data) => {
+              if (!data) {
+                return res.status(400).json({ message: "Id Sách không tồn tại"});
+              } 
+              else{ // tiến hành thêm mới sách vào giỏ hàng
+                if(data.soLuongConLai >=  soLuong){
+                  console.log('bat')
+                  // đủ số lượng --> tiến hành cập nhật giỏ hàng
+                  // cập nhật lại số lượng
+                  let itemNeedAddtoCart = {
+                    gacon:'okeanh',
+                    maSach: maSach,
+                    tenSach : tenSach,
+                    hinhAnh : hinhAnh,
+                    giaGoc : giaTien,
+                    giamGia : giamGia,
+                    soLuong : soLuong,
+                    tongTien : (giaTien - (giaTien * giamGia) / 100) * soLuong
+                  }
+                  console.log('item',itemNeedAddtoCart)
+                  newCart.push(itemNeedAddtoCart)
+                  
+                  await User.updateOne({_id: userId}, {gioHang: newCart})
+                  .then( cartUpdated =>{
+                    return  res.status(200).json({message : "thêm thành công vào giỏ hàng", newCart})
+                  })
+                  .catch(err =>{return res.status(400).json({ err})})
+                }
+                else{
+                  res.status(400).json({message : 'Không đủ số lượng', soLuongCoTheThem: data.soLuongConLai})
+                }
+
+              }
+    
+            })
+            .catch(err=>{return res.status(500).json(err)} )
+            res.send('từ anh trai')
           }
          
         }
