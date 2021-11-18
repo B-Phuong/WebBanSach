@@ -1,7 +1,7 @@
 const User = require("../model/User");
 const Book = require("../model/Book");
 const { mutipleMongoseToObject } = require("../util/mongoose");
-
+const mongoose = require('mongoose')
 class CartController {
   // function
 
@@ -12,13 +12,26 @@ class CartController {
 
     var { maSach, tenSach, hinhAnh, soLuong, giaTien, giamGia } = req.body;
 
-    // kiểm tra mã sách hợp lệ Không
-    Book.findById({_id:maSach})
-    .then((checkIdBook) => {
-      if(!checkIdBook)
-      return res.status(200).json({ message:'ăn lìn rồi'})
+    // kiểm tra mã sách có phải ObjectId (String is of 12 bytes or a string of 24 hex)
+    // nếu không kiểm tra thì sẽ bị treo khi gửi request findById khi sai điều kiện: "String is of 12 bytes or a string of 24 hex "
+     if(mongoose.isValidObjectId('')){         
+      return  res.send("phai nha")
+    }
+    else console.log('khongphai')
+    await User.findById('microsoft1232').then(x=> {
+      res.status(200).json(x)
     })
-    .catch(err => {messase: "Lỗi khi tìm mã sách"})
+    .catch(err => {err})
+    console.log('abc')
+    //kiểm tra mã sách hợp lệ Không
+    // Book.findById('123')
+    // .then((checkIdBook) => {
+    //   return res.status(200).json({ message:checkIdBook})
+    //   console.log(checkIdBook)
+    //   if(!checkIdBook)
+    //   return res.status(200).json({ message:'ăn lìn rồi'})
+    // })
+    // .catch(err => {messase: "Lỗi khi tìm mã sách"})
 
     
 
