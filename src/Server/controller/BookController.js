@@ -11,7 +11,7 @@ class BookController {
     //[GET] /book/show
     showAll(req, res) {
         Book.find({})
-            // .populate('maNhaXuatBan')
+            //.populate('maNhaXuatBan')
             .then(data => {
                 if (data.length != 0)
                     res.status(200).json(data)
@@ -39,20 +39,20 @@ class BookController {
         //const error = book.validateSync();
         book.save()
             .then(() => res.status(200).json({ message: 'Đã lưu' }))
-            .catch(error => {              
-                return res.status(400).json({ message: 'Lưu thất bại'})
+            .catch(error => {
+                return res.status(400).json({ message: 'Lưu thất bại' })
             })
 
-     
+
     }
     //[PUT] /book/edit/:id   //CHƯA KIỂM ĐIỀU KIỆN TRÙNG GIÁ TRỊ THUỘC TÍNH
     edit(req, res) {
         const book = new Book(req.body)
         Book.find({ $or: [{ "tenSach": book.tenSach }] })
             .then((data) => {
-                if (data.length > 0) res.status(400).json({message: 'Trùng tên sách'})
+                if (data.length > 0) res.status(400).json({ message: 'Trùng tên sách' })
                 else {
-                   // if(!book.tenSach || !book.giaTien !! !book.maNhaXuatBan || book.maDanh m)
+                    // if(!book.tenSach || !book.giaTien !! !book.maNhaXuatBan || book.maDanh m)
                     Book.findByIdAndUpdate(req.params.id, book)
                         .then((data) => {
                             //if (data)
@@ -60,7 +60,7 @@ class BookController {
                             //else res.status(500).json({ message: 'Vui lòng thử lại' });
                         }
                         )
-                        .catch(error => {                     
+                        .catch(error => {
                             return res.status(400).json({ mesage: 'Vui lòng thử lại' })
                             // res.status(500).json({ message: "Không tìm thấy sách muốn sửa" || 'Lỗi hệ thống'});
                         })
@@ -115,6 +115,8 @@ class BookController {
     //[GET] /:id
     detail(req, res) {
         Book.find({ _id: req.params.id })
+            .populate('maNhaXuatBan')
+            .populate('maDanhMucCon')
             .then((data) => {
                 res.status(200).json(data)
             })

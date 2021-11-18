@@ -1,0 +1,22 @@
+Nav{
+    background-color:#153947;
+    justify-content: space-between;
+   
+}
+Nav a{
+    display:inline-block;
+    padding:10px;
+    font-size:20px;
+    color:#c7e3ee;
+    text-decoration:none;
+    justify-content: space-between;
+   
+}
+
+Nav a:hover{
+    background-color:#333;
+}
+.icon-user span{
+width: 4px;
+height: 4px;
+}
