@@ -12,14 +12,18 @@ margin: 20px;
 }
 
 #author{
-    height: 100px;
+    height: 50px;
     border: 1px solid gray;
+}
+#publisher{
+  height: 50px;
+  border: 1px solid gray;
 }
 #image{
 height: 300px;
 box-sizing:border-box;
 border: 1px solid gray;
-
+background:white;
 }
 .tam{
     float:left;
@@ -47,7 +51,7 @@ border: 1px solid gray;
   width: 600px;
   border: 1px solid gray;
 }
-.image img{
+#image img{
   height: 300px;
   box-sizing: border-box;
   padding: 10px;

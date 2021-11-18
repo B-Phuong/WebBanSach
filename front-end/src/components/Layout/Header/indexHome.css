@@ -12,6 +12,11 @@ Nav a{
     justify-content: space-between;
    
 }
+
 Nav a:hover{
     background-color:#333;
+}
+.icon-user span{
+width: 4px;
+height: 4px;
 }

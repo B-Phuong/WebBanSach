@@ -37,7 +37,10 @@ const BookDetail = (props) => {
                         <img src={book.hinhAnh} />
                     </div>
                     <div id='author'>
-                        Tác giả:<h1> <b>{book.tacGia}</b></h1>
+                        <span>Tác giả:<> <b>{book.tacGia}</b></></span>
+                    </div>
+                    <div id='publisher'>
+                        {/* <span>Nhà xuất bản:<> <b>{book.maNhaXuatBan.tenNhaXuatBan}</b></></span> */}
                     </div>
 
                 </div>

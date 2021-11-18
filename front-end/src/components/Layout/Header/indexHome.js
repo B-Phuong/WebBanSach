@@ -15,25 +15,43 @@ export const IndexHome = (props) => {
                 <NavLink to="">PHP</NavLink>
             </Nav> */}
 
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            {/* <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Container>
 
-                    <Link className="navbar-brand">Admin DashBoard</Link>
                     <input type='text' placeholder='Nhập từ khoa' />
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav>
-                            <li >
-                                <NavLink to="/signin" className="nav-link" >Signin</NavLink>
-                            </li>
-                            <li >
-                                <NavLink to="/signup" className="nav-link" >Signup</NavLink>
-                            </li>
-                        </Nav>
-                    </Navbar.Collapse>
+                    <div className='icon-user'> cccc
+                        <ion-icon name="people-outline"></ion-icon>
+
+                    </div>
+
                 </Container>
 
+            </Navbar> */}
+
+            <Navbar className="navbar navbar-expand-sm navbar-dark bg-primary">
+                <a className="navbar-brand" href="#">Books</a>
+
+                {/* navbar-nav  */}
+                <ul className="navbar-nav mr-auto">
+                    <li className=" nav-item">
+                        <a className="nav-link">Java</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link">C/C++</a>
+                    </li>
+                </ul>
+
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <a className="nav-link">Tom</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link">Logout</a>
+                    </li>
+                </ul>
             </Navbar>
+            <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 
         </>

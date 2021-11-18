@@ -11,7 +11,7 @@ class BookController {
     //[GET] /book/show
     showAll(req, res) {
         Book.find({})
-            // .populate('maNhaXuatBan')
+            //.populate('maNhaXuatBan')
             .then(data => {
                 if (data.length != 0)
                     res.status(200).json(data)
@@ -115,6 +115,8 @@ class BookController {
     //[GET] /:id
     detail(req, res) {
         Book.find({ _id: req.params.id })
+            .populate('maNhaXuatBan')
+            .populate('maDanhMucCon')
             .then((data) => {
                 res.status(200).json(data)
             })
