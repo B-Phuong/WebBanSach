@@ -92,7 +92,7 @@ class CartController {
                   // đủ số lượng --> tiến hành cập nhật giỏ hàng
                   // cập nhật lại số lượng
                   let itemNeedAddtoCart = {
-                    maSach: data.maSach,
+                    maSach: maSach,
                     tenSach : data.tenSach,
                     hinhAnh : data.hinhAnh,
                     giaGoc : data.giaTien,
