@@ -8,8 +8,8 @@ const {
     superAdminMiddleware,
   } = require("../common-middleware");
 
-router.post('/create',requireSignin, adminMiddleware, CategoryController.addCategory)
-router.get('/getcategories',requireSignin, adminMiddleware, CategoryController.getCategories);
-router.post('/delete',requireSignin, adminMiddleware, CategoryController.deleteCategories);
+router.post('/category/create',requireSignin, adminMiddleware, CategoryController.addCategory)
+router.get('/category/getcategories',requireSignin, adminMiddleware, CategoryController.getCategories);
+router.post('/category/delete',requireSignin, adminMiddleware, CategoryController.deleteCategories);
 
 module.exports=router;

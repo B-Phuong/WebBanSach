@@ -18,6 +18,7 @@ export const Layout = (props) => {
                             <Col md={2} className="sidebar">
                                 <ul>
                                     <li><NavLink to={`/`}>Home</NavLink></li>
+                                    <li><NavLink to={`/category`}>Quản lý danh mục</NavLink></li>
                                     <li><NavLink to={`/book`}>Quản lý sách</NavLink></li>
                                     <li><NavLink to={`/orders`}>Quản lý đơn hàng</NavLink></li>
                                 </ul>

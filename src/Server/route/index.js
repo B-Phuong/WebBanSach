@@ -15,7 +15,7 @@ function route(app) {
     app.use('/cart', cartRouter);
     app.use('/auth', authRouter);
     app.use('/auth',adminauthRouter);
-    app.use('/category',categoryRouter);
+    app.use('/auth',categoryRouter);
 
 }
 
