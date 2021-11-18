@@ -1,6 +1,8 @@
 import React from 'react'
 import Layout from '../../components/Layout'
-
+import { Row, Col, Container } from 'react-bootstrap';
+import './style.css'
+import {NavLink} from 'react-router-dom'
 /**
 * @author
 * @function Home
@@ -9,10 +11,19 @@ import Layout from '../../components/Layout'
 export const Home = (props) => {
   return (
     <Layout>
-      <div class="jumbotron" style ={{margin: '5rem', background:'#fff'}}className="text-center">
-        <h1>Chào mừng đến với Admin DashBoard</h1>
-        <p></p>
-      </div>
+
+      <Container fluid>
+        <Row>
+          <Col md={2} className="sidebar">
+          <ul>
+            <li><NavLink to ={`/`}>Home</NavLink></li>
+            <li><NavLink to ={`/book`}>Quản lý sách</NavLink></li>
+            <li><NavLink to ={`/orders`}>Quản lý đơn hàng</NavLink></li>
+          </ul>
+          </Col>
+          <Col md={10} style={{ marginLeft:'auto' }}>Container</Col>
+        </Row>
+      </Container>
     </Layout>
   )
 

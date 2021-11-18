@@ -10,7 +10,10 @@ const initState ={
         anhDaiDien:''
     },
     authenticate: false,
-    authenticating: false
+    authenticating: false,
+    loading: false,
+    error: null,
+    message: ''
 };
 export default (state ={}, action)=>{
     console.log(action);
@@ -31,7 +34,24 @@ export default (state ={}, action)=>{
                 authenticating:false
             }
             break;
-
+        case authConstants.LOGOUT_REQUEST:
+            state={
+                ...state,
+                loading: true
+            }
+            break;
+        case authConstants.LOGOUT_SUCCESS:
+            state={
+                ...initState
+            }
+            break;
+        case authConstants.LOGOUT_FAILURE:
+            state={
+                ...state,
+                error: action.payload.error,
+                loading: false
+            }
+            break;
     }
     return state;
 }

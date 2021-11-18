@@ -2,15 +2,12 @@ import axiosIntance from "../helpers/axios";
 import { authConstants } from "./constants"
 import axios from "../helpers/axios";
 export const login = (user) => {
-
     console.log(user);
-
     return async (dispatch) => {
         dispatch({ type: authConstants.LOGIN_REQUEST });
 
         const res = await axios.post(`/admin/signin`, {
             ...user
-
         })
         if (res.status === 200) {
             const { token, user } = res.data;
@@ -22,7 +19,6 @@ export const login = (user) => {
                     token, user
                 }
             });
-
         } else {
             if (res.status = 400) {
                 dispatch({
@@ -48,8 +44,27 @@ export const isUserLoggedIn = () => {
         } else {
             dispatch({
                 type: authConstants.LOGIN_FAILURE,
-                payload: {error: 'Đăng nhập thất bại'}
+                payload: { error: 'Đăng nhập thất bại' }
             });
         }
+    }
+}
+
+export const signout = () => {
+    return async dispatch => {
+
+        dispatch({type: authConstants.LOGOUT_REQUEST});
+        const res = await axios.post(`/admin/signout`);
+
+        if (res.status === 200) {
+            localStorage.clear();
+            dispatch({type: authConstants.LOGOUT_SUCCESS});
+        } else {
+            dispatch({
+                type: authConstants.LOGOUT_FAILURE,
+                payload:{error:res.data.error}
+            });
+        }
+
     }
 }
