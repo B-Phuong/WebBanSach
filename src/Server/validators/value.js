@@ -20,10 +20,21 @@ exports.validationBook = [
     .withMessage('Hãy nhập tác giả') //,
 ]
 
+exports.validationCart = [
+    check('maSach')
+    .notEmpty()
+    .withMessage('Thiếu mã sách'),
+    check('soLuong')
+    // .notEmpty()
+    // .withMessage('Thiếu số lượng')
+    .isFloat({ min: 0})
+    .withMessage('Sai định dạng kiểu số ( giá trị số nguyên >= 0 )')
+]
+
 exports.isRequestValidated =(req, res, next)=>{
     const errors =validationResult(req)
     if (errors.array().length >0){
-        return res.status(400).json({error: errors.array()[0].msg})
+        return res.status(400).json({error: errors})
     }
     next();
 }
