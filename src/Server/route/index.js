@@ -14,8 +14,10 @@ function route(app) {
     app.use('/hoadon', hoadonRouter);
     app.use('/cart', cartRouter);
     app.use('/auth', authRouter);
-    app.use('/auth',adminauthRouter);
-    app.use('/auth',categoryRouter);
+    app.use('/auth', adminauthRouter);
+    app.use('/category', categoryRouter);
+    app.use('/auth', categoryRouter);
+
 
 }
 

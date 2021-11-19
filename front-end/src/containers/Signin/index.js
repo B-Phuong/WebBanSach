@@ -3,7 +3,7 @@ import Layout from '../../components/Layout'
 import { Container, Form, Row, Col, Button } from 'react-bootstrap'
 import { Input } from '../../components/UI/input'
 import { login } from '../../actions';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 
 /**
@@ -13,9 +13,9 @@ import { Redirect } from 'react-router-dom'
 
 export const Signin = (props) => {
 
-  const[email, setEmail] = useState('');
-  const[matKhau, setMatkhau] = useState('');
-  const[error, setError] = useState('');
+  const [email, setEmail] = useState('');
+  const [matKhau, setMatkhau] = useState('');
+  const [error, setError] = useState('');
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
@@ -28,8 +28,8 @@ export const Signin = (props) => {
     }
     dispatch(login(user));
   }
-  if(auth.authenticate){
-    return <Redirect to={`/`}/>
+  if (auth.authenticate) {
+    return <Redirect to={`/admin`} />
   }
   return (
     <Layout>

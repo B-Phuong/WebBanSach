@@ -27,8 +27,10 @@ function App() {
     <div className="App">
 
       <Switch>
-        <PrivateRoute path="/" exact component={Book} />
+        <Route path="/" exact component={Book} /> //
+        <PrivateRoute path="/admin" exact component={Home} />
         <Route path="/book/:id" component={BookDetail} />
+        {/* <Route path="/admin/book" component={} /> */}
         <PrivateRoute path="/category" component={Category} />
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
