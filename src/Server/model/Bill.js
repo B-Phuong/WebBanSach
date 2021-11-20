@@ -18,6 +18,7 @@ const bill = new Schema(
         soLuong: { type: Number, required: true },
         giamGia: { type: Number, default:0 },
         giaTien: { type: Number, default:0 },
+        tongTienSauGiam: { type: Number, default:0 },
       },
     ],
     diaChiGiaoHang: { type: String, required: [true, "Chưa có địa chỉ giao hàng"] },

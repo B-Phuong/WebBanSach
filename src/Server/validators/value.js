@@ -31,6 +31,29 @@ exports.validationCart = [
     .withMessage('Sai định dạng kiểu số ( giá trị số nguyên >= 0 )')
 ]
 
+exports.validationOders = [
+    check('listbooksOder')
+    .notEmpty()
+    .withMessage('Thiếu listbooksOder'),
+    check("listbooksOder.*.maSach")  
+    .notEmpty()
+    .withMessage('thiếu maSach trong listbookOder'),
+    check("listbooksOder.*.soLuong")   
+    .notEmpty()
+    .withMessage('thiếu soLuong trong listbookOder')
+    .isFloat({ min: 1})
+    .withMessage('soLuong >= 1 '),
+    check('diaChiGiaoHang')
+    .notEmpty()
+    .withMessage('Thiếu diaChiGiaoHang'),
+    check('phiGiaoHang')
+    .notEmpty()
+    .withMessage('Thiếu phiGiaoHang')
+    .isFloat({ min: 0})
+    .withMessage('Phí giao hàng >= 0 ')
+    
+]
+
 exports.isRequestValidated =(req, res, next)=>{
     const errors =validationResult(req)
     if (errors.array().length >0){
