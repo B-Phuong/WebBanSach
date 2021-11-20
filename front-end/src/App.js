@@ -16,13 +16,16 @@ import BookDetail from './containers/BookDetail/detail';
 
 
 function App() {
-  const dispatch = useDispatch()
-  const auth = useSelector(state => state.auth)
+
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
   useEffect(() => {
-    if (!auth.authenticate) {
+    if(!auth.authenticate){
       dispatch(isUserLoggedIn());
     }
-  }, []);
+  }, [auth.authenticate]);
+
+
   return (
     <div className="App">
 

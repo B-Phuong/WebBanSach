@@ -19,6 +19,9 @@ export const Header = (props) => {
     const renderLoggedInLinks = () => {
         return (<Nav>
             <li className="nav-item">
+                <span className="nav-link" >Chào {auth.user.tenNguoiDung}</span>
+            </li>
+            <li className="nav-item">
                 <span className="nav-link" onClick={logout} >Signout</span>
             </li>
         </Nav>);
