@@ -18,7 +18,7 @@ export const Signin = (props) => {
   const [error, setError] = useState('');
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
-
+  const user = useSelector(state => state.user);
   const userLogin = (e) => {
 
     e.preventDefault();
@@ -34,6 +34,7 @@ export const Signin = (props) => {
   return (
     <Layout>
       <Container>
+        {user.message}
         <Row style={{ marginTop: '50px' }}>
           <Col md={{ span: 6, offset: 3 }}>
             <Form onSubmit={userLogin}>

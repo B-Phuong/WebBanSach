@@ -40,7 +40,7 @@ export const Header = (props) => {
             <Container fluid>
 
                 {/* <Navbar.Brand href="#home">Admin DashBoard</Navbar.Brand> */}
-                <Link className="navbar-brand">Admin DashBoard</Link>
+                <a className="navbar-brand" href="/">BOOKSHOP</a>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">

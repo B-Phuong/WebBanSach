@@ -1,8 +1,35 @@
 
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom'
+import { signout } from '../../../actions';
+import React from 'react';
 import './indexHome.css'
 export const IndexHome = (props) => {
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+
+    const logout = () => {
+        dispatch(signout());
+    }
+    const renderLoggedInLinks = () => {
+        return (<Nav>
+            <li className="nav-item">
+                <span className="nav-link" onClick={logout} >Signout</span>
+            </li>
+        </Nav>);
+    }
+
+    const renderNonLoggedInLinks = () => {
+        return (<Nav>
+            <li className="nav-item">
+                <NavLink to="/signin" className="nav-link" >Signin</NavLink>
+            </li>
+            <li className="nav-item">
+                <NavLink to="/signup" className="nav-link" >Signup</NavLink>
+            </li>
+        </Nav>);
+    }
     return (
         <>
 
@@ -29,26 +56,12 @@ export const IndexHome = (props) => {
             </Navbar> */}
 
             <Navbar className="navbar navbar-expand-sm navbar-dark bg-primary">
-                <a className="navbar-brand" href="#">Books</a>
+            <Container fluid>
+                <a className="navbar-brand" href="/">BOOKSHOP</a>
 
                 {/* navbar-nav  */}
-                <ul className="navbar-nav mr-auto">
-                    <li className=" nav-item">
-                        <a className="nav-link">Java</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link">C/C++</a>
-                    </li>
-                </ul>
-
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <a className="nav-link">Tom</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link">Logout</a>
-                    </li>
-                </ul>
+                {auth.authenticate ? renderLoggedInLinks() : renderNonLoggedInLinks()}
+            </Container>
             </Navbar>
             <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
             <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

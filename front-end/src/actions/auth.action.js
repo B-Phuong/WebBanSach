@@ -6,7 +6,7 @@ export const login = (user) => {
     return async (dispatch) => {
         dispatch({ type: authConstants.LOGIN_REQUEST });
 
-        const res = await axios.post(`/admin/signin`, {
+        const res = await axios.post(`auth/admin/signin`, {
             ...user
         })
         if (res.status === 200) {
@@ -54,7 +54,7 @@ export const signout = () => {
     return async dispatch => {
 
         dispatch({type: authConstants.LOGOUT_REQUEST});
-        const res = await axios.post(`/admin/signout`);
+        const res = await axios.post(`auth/admin/signout`);
 
         if (res.status === 200) {
             localStorage.clear();

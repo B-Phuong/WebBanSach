@@ -16,7 +16,7 @@ export const Home = (props) => {
         <Row>
           <Col md={2} className="sidebar">
             <ul>
-              <li><NavLink to={`/`}>Home</NavLink></li>
+              <li><NavLink to={`/admin`}>Home</NavLink></li>
               <li><NavLink to={`/admin/book`}>Quản lý sách</NavLink></li>
               <li><NavLink to={`/orders`}>Quản lý đơn hàng</NavLink></li>
             </ul>
