@@ -25,8 +25,8 @@ exports.validationCart = [
     .notEmpty()
     .withMessage('Thiếu mã sách'),
     check('soLuong')
-    // .notEmpty()
-    // .withMessage('Thiếu số lượng')
+    .notEmpty()
+    .withMessage('Thiếu số lượng')
     .isFloat({ min: 0})
     .withMessage('Sai định dạng kiểu số ( giá trị số nguyên >= 0 )')
 ]
@@ -34,7 +34,7 @@ exports.validationCart = [
 exports.isRequestValidated =(req, res, next)=>{
     const errors =validationResult(req)
     if (errors.array().length >0){
-        return res.status(400).json({error: errors})
+        return res.status(400).json({error: errors.array()[0]})
     }
     next();
 }

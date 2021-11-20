@@ -50,3 +50,11 @@
 .book .price{
     color: black;
 }
+.cart {
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px
+  }
