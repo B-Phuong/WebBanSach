@@ -33,9 +33,11 @@ export const Signin = (props) => {
   }
   return (
     <Layout>
+      &nbsp;
+      <center><h5>TRANG ĐĂNG NHẬP DÀNH CHO ADMIN</h5></center>
       <Container>
         {user.message}
-        <Row style={{ marginTop: '50px' }}>
+        <Row style={{ marginTop: '50px', marginLeft:'265px' }}>
           <Col md={{ span: 6, offset: 3 }}>
             <Form onSubmit={userLogin}>
               <Input
