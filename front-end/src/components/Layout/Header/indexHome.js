@@ -12,7 +12,8 @@ import {
 } from '../../MaterialUI';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { homelogin, signout } from '../../../actions'
+import { homelogin, homesignout } from '../../../actions'
+import { NavLink, Link } from 'react-router-dom'
 /**
 * @author
 * @function Header
@@ -30,21 +31,25 @@ const IndexHome = (props) => {
     }
 
     const logout = () => {
-        dispatch(signout());
-      };
-
+        dispatch(homesignout());
+    };
+    useEffect(() => {
+        if (auth.authenticate) {
+            setLoginModal(false)
+        }
+    })
     const renderLoggedInMenu = () => {
-        return(
+        return (
             <DropdownMenu
-            menu={<a className="tenNguoiDung">Chào {auth.user.tenNguoiDung}</a>}
-            menus={[
-                { label: 'Thông tin cá nhân', href: '', icon: null },
-                { label: 'Chi tiết đơn hàng', href: '', icon: null },
-                { label: "Logout" ,href:'', icon: '', onClick: logout }
-            ]}
-            
-        />
-        
+                menu={<a className="tenNguoiDung">Chào {auth.user.tenNguoiDung}</a>}
+                menus={[
+                    { label: 'Thông tin cá nhân', href: '', icon: null },
+                    { label: 'Chi tiết đơn hàng', href: '', icon: null },
+                    { label: "Logout", href: '', icon: '', onClick: logout }
+                ]}
+
+            />
+
         );
     }
 
@@ -53,13 +58,13 @@ const IndexHome = (props) => {
             <DropdownMenu
                 menu={
                     <a className="loginButton" onClick={() => setLoginModal(true)}>
-                        Login
+                        Đăng nhập
                     </a>
                 }
                 firstMenu={
                     <div className="firstmenu">
-                        <span>New Customer?</span>
-                        <a style={{ color: '#2874f0' }}>Sign Up</a>
+                        <span>Bạn là khách hàng mới?</span>
+                            <NavLink to="/signup" className="nav-link" >Đăng ký</NavLink>
                     </div>
                 }
             />
@@ -74,7 +79,7 @@ const IndexHome = (props) => {
                 <div className="authContainer">
                     <div className="row">
                         <div className="leftspace">
-                            <h2>Login</h2>
+                            <h2>Đăng nhập</h2>
                             <p>Đăng nhập bằng tài khoản của bạn để mua hàng thuận tiện hơn nhé!</p>
                         </div>
                         <div className="rightspace">
@@ -88,7 +93,7 @@ const IndexHome = (props) => {
                             />
 
                             <MaterialInput
-                                type="matKhau"
+                                type="password"
                                 label="Nhập mật khẩu"
                                 value={matKhau}
                                 onChange={(e) => setmatKhau(e.target.value)}
@@ -147,15 +152,15 @@ const IndexHome = (props) => {
                     </div>
                 </div>
                 <div className="rightMenu">
-                {
-                    auth.authenticate ?
-                    renderLoggedInMenu() : renderNonLoggedInMenu()
-                }
-                    
+                    {
+                        auth.authenticate ?
+                            renderLoggedInMenu() : renderNonLoggedInMenu()
+                    }
+
                     <div>
                         <a className="cart">
                             <IoIosCart />
-                            <span style={{ margin: '0 10px' }}>Cart</span>
+                            <span style={{ margin: '0 10px' }}>Giỏ hàng</span>
                         </a>
                     </div>
                 </div>

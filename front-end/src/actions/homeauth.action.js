@@ -50,4 +50,10 @@ export const isUserLoggedIn = () => {
     }
 }
 
-
+export const homesignout = () => {
+    return async dispatch => {
+        dispatch({type: authConstants.LOGOUT_REQUEST});
+        localStorage.clear();
+        dispatch({type: authConstants.LOGOUT_SUCCESS});
+    }
+}
