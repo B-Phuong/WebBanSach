@@ -39,10 +39,11 @@ class AuthController {
     }
     signin(req, res) {
         User.findOne({ email: req.body.email })
-            .exec((error, user) => {
+            .exec(async(error, user) => {
                 if (error) return res.status(400).json({ error });
                 if (user) {
-                    if (user.authenticate(req.body.matKhau) && user.vaiTro === 'admin') {
+                    const isMatKhau = await user.authenticate(req.body.matKhau);
+                    if (isMatKhau && user.vaiTro === 'admin') {
                         const token = jwt.sign({ _id: user._id, vaiTro:user.vaiTro }, JWT_SECRET, { expiresIn: '1h' });
                         const { _id, tenNguoiDung, email, vaiTro } = user;
                         res.cookie('token', token, {expiresIn: '1h'});
