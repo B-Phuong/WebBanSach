@@ -21,7 +21,7 @@ export const Home = (props) => {
               <li><NavLink to={`/orders`}>Quản lý đơn hàng</NavLink></li>
             </ul>
           </Col>
-          <Col md={10} style={{ marginLeft: 'auto' }}>Container</Col>
+          {/* <Col md={10} style={{ marginLeft: 'auto' }}>Container</Col> */}
         </Row>
       </Container>
     </Layout>

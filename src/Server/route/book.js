@@ -3,7 +3,7 @@ const router = express.Router();
 const { validationBook, isRequestValidated } = require('../validators/value');
 const multer = require("multer");
 //const shortid = require("shortid");
-const path = require( "path");
+const path = require("path");
 
 
 const storage = multer.diskStorage({
@@ -20,10 +20,10 @@ const bookController = require('../controller/BookController');
 
 router.get('/search/:idTheLoai', bookController.filterKindOfBook);
 router.get('/', bookController.showAll);
-router.post('/', upload.single('hinhAnh'), validationBook,isRequestValidated, bookController.create);
+// router.post('/', upload.single('hinhAnh'), validationBook, isRequestValidated, bookController.create);
 router.get('/top10', bookController.top10Books);
 router.get('/:id', bookController.detail);
-router.put('/:id',validationBook,isRequestValidated, bookController.edit);
+router.put('/:id', upload.single('hinhAnh'), validationBook, isRequestValidated, bookController.edit);
 router.delete('/:id', bookController.delete);
 
 

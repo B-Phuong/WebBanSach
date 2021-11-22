@@ -27,6 +27,23 @@ export default (state = initState, action) => {
             };
 
             break;
+        case bookConstants.PUT_EDIT_BOOK:
+            state = {
+                ...state,
+                // loading: false,
+                bookDetails: action.payload[0],
+            };
+
+            break;
+        case bookConstants.POST_ADD_BOOK:
+            state = {
+                ...state,
+                books: [...state.books, action.payload],
+                bookDetails: action.payload,
+                // error: action.payload[0].error
+            };
+
+            break;
     }
     return state;
 

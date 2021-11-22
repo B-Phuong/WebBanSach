@@ -7,6 +7,7 @@ const cartRouter = require('./cart');
 const authRouter = require('./auth');
 const adminauthRouter = require('./admin/auth');
 const categoryRouter = require('./category')
+const publisherRouter = require('./publisher')
 function route(app) {
     app.use('/book', bookRouter);
     app.use('/user', userRouter);
@@ -16,7 +17,7 @@ function route(app) {
     app.use('/auth', authRouter);
     app.use('/auth', adminauthRouter);
     app.use('/category', categoryRouter);
-    app.use('/auth', categoryRouter);
+    app.use('/publisher', publisherRouter);
 
 
 }

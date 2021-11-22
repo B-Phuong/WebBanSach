@@ -11,7 +11,8 @@ class BookController {
     //[GET] /book/show
     showAll(req, res) {
         Book.find({})
-            //.populate('maNhaXuatBan')
+            .populate('maNhaXuatBan')
+            .populate('maDanhMucCon')
             .then(data => {
                 if (data.length != 0)
                     res.status(200).json(data)
@@ -31,14 +32,14 @@ class BookController {
             book.hinhAnh = req.file.filename
         }
         else {
-
-            res.status(500).json({ message: 'Bạn hãy chọn ảnh cho sách' });
+            return;
+            // res.status(500).json({ message: 'Bạn hãy chọn ảnh cho sách' });
         }
         book.ISBN = Math.floor(10000000 + Math.random() * 9000000);
 
         //const error = book.validateSync();
         book.save()
-            .then(() => res.status(200).json({ message: 'Đã lưu' }))
+            .then((newbook) => res.status(200).json({ newbook }))
             .catch(error => {
                 return res.status(400).json({ message: 'Lưu thất bại' })
             })
@@ -50,13 +51,13 @@ class BookController {
         const book = new Book(req.body)
         Book.find({ $or: [{ "tenSach": book.tenSach }] })
             .then((data) => {
-                if (data.length > 0) res.status(400).json({ message: 'Trùng tên sách' })
+                if (data.length > 1) res.status(400).json({ message: 'Trùng tên sách' })
                 else {
                     // if(!book.tenSach || !book.giaTien !! !book.maNhaXuatBan || book.maDanh m)
                     Book.findByIdAndUpdate(req.params.id, book)
                         .then((data) => {
                             //if (data)
-                            res.status(200).json({ message: 'Đã cập nhật' });
+                            res.status(200).json({ data });
                             //else res.status(500).json({ message: 'Vui lòng thử lại' });
                         }
                         )

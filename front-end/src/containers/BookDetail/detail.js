@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetailBook } from '../../actions';
 import IndexHome from '../../components/Layout/Header/indexHome'
-import Card from '../../components/UI/Card'
 import './detail.css'
 
 const BookDetail = (props) => {
@@ -14,6 +13,7 @@ const BookDetail = (props) => {
     useEffect(() => {
         const { id } = props.match.params;
         console.log(id);
+        console.log('chi tiết sách ở trang chủ', book)
         // const payload = {
         //     params: {
         //         id,

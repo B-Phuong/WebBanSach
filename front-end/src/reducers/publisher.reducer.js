@@ -1,17 +1,17 @@
-import { categoryConstants } from "../actions/constants";
+import { publisherConstants } from "../actions/constants";
 
 const initState = {
-    categories: [],
+    publishers: [],
     loading: false,
     error: null
 };
 
 export default (state = initState, action) => {
     switch (action.type) {
-        case categoryConstants.GET_ALL_CATEGORIES:
+        case publisherConstants.GET_ALL_PUBLISHERS:
             state = {
                 ...state,
-                categories: action.payload
+                publishers: action.payload
             }
     }
     return state;

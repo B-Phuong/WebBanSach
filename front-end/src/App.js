@@ -8,10 +8,13 @@ import PrivateRoute from './components/HOC/PrivateRoute';
 import { Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { isUserLoggedIn } from './actions';
-import { Sach } from './containers/Sach';
-import { Category } from './containers/Category';
+
 import Book from './containers/Book';
 import BookDetail from './containers/BookDetail/detail';
+import BookControl from './containers/Admin/BookControl/bookcontrol';
+import BookList from './containers/Admin/BookControl/listbook';
+import BookEdit from './containers/Admin/BookControl/editbook';
+import BookAdd from './containers/Admin/BookControl/addbook';
 
 
 
@@ -27,11 +30,14 @@ function App() {
     <div className="App">
 
       <Switch>
-        <Route path="/" exact component={Book} /> //
+        <Route path="/" exact component={Book} />
         <PrivateRoute path="/admin" exact component={Home} />
         <Route path="/book/:id" component={BookDetail} />
-        {/* <Route path="/admin/book" component={} /> */}
-        <PrivateRoute path="/category" component={Category} />
+        <PrivateRoute path="/admin/book/:id/edit" component={BookEdit} />
+        <PrivateRoute path="/admin/book/add" component={BookAdd} />
+        <PrivateRoute path="/admin/book/all" component={BookList} />
+        <PrivateRoute path="/admin/book" component={BookControl} />
+
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
       </Switch>

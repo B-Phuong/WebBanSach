@@ -1,15 +1,11 @@
 const express = require('express');
-const { getCategories } = require('../controller/CategoryController');
+const { getCategories } = require('../controller/OtherController');
 const router = express.Router();
-const CategoryController = require('../controller/CategoryController');
+const OtherController = require('../controller/OtherController');
 const {
   requireSignin,
   adminMiddleware,
   superAdminMiddleware,
 } = require("../common-middleware");
-router.get('/', CategoryController.getAllCategories);
-router.post('/category/create', requireSignin, adminMiddleware, CategoryController.addCategory)
-router.get('/category/getcategories', requireSignin, adminMiddleware, CategoryController.getCategories);
-router.post('/category/delete', requireSignin, adminMiddleware, CategoryController.deleteCategories);
-
+router.get('/', OtherController.getAllCategories);
 module.exports = router;
