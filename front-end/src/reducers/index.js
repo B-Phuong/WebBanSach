@@ -4,13 +4,15 @@ import userReducer from "./user.reducer";
 import bookReducer from "./book.reducer";
 import categoryReducer from "./category.reducer";
 import donHangReducer from "./donhang.reducer";
+import publisherReducer from "./publisher.reducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     user: userReducer,
     category: categoryReducer,
     book: bookReducer,
-    donHang: donHangReducer
+    donHang: donHangReducer,
+    publisher: publisherReducer
 
 });
 

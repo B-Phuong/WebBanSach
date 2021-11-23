@@ -1,9 +1,11 @@
+
 import { bookConstants } from "./constants";
 import axios from "../helpers/axios";
 
-export const getAllBooks = () => { //test thử 1 cuốn
+export const getAllBooks = () => {
     return async dispatch => {
-        const res = await axios.get('/book');
+
+        const res = await axios.get(`book`);
 
         if (res.status === 200) {
             dispatch({
@@ -23,9 +25,9 @@ export const getAllBooks = () => { //test thử 1 cuốn
 export const getDetailBook = (id) => {
     return async dispatch => {
         // const { id } = payload.params;
-        const res = await axios.get(`/book/${id}`);
-
+        const res = await axios.get(`book/${id}`);
         console.log(res)
+        //console.log(res)
         if (res.status === 200) {
             dispatch({
                 type: bookConstants.GET_DETAIL_BOOK,
@@ -35,6 +37,47 @@ export const getDetailBook = (id) => {
             dispatch({
                 type: bookConstants.GET_DETAIL_BOOK,
                 payload: { error: true }
+            });
+        }
+
+    }
+}
+export const putEditBook = (id, update) => {
+    return async dispatch => {
+        // const { id } = payload.params;
+        const res = await axios.put(`book/${id}`, { ...update });
+
+        console.log('>>>>cập nhật', update)
+        if (res.status === 200) {
+            dispatch({
+                type: bookConstants.PUT_EDIT_BOOK,
+                payload: res.data
+            });
+        } else {
+            dispatch({
+                type: bookConstants.PUT_EDIT_BOOK,
+                payload: { error: true }
+            });
+        }
+
+    }
+}
+export const AddBook = (newbook) => {
+    return async dispatch => {
+        // const { id } = payload.params;
+        console.log('trước khi dispatch')
+        const res = await axios.post(`admin/book`, { ...newbook });
+
+        console.log('sau khi dispatch', res)
+        if (res.status === 200) {
+            dispatch({
+                type: bookConstants.POST_ADD_BOOK,
+                payload: res.data.newbook
+            });
+        } else {
+            dispatch({
+                type: bookConstants.POST_ADD_BOOK,
+                payload: { error: res.data.message }
             });
         }
 
