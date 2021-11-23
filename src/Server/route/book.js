@@ -3,15 +3,14 @@ const router = express.Router();
 const { validationBook, isRequestValidated } = require('../validators/value');
 const multer = require("multer");
 //const shortid = require("shortid");
-const path = require("path");
-
+//const path = require("path");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "src/Server/uploads");
+        cb(null, "src/Server/uploads"); //src/Server
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + "-" + file.originalname);
+        cb(null, /*Date.now() + "-" +*/ file.originalname);
     },
 });
 const upload = multer({ storage: storage });

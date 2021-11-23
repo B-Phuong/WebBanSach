@@ -31,18 +31,27 @@ class BookController {
         if (req.file) {
             book.hinhAnh = req.file.filename
         }
-        else {
-            return;
-            // res.status(500).json({ message: 'Bạn hãy chọn ảnh cho sách' });
-        }
-        book.ISBN = Math.floor(10000000 + Math.random() * 9000000);
+        Book.find({ tenSach: book.tenSach })
+            .then(data => {
+                if (data.length != 0) {
+                    res.status(400).json('Tên sách bị trùng')
+                }
+                else {
+                    book.ISBN = Math.floor(10000000 + Math.random() * 9000000);
 
-        //const error = book.validateSync();
-        book.save()
-            .then((newbook) => res.status(200).json({ newbook }))
-            .catch(error => {
-                return res.status(400).json({ message: 'Lưu thất bại' })
+                    //const error = book.validateSync();
+                    book.save()
+                        .then((book) => res.status(200).json(book))
+                        .catch(error => {
+                            return res.status(400).json({ message: 'Lưu thất bại' })
+                        })
+
+                }
             })
+        // else {
+        //     //     //return;
+        //     res.status(500).json({ message: 'Bạn hãy chọn ảnh cho sách' });
+        // }
 
 
     }
@@ -62,7 +71,7 @@ class BookController {
                         }
                         )
                         .catch(error => {
-                            return res.status(400).json({ mesage: 'Vui lòng thử lại' })
+                            return res.status(500).json({ mesage: 'Vui lòng thử lại' })
                             // res.status(500).json({ message: "Không tìm thấy sách muốn sửa" || 'Lỗi hệ thống'});
                         })
                 }

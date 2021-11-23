@@ -2,61 +2,78 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { Input } from '../../../components/UI/input';
-//import {  } from '../../../actions';
-import { NavLink } from 'react-router-dom'
 import BookControl from './bookcontrol'
 import './bookcontrol.css'
 import { putEditBook, getDetailBook } from '../../../actions';
-import store from '../../../store';
+
+import axios from '../../../helpers/axios';
 
 
 export const BookEdit = (props) => {
 
     const dispatch = useDispatch();
-    //let book;// = useSelector(state => state.book.bookDetails);
+    //let book, maNhaXuatBan, maDanhMucCon;// = useSelector(state => state.book.bookDetails);
     let book = useSelector(state => state.book.bookDetails);
-    //const [book, setBook] = useState(booktam)
-    const [tenSach, setTenSach] = useState(book.tenSach);
-    const [giaTien, setGiaTien] = useState(book.giaTien);
-    const [giamGia, setGiamGia] = useState(book.giamGia);
-    const [hinhAnh, setHinhAnh] = useState(book.hinhAnh);
-    const [moTa, setMoTa] = useState(book.moTa);
-    const [tacGia, setTacGia] = useState(book.tacGia);
-    const [soLuongConLai, setSoLuongConLai] = useState(book.soLuongConLai);
-
+    //const [book, setBook] = useState('')
+    const [tenSach, setTenSach] = useState('');
+    const [giaTien, setGiaTien] = useState('');
+    const [giamGia, setGiamGia] = useState('');
+    const [hinhAnh, setHinhAnh] = useState('');
+    const [moTa, setMoTa] = useState('');
+    const [tacGia, setTacGia] = useState('');
+    const [soLuongConLai, setSoLuongConLai] = useState('');
     useEffect(() => {
 
         const { id } = props.match.params;
         console.log(id);
 
         dispatch(getDetailBook(id));
-        console.log('tên sách', book.tenSach)
+        axios.get(`/book/${id}`)
+            .then(res => {
+                if (res.status === 200) {
+                    book = res.data[0]
+                    //setBook(res.data[0])
+                    setTenSach(book.tenSach)
+                    setGiaTien(book.giaTien)
+                    setGiamGia(book.giamGia)
+                    setHinhAnh(book.hinhAnh)
+                    setMoTa(book.moTa)
+                    setTacGia(book.tacGia)
+                    setSoLuongConLai(book.soLuongConLai)
+                    console.log('lấy chi tiết', res.data[0])
+                }
+            })
+            .catch(err => console.log('Lỗi'))
 
         // const b = store.getState().book.bookDetails;
         // console.log('state', b)
         // setBook(b)
 
     }, []);
-
-    // let update;
-    // const setBook = (e) => {
+    console.log('>>trước khi cập nhật', book)
+    // // let update;
+    // const update = (e) => {
     //     e.preventDefault();
 
-    //     console.log(typeof (book))
-    //     // [e.target.name] e.target.value
-    //     book = {
-    //         ...book,
-    //         [e.target.name]: e.target.value,
-    //         //hinhAnh: e.target.name.hinhAnh.files[0].name
-    //     }
-    //     setbook(book)
+    //     console.log(e.target.tenSach)
+    //     //setTenSach(e.target.value)
+    //     setBook({ ...book, tenSach })//[e.target.name]: e.target.value })//{
+    //     //     ...book,
+    //     //     [e.target.name]: e.target.value,
+    //     //     //hinhAnh: e.target.name.hinhAnh.files[0].name
+    //     // }
+    //     // setbook(book)
     // }
     const updateBook = (e) => {
+        e.preventDefault();
         const { id } = props.match.params;
+        console.log('id', id)
         const updatebook = {
             ...book,
+            tenSach,
             giaTien, giamGia, hinhAnh, moTa, tacGia, soLuongConLai
         }
+        console.log('>>trước khi cập nhật', book)
         console.log('>>sẽ cập nhật:', updatebook);
         //const update = JSON.stringify(updatebook)
         dispatch(putEditBook(id, updatebook));
@@ -118,7 +135,6 @@ export const BookEdit = (props) => {
                     Label="Hình ảnh"
                     placeholder=''
                     name='hinhAnh'
-                    value={''}
                     onChange={(e) => {
                         console.log('tên hình:', e.target.files[0].name);
                         setHinhAnh(e.target.files[0].name);
