@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { validationBook, isRequestValidated } = require('../validators/value');
+const { superAdminMiddleware} = require('../common-middleware');
+const { requireSignin} = require('../common-middleware');
 const multer = require("multer");
 //const shortid = require("shortid");
 //const path = require("path");
@@ -22,8 +24,8 @@ router.get('/', bookController.showAll);
 // router.post('/', upload.single('hinhAnh'), validationBook, isRequestValidated, bookController.create);
 router.get('/top10', bookController.top10Books);
 router.get('/:id', bookController.detail);
-router.put('/:id', upload.single('hinhAnh'), validationBook, isRequestValidated, bookController.edit);
-router.delete('/:id', bookController.delete);
+router.put('/:id',requireSignin,superAdminMiddleware, upload.single('hinhAnh'), validationBook, isRequestValidated, bookController.edit);
+router.delete('/:id',requireSignin,superAdminMiddleware, bookController.delete);
 
 
 

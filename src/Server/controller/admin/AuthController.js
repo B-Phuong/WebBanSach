@@ -43,7 +43,7 @@ class AuthController {
                 if (error) return res.status(400).json({ error });
                 if (user) {
                     const isMatKhau = await user.authenticate(req.body.matKhau);
-                    if (isMatKhau && user.vaiTro === 'admin') {
+                    if (isMatKhau &&  (user.vaiTro === 'super-admin' ||user.vaiTro === 'admin' )) {
                         const token = jwt.sign({ _id: user._id, vaiTro:user.vaiTro }, JWT_SECRET, { expiresIn: '1h' });
                         const { _id, tenNguoiDung, email, vaiTro } = user;
                         res.cookie('token', token, {expiresIn: '1h'});
