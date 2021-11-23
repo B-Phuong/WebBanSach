@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBooks } from '../../actions';
+import { getAllBooks, getAllCategories } from '../../actions';
 import Card from '../../components/UI/Card';
 import Layout from '../../components/Layout';
 import IndexHome from '../../components/Layout/Header/indexHome'
@@ -13,6 +13,7 @@ const Book = () => {
 
     const dispatch = useDispatch();
     const books = useSelector(state => state.book.books);
+    const categories = useSelector(state => state.category.categories);
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
     // const { page } = product;
     useEffect(() => {
@@ -23,34 +24,25 @@ const Book = () => {
         // }
         dispatch(getAllBooks());
     }, []);
+    useEffect(() => {
+        dispatch(getAllCategories())
+    }, []);
+
 
     return (
         <>
             <IndexHome />
             <div>
-                <div className='category'>
-                    <li>Sách kỹ năng sống
-                        <div className='sub-category'>
-                            <li>Sách tư duy - Kỹ năng sống</li>
-                            <li>Sách nghệ thuật sống đẹp</li>
-                            <li>Sách hướng nghiệp - Kỹ năng mềm</li>
-                        </div>
-                    </li>
-                    <li>Sách văn học
-                        <div className='sub-category'>
-                            <li>Truyện ngắn - Tản văn - Tạp văn</li>
-                            <li>Tác phẩm kinh điển</li>
-                            <li>Tiểu thuyết</li>
-                        </div>
-                    </li>
-                    <li>Sách Công Nghệ Thông Tin
-                        <div className='sub-category'>
-                            <li>Lập trình</li>
-                            <li>Tin học văn phòng</li>
-                            <li>Thiết kế - Đồ họa</li>
-                        </div>
-                    </li>
 
+                <div className='category'>
+                    {categories && categories.map((category, index) =>
+                        <li key={index}>{category.tenDanhMuc}
+                            <div className='sub-category'>
+                                <li>{category.danhMucCon[0].tenTheLoai}</li>
+                                <li>{category.danhMucCon[1].tenTheLoai}</li>
+                                <li>{category.danhMucCon[2].tenTheLoai}</li>
+                            </div>
+                        </li>)}
                 </div>
                 <div style={{ margin: '10px 10px' }}>
 

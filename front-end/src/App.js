@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import Home from './containers/Home';
+
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
 import PrivateRoute from './components/HOC/PrivateRoute';
@@ -13,26 +14,30 @@ import Book from './containers/Book';
 import BookDetail from './containers/BookDetail/detail';
 
 
+
 function App() {
-  const dispatch = useDispatch()
-  const auth = useSelector(state => state.auth)
+
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
   useEffect(() => {
-    if (!auth.authenticate) {
+    if(!auth.authenticate){
       dispatch(isUserLoggedIn());
     }
-  }, []);
+  }, [auth.authenticate]);
+
+
   return (
     <div className="App">
 
       <Switch>
-        <PrivateRoute path="/" exact component={Home} />
+        <Route path="/" exact component={Book} /> //
+        <PrivateRoute path="/admin" exact component={Home} />
         <Route path="/book/:id" component={BookDetail} />
+        {/* <Route path="/admin/book" component={} /> */}
         <PrivateRoute path="/category" component={Category} />
-        <PrivateRoute path="/book"  component={Book} />
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
       </Switch>
-
     </div>
   );
 }

@@ -1,12 +1,12 @@
 import axiosIntance from "../helpers/axios";
 import { authConstants } from "./constants"
 import axios from "../helpers/axios";
-export const login = (user) => {
+export const homelogin = (user) => {
     console.log(user);
     return async (dispatch) => {
         dispatch({ type: authConstants.LOGIN_REQUEST });
 
-        const res = await axios.post(`auth/admin/signin`, {
+        const res = await axios.post(`auth/signin`, {
             ...user
         })
         if (res.status === 200) {
@@ -50,21 +50,10 @@ export const isUserLoggedIn = () => {
     }
 }
 
-export const signout = () => {
+export const homesignout = () => {
     return async dispatch => {
-
         dispatch({type: authConstants.LOGOUT_REQUEST});
-        const res = await axios.post(`auth/admin/signout`);
-
-        if (res.status === 200) {
-            localStorage.clear();
-            dispatch({type: authConstants.LOGOUT_SUCCESS});
-        } else {
-            dispatch({
-                type: authConstants.LOGOUT_FAILURE,
-                payload:{error:res.data.error}
-            });
-        }
-
+        localStorage.clear();
+        dispatch({type: authConstants.LOGOUT_SUCCESS});
     }
 }

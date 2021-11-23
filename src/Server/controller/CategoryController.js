@@ -1,5 +1,5 @@
 const Category = require("../model/Category");
-const slugify = require("slugify");
+//const slugify = require("slugify");
 const shortid = require("shortid");
 function createCategories(categories, parentId = null) {
   const categoryList = [];
@@ -56,7 +56,16 @@ class CategoryController {
       }
     });
   };
-  async updateCategories (req, res) {
+
+  getAllCategories(req, res) {
+    Category.find({}).populate('danhMucCon')
+      .then((data) => {
+        res.status(200).json(data)
+      })
+      .catch(err => res.status(500).json({ message: 'Hệ thống lỗi, vui lòng thử lại sau' })
+      )
+  };
+  async updateCategories(req, res) {
     const { _id, tenDanhMuc, parentId, type } = req.body;
     const updatedCategories = [];
     if (tenDanhMuc instanceof Array) {
@@ -68,7 +77,7 @@ class CategoryController {
         if (parentId[i] !== "") {
           category.parentId = parentId[i];
         }
-  
+
         const updatedCategory = await Category.findOneAndUpdate(
           { _id: _id[i] },
           category,
@@ -92,7 +101,7 @@ class CategoryController {
     }
   }
 
-  async deleteCategories(req, res)  {
+  async deleteCategories(req, res) {
     const { ids } = req.body.payload;
     const deletedCategories = [];
     for (let i = 0; i < ids.length; i++) {
@@ -102,7 +111,7 @@ class CategoryController {
       });
       deletedCategories.push(deleteCategory);
     }
-  
+
     if (deletedCategories.length == ids.length) {
       res.status(201).json({ message: "Categories removed" });
     } else {

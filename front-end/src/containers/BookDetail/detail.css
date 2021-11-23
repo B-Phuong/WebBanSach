@@ -37,7 +37,9 @@ background:white;
   width: 400px;
   border: 1px solid gray;
 }
+
 .detail-sidebar{
+
     box-sizing: border-box;
     float: right;
     height: 400px;

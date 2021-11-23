@@ -9,21 +9,25 @@ import { signout } from '../../../actions';
 **/
 
 export const Header = (props) => {
+
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
-    const logout = () =>{
+    const logout = () => {
         dispatch(signout());
     }
     const renderLoggedInLinks = () => {
-       return(<Nav>
-        <li className="nav-item">
-            <span className="nav-link" onClick={logout} >Signout</span>
-        </li>
-    </Nav>);
+        return (<Nav>
+            <li className="nav-item">
+                <span className="nav-link" >Chào {auth.user.tenNguoiDung}</span>
+            </li>
+            <li className="nav-item">
+                <span className="nav-link" onClick={logout} >Signout</span>
+            </li>
+        </Nav>);
     }
 
-    const renderNonLoggedInLinks =() =>{
+    const renderNonLoggedInLinks = () => {
         return (<Nav>
             <li className="nav-item">
                 <NavLink to="/signin" className="nav-link" >Signin</NavLink>
@@ -34,28 +38,17 @@ export const Header = (props) => {
         </Nav>);
     }
 
-
-
-
-
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{ zIndex: 1 }}>
             <Container fluid>
+
                 {/* <Navbar.Brand href="#home">Admin DashBoard</Navbar.Brand> */}
-                <Link className="navbar-brand">Admin DashBoard</Link>
+                <a className="navbar-brand" href="/">BOOKSHOP</a>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-
-                        {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                    </NavDropdown> */}
                     </Nav>
-                    {auth.authenticate ? renderLoggedInLinks() :renderNonLoggedInLinks()}
+                    {auth.authenticate ? renderLoggedInLinks() : renderNonLoggedInLinks()}
 
                 </Navbar.Collapse>
             </Container>
