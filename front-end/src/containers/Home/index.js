@@ -13,7 +13,6 @@ export const Home = (props) => {
     <Layout>
 
       <Container fluid>
-        <Row>
           <Col md={2} className="sidebar">
             <ul>
               <li><NavLink to={`/admin`}>Home</NavLink></li>
@@ -22,7 +21,6 @@ export const Home = (props) => {
             </ul>
           </Col>
           {/* <Col md={10} style={{ marginLeft: 'auto' }}>Container</Col> */}
-        </Row>
       </Container>
     </Layout>
   )
