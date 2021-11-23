@@ -26,8 +26,7 @@ export const getDetailBook = (id) => {
     return async dispatch => {
         // const { id } = payload.params;
         const res = await axios.get(`book/${id}`);
-        console.log(res)
-        //console.log(res)
+        console.log('lay')
         if (res.status === 200) {
             dispatch({
                 type: bookConstants.GET_DETAIL_BOOK,
@@ -42,12 +41,12 @@ export const getDetailBook = (id) => {
 
     }
 }
-export const putEditBook = (id, update) => {
+export const putEditBook = (id, updatebook) => {
     return async dispatch => {
         // const { id } = payload.params;
-        const res = await axios.put(`book/${id}`, { ...update });
+        const res = await axios.put(`book/${id}`, { ...updatebook });
 
-        console.log('>>>>cập nhật', update)
+        console.log('>>>>cập nhật', updatebook)
         if (res.status === 200) {
             dispatch({
                 type: bookConstants.PUT_EDIT_BOOK,
@@ -72,7 +71,7 @@ export const AddBook = (newbook) => {
         if (res.status === 200) {
             dispatch({
                 type: bookConstants.POST_ADD_BOOK,
-                payload: res.data.newbook
+                payload: res.data.book
             });
         } else {
             dispatch({

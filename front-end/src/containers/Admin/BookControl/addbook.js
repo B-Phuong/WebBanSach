@@ -13,7 +13,7 @@ import { AddBook, getAllCategories, getAllPublishers } from '../../../actions';
 export const BookAdd = (props) => {
 
     const dispatch = useDispatch();
-    const book = useSelector(state => state.book);
+    //const book = useSelector(state => state.book);
     const categories = useSelector(state => state.category.categories);
     const publishers = useSelector(state => state.publisher.publishers);
     const [tenSach, setTenSach] = useState('');
@@ -23,7 +23,7 @@ export const BookAdd = (props) => {
     const [moTa, setMoTa] = useState('');
     const [tacGia, setTacGia] = useState('');
     const [soLuongConLai, setSoLuongConLai] = useState('');
-    const [maNhaXuatBan, setMaNhaXuatBan] = useState('');
+    // const [maNhaXuatBan, setMaNhaXuatBan] = useState('');
     //const [maDanhMucCon, setMaDanhMucCon] = useState('');
     //const [giaTri, setGiaTri] = useState('')
 
@@ -52,8 +52,9 @@ export const BookAdd = (props) => {
         console.log('>>sách mới:', newbook);
         //const update = JSON.stringify(updatebook)
         dispatch(AddBook(newbook));
+        props.history.push('/admin/book/all')
         //setSach(update)
-        //props.history.push('/admin/book/all')
+
     }
     // const [error, setError] = useState('');
     return (
@@ -102,7 +103,8 @@ export const BookAdd = (props) => {
                     type="file"
                     accept=".jpg, .png"
                     Label="Hình ảnh"
-                    value={''}
+                    name='hinhAnh'
+                    // value={''}
                     onChange={(event) => {
                         console.log('tên hình:', event.target.files[0].name);
                         setHinhAnh(event.target.files[0].name);
