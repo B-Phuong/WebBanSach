@@ -21,6 +21,22 @@ const bill = new Schema(
         tongTienSauGiam: { type: Number, default:0 },
       },
     ],
+    orderStatus: [
+      {
+        type: {
+          type: String,
+          enum: ["ordered", "packed", "shipped", "delivered"],
+          default: "ordered",
+        },
+        date: {
+          type: Date,
+        },
+        isCompleted: {
+          type: Boolean,
+          default: false,
+        },
+      },
+    ],
     diaChiGiaoHang: { type: String, required: [true, "Chưa có địa chỉ giao hàng"] },
     phiGiaoHang: { type: Number, required: [true, "Chưa có phí giao hàng"] },
   },
