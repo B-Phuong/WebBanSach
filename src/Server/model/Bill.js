@@ -4,7 +4,6 @@ const user = require("./User");
 const bill = new Schema(
   {
     ngayDatHang: { type: Date, default: Date.now() },
-    trangThai: { type: String, default: "Chờ xác nhận" },
     tongTien: { type: Number, required: true },
     maKhachHang: {
       type: String,

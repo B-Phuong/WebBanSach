@@ -6,7 +6,6 @@ const { requireSignin } = require('../common-middleware');
 
 const HoaDonController = require('../controller/HoaDonController');
 
-router.get('/', HoaDonController.show);
 router.put('/chapNhanHuy/:id', HoaDonController.acceptCancel);
 router.post('/taohoadon',requireSignin,userMiddleware,validationOders, isRequestValidated, HoaDonController.orderBooks);
 router.put('/duyetdon/:id', HoaDonController.duyetdon)

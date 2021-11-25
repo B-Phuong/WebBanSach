@@ -78,7 +78,25 @@ class BillController {
             hoadon.chiTietHoaDon.push(itemCanThanhToan);
           });
           hoadon.diaChiGiaoHang = diaChiGiaoHang;
-
+          hoadon.orderStatus = [
+            {
+              type: "ordered",
+              date: new Date(),
+              isCompleted: true,
+            },
+            {
+              type: "packed",
+              isCompleted: false,
+            },
+            {
+              type: "shipped",
+              isCompleted: false,
+            },
+            {
+              type: "delivered",
+              isCompleted: false,
+            },
+          ];
           let luuhoadon = new Promise( async (resolve, reject)=>{
            await hoadon
             .save()
