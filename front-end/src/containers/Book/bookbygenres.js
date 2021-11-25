@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBooks, getAllCategories } from '../../actions';
+import { getAllCategories, getBookByGenres } from '../../actions';
 import Card from '../../components/UI/Card';
 import Layout from '../../components/Layout';
 import IndexHome from '../../components/Layout/Header/indexHome'
@@ -10,37 +10,39 @@ import Pagination from '../.././components/Pagination';
 //import { Carousel } from 'react-responsive-carousel';
 import "./book.css";
 
-const Book = (props) => {
+const BookByGenres = (props) => {
 
     const dispatch = useDispatch();
-    const books = useSelector(state => state.book.books);
+    const bookbygenres = useSelector(state => state.book.books);
     const categories = useSelector(state => state.category.categories);
-    //  const [book, setBook] = useState([]);
-    //const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [booksPerPage] = useState(9);
-
-
+    const [booksPerPage] = useState(6);
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
     // const { page } = product;
     useEffect(() => {
+        const { theLoai } = props.match.params;
+        console.log('mục thể loại', theLoai);
+
         // const payload = {
         //     params
         // }
-        dispatch(getAllBooks());
-        // setBook(books)
+        dispatch(getBookByGenres(theLoai))
     }, []);
     useEffect(() => {
         dispatch(getAllCategories())
     }, []);
+    const renderBook = (theLoai) => {
+        dispatch(getBookByGenres(theLoai))
+    }
     const Format = (x) => {
         return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
     }
     const indexOfLastBook = currentPage * booksPerPage;
     const indexOfFirstBook = indexOfLastBook - booksPerPage;
-    const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+    const currentBooks = bookbygenres.slice(indexOfFirstBook, indexOfLastBook);
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
+    // onclick = {(e) => settheLoai(props.match.params.theLoai)}
     return (
         <>
             <IndexHome />
@@ -50,9 +52,9 @@ const Book = (props) => {
                     {categories && categories.map((category, index) =>
                         <li key={index}>{category.tenDanhMuc}
                             <div className='sub-category'>
-                                <NavLink to={`/${category.danhMucCon[0]._id}`}>  <li>{category.danhMucCon[0].tenTheLoai}</li> </NavLink>
-                                <NavLink to={`/${category.danhMucCon[1]._id}`}>    <li>{category.danhMucCon[1].tenTheLoai}</li>  </NavLink>
-                                <NavLink to={`/${category.danhMucCon[2]._id}`}>    <li>{category.danhMucCon[2].tenTheLoai}</li>  </NavLink>
+                                <NavLink to={`/${category.danhMucCon[0]._id}`} onClick={() => renderBook(category.danhMucCon[0]._id)}>  <li>{category.danhMucCon[0].tenTheLoai}</li> </NavLink>
+                                <NavLink to={`/${category.danhMucCon[1]._id}`} onClick={() => renderBook(category.danhMucCon[1]._id)}>    <li>{category.danhMucCon[1].tenTheLoai}</li>  </NavLink>
+                                <NavLink to={`/${category.danhMucCon[2]._id}`} onClick={() => renderBook(category.danhMucCon[2]._id)}>    <li>{category.danhMucCon[2].tenTheLoai}</li>  </NavLink>
                             </div>
                         </li>)}
                 </div>
@@ -66,11 +68,11 @@ const Book = (props) => {
                         margin: '10px 0'
                     }}>
                         {
-                            currentBooks && currentBooks.map((abook) =>
-                                <NavLink to={`/book/${abook._id}`}>
+                            currentBooks && currentBooks.map((book, index) =>
+                                <NavLink to={`/book/${book._id}`}>
                                     <div className="book">
                                         <Card
-                                            key={abook._id}
+                                            key={index}
                                             style={{
                                                 width: '300px',
                                                 height: '300px',
@@ -82,17 +84,16 @@ const Book = (props) => {
 
                                                     width: '100%',
                                                     height: '250px'
-                                                }} src={abook.hinhAnh} alt="Ảnh bị lỗi hiển thị" />
+                                                }} src={book.hinhAnh} alt="Ảnh bị lỗi hiển thị" />
                                                 <span className="name" >
-                                                    {abook.tenSach}</span>
+                                                    {book.tenSach}</span>
                                             </div>
                                             <div> <span className="price" >
-                                                <b>{Format(abook.giaTien)} đ</b></span></div>
+                                                <b>{Format(book.giaTien)} đ</b></span></div>
 
 
                                         </Card>
                                     </div> </NavLink>
-
 
                             )
                         }
@@ -101,17 +102,15 @@ const Book = (props) => {
                     </div>
                     <Pagination
                         booksPerPage={booksPerPage}
-                        totalBooks={books.length}
+                        totalBooks={bookbygenres.length}
                         paginate={paginate}
                     />
-
                 </div>
 
             </div>
-
         </>
     )
 
 }
 
-export default Book
+export default BookByGenres

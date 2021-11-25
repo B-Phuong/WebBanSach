@@ -13,6 +13,7 @@ const Book = new Schema({
   giaTien: { type: Number, require: [true, "Hãy nhập giá tiền"] },
   giamGia: { type: Number },
   moTa: { type: String },
+  daXoa: { type: Boolean },
   maNhaXuatBan: {
     type: String,
     required: [true, "Chưa chọn nhà xuất bản"],

@@ -20,11 +20,11 @@ const upload = multer({ storage: storage });
 
 const adminController = require('../controller/AdminController');
 const bookController = require('../controller/BookController');
-router.post('/user/addStaff',requireSignin,superAdminMiddleware, adminController.addStaff);
-router.put('/user/blockuser/:id',requireSignin,superAdminMiddleware, adminController.block);
-router.get('/user/:id',requireSignin,superAdminMiddleware, adminController.find);
-router.post('/user/:id',requireSignin,superAdminMiddleware, adminController.update);
-router.get('/user/all',requireSignin,superAdminMiddleware, adminController.show);
-router.post('/book',requireSignin,superAdminMiddleware, upload.single('hinhAnh'), validationBook, isRequestValidated, bookController.create);
+router.post('/user/addStaff', requireSignin, superAdminMiddleware, adminController.addStaff);
+router.put('/user/blockuser/:id', requireSignin, superAdminMiddleware, adminController.block);
+router.get('/user/:id', requireSignin, superAdminMiddleware, adminController.find);
+router.post('/user/:id', requireSignin, superAdminMiddleware, adminController.update);
+router.get('/user/all', requireSignin, superAdminMiddleware, adminController.show);
+router.post('/book', requireSignin, superAdminMiddleware, upload.single('hinhAnh'), validationBook, isRequestValidated, bookController.create);
 
 module.exports = router;

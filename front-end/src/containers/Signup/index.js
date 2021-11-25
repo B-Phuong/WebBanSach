@@ -4,7 +4,7 @@ import Layout from '../../components/Layout';
 import { Input } from '../../components/UI/input';
 import { Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import {signup} from '../../actions'
+import { signup } from '../../actions'
 /**
 * @author
 * @function Signup
@@ -12,16 +12,16 @@ import {signup} from '../../actions'
 
 export const Signup = (props) => {
 
-  const[tenNguoiDung, settenNguoiDung] = useState('');
-  const[email, setEmail] = useState('');
-  const[matKhau, setMatkhau] = useState('');
-  const[error, setError] = useState('');
+  const [tenNguoiDung, settenNguoiDung] = useState('');
+  const [email, setEmail] = useState('');
+  const [matKhau, setMatkhau] = useState('');
+  const [error, setError] = useState('');
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
 
 
-  const userSignup = (e) =>{
+  const userSignup = (e) => {
     e.preventDefault();
     const user = {
       tenNguoiDung, email, matKhau
@@ -29,11 +29,11 @@ export const Signup = (props) => {
     dispatch(signup(user));
   }
 
-  if(auth.authenticate){
-    return <Redirect to={`/`}/>
+  if (auth.authenticate) {
+    return <Redirect to={`/`} />
   }
 
-  if(user.loading){
+  if (user.loading) {
     return <p>Loading...!</p>
   }
 
@@ -41,9 +41,9 @@ export const Signup = (props) => {
     <Layout>
       <Container>
         {user.message}
-        <Row style={{ marginTop: '50px', marginLeft:'265px' }}>
+        <Row style={{ marginTop: '50px', marginLeft: '265px' }}>
           <Col md={{ span: 6, offset: 3 }}>
-            <Form onSubmit={userSignup}> 
+            <Form onSubmit={userSignup}>
               <Input
                 Label="Tên người dùng"
                 placeholder="Nhập tên người dùng"
@@ -72,7 +72,7 @@ export const Signup = (props) => {
               </Button>
             </Form>
           </Col>
-          
+
         </Row>
 
       </Container>

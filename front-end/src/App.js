@@ -15,6 +15,9 @@ import BookControl from './containers/Admin/BookControl/bookcontrol';
 import BookList from './containers/Admin/BookControl/listbook';
 import BookEdit from './containers/Admin/BookControl/editbook';
 import BookAdd from './containers/Admin/BookControl/addbook';
+import BookByGenres from './containers/Book/bookbygenres';
+import User from './containers/User/user';
+import UserInfo from './containers/User/userinfo';
 
 
 
@@ -23,7 +26,7 @@ function App() {
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
   useEffect(() => {
-    if(!auth.authenticate){
+    if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     }
   }, [auth.authenticate]);
@@ -34,15 +37,19 @@ function App() {
 
       <Switch>
         <Route path="/" exact component={Book} />
-        <PrivateRoute path="/admin" exact component={Home} />
         <Route path="/book/:id" component={BookDetail} />
+        <Route path="/user/:id" exact component={UserInfo} />
+
+
+        <PrivateRoute path="/admin" exact component={Home} />
+        <Route path="/signin" component={Signin} />
+        <Route path="/signup" component={Signup} />
         <PrivateRoute path="/admin/book/:id/edit" component={BookEdit} />
         <PrivateRoute path="/admin/book/add" component={BookAdd} />
         <PrivateRoute path="/admin/book/all" component={BookList} />
         <PrivateRoute path="/admin/book" component={BookControl} />
+        <Route path="/:theLoai" component={BookByGenres} />
 
-        <Route path="/signin" component={Signin} />
-        <Route path="/signup" component={Signup} />
       </Switch>
     </div>
   );

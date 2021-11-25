@@ -38,7 +38,7 @@ class BookController {
                 }
                 else {
                     book.ISBN = Math.floor(10000000 + Math.random() * 9000000);
-
+                    book.daXoa = false;
                     //const error = book.validateSync();
                     book.save()
                         .then((book) => res.status(200).json(book))
@@ -58,7 +58,7 @@ class BookController {
     //[PUT] /book/edit/:id   //CHƯA KIỂM ĐIỀU KIỆN TRÙNG GIÁ TRỊ THUỘC TÍNH
     edit(req, res) {
         const book = new Book(req.body)
-        Book.find({ $or: [{ "tenSach": book.tenSach }] })
+        Book.find({ "tenSach": book.tenSach })
             .then((data) => {
                 if (data.length > 1) res.status(400).json({ message: 'Trùng tên sách' })
                 else {
@@ -71,7 +71,7 @@ class BookController {
                         }
                         )
                         .catch(error => {
-                            return res.status(500).json({ mesage: 'Vui lòng thử lại' })
+                            return res.status(500).json({ message: 'Vui lòng thử lại' })
                             // res.status(500).json({ message: "Không tìm thấy sách muốn sửa" || 'Lỗi hệ thống'});
                         })
                 }
@@ -87,7 +87,7 @@ class BookController {
                 if (data.length > 0)
                     return res.status(200).json({ message: "Sách này đang trong giỏ hàng của khách hàng" })
                 else {
-                    Book.findByIdAndDelete(id)
+                    Book.findByIdAndUpdate(id, { daXoa: 'true' })
                         .then((book) => {
                             // if (data)
                             res.status(200).json({ message: "Đã xóa sách  " + book.tenSach })
@@ -104,7 +104,7 @@ class BookController {
     }
     //[GET] /search/:idTheLoai  //XEM SÁCH TƯƠNG ỨNG VỚI MỖI THỂ LOẠI
     filterKindOfBook(req, res) {
-        const id = req.params.idTheLoai;
+        const idTheLoai = req.params.theLoai;
         // const theloai = req.params.theloai;
         // Genres.find({tenTheLoai:theloai})
         // .then(data=>{
@@ -113,7 +113,8 @@ class BookController {
         //     else res.json('Không có sách nào')
         // })
         // .catch(err=> res.json('Lỗi hệ thống'))
-        Book.find({ maTheLoai: id })
+        Book.find({ maDanhMucCon: idTheLoai })
+            .populate('maDanhMucCon')
             .then(data => {
                 if (data) res.status(200).json(data)
                 //else res.status(404).json({ message: err || 'Không tìm thấy sách thích hợp' })

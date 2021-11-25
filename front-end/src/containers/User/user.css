@@ -1,0 +1,17 @@
+#form-edituser{
+    margin: 40px;
+    width: 900px;
+    border-radius: 4px;
+   
+}
+.info-user{
+    margin: 5% 30%;
+    justify-content: center;
+}
+.info-user h3{
+    background-color: #2874f0;
+    color: whitesmoke;
+}
+.info-user #name-user, #email-user, #account-user, #phone-user, #address-user{
+    color: blue;
+}

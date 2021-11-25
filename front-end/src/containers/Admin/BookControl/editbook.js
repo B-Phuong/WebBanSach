@@ -68,11 +68,17 @@ export const BookEdit = (props) => {
         e.preventDefault();
         const { id } = props.match.params;
         console.log('id', id)
+        const newbook = new FormData()
         const updatebook = {
             ...book,
             tenSach,
             giaTien, giamGia, hinhAnh, moTa, tacGia, soLuongConLai
         }
+        newbook.append('tenSach', tenSach)
+        newbook.append('giaTien', giaTien)
+        newbook.append('hinhAnh', hinhAnh)
+        newbook.append('giamGia', giamGia)
+
         console.log('>>trước khi cập nhật', book)
         console.log('>>sẽ cập nhật:', updatebook);
         //const update = JSON.stringify(updatebook)
@@ -86,7 +92,7 @@ export const BookEdit = (props) => {
         <>
             <BookControl />
             { }
-            <Form id='form-editbook' onSubmit={updateBook}>
+            <Form id='form-editbook' onSubmit={updateBook} >
                 {/* <Form onSubmit={userSignp}> */}
                 <Input
                     Label="Tên sách"
@@ -129,7 +135,7 @@ export const BookEdit = (props) => {
                     onChange={(e) => setMoTa(e.target.value)}
                 />
 
-                <Input
+                <input
                     type="file"
                     accept=".jpg, .png"
                     Label="Hình ảnh"
@@ -155,7 +161,10 @@ export const BookEdit = (props) => {
                     value={soLuongConLai}
                     name='soLuongConLai'
                     type="number"
+
                     min="30"
+                    max="99"
+                    onKeyPress="if(this.value>99){this.value='99';}else if(this.value<0){this.value='0';}"
                     onChange={(e) => setSoLuongConLai(e.target.value)}
                 />
 

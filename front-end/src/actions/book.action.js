@@ -1,6 +1,10 @@
 
 import { bookConstants } from "./constants";
 import axios from "../helpers/axios";
+// import axios from "axios";
+// const token = window.localStorage.getItem('token');
+
+
 
 export const getAllBooks = () => {
     return async dispatch => {
@@ -41,12 +45,12 @@ export const getDetailBook = (id) => {
 
     }
 }
-export const putEditBook = (id, updatebook) => {
+export const putEditBook = (id, newbook) => {
     return async dispatch => {
         // const { id } = payload.params;
-        const res = await axios.put(`book/${id}`, { ...updatebook });
+        const res = await axios.put(`book/${id}`, { ...newbook });
 
-        console.log('>>>>cập nhật', updatebook)
+        console.log('>>>>cập nhật', newbook)
         if (res.status === 200) {
             dispatch({
                 type: bookConstants.PUT_EDIT_BOOK,
@@ -64,10 +68,9 @@ export const putEditBook = (id, updatebook) => {
 export const AddBook = (newbook) => {
     return async dispatch => {
         // const { id } = payload.params;
-        console.log('trước khi dispatch')
-        const res = await axios.post(`admin/book`, { ...newbook });
+        const res = await axios.post(`http://localhost:3000/admin/book`, { ...newbook });
 
-        console.log('sau khi dispatch', res)
+        console.log('>>>>cập nhật', newbook)
         if (res.status === 200) {
             dispatch({
                 type: bookConstants.POST_ADD_BOOK,
@@ -76,6 +79,27 @@ export const AddBook = (newbook) => {
         } else {
             dispatch({
                 type: bookConstants.POST_ADD_BOOK,
+                payload: { error: res.data.message }
+            });
+        }
+
+    }
+}
+export const getBookByGenres = (genres) => {
+    return async dispatch => {
+        // const { id } = payload.params;
+        console.log('láy ds theo thể loại')
+        const res = await axios.get(`http://localhost:3000/book/search/${genres}`);
+
+        console.log('danh sách sách đã được lấy', res)
+        if (res.status === 200) {
+            dispatch({
+                type: bookConstants.GET_BOOK_BY_GENRES,
+                payload: res.data
+            });
+        } else {
+            dispatch({
+                type: bookConstants.GET_BOOK_BY_GENRES,
                 payload: { error: res.data.message }
             });
         }

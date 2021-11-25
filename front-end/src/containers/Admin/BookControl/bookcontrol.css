@@ -79,3 +79,6 @@ textarea{
     width:900px;
     height: 150px
 }
+.btn-OK{
+    background: red;
+}

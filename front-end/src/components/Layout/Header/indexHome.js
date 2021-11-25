@@ -11,7 +11,7 @@ import {
 } from '../../MaterialUI';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { homelogin, homesignout } from '../../../actions'
+import { getUserInfo, homelogin, homesignout } from '../../../actions'
 import { NavLink, Link } from 'react-router-dom'
 /**
 * @author
@@ -32,17 +32,23 @@ const IndexHome = (props) => {
     const logout = () => {
         dispatch(homesignout());
     };
+    // const getInfo = () => { //mới thêm
+    //     dispatch(getUserInfo(auth.user._id));
+    //     //console.log('thông tin', auth.user._id)
+    // };
+
     useEffect(() => {
         if (auth.authenticate) {
             setLoginModal(false)
         }
-    })
+        //getInfo();
+    }) //mới thêm
     const renderLoggedInMenu = () => {
         return (
             <DropdownMenu
                 menu={<a className="tenNguoiDung">Chào {auth.user.tenNguoiDung}</a>}
                 menus={[
-                    { label: 'Thông tin cá nhân', href: '', icon: null },
+                    { label: 'Thông tin cá nhân', href: `/user/${auth.user._id}`, icon: null },
                     { label: 'Chi tiết đơn hàng', href: '', icon: null },
                     { label: "Logout", href: '', icon: '', onClick: logout }
                 ]}
@@ -63,7 +69,7 @@ const IndexHome = (props) => {
                 firstMenu={
                     <div className="firstmenu">
                         <span>Bạn là khách hàng mới?</span>
-                            <NavLink to="/signup" className="nav-link" >Đăng ký</NavLink>
+                        <NavLink to="/signup" className="nav-link" >Đăng ký</NavLink>
                     </div>
                 }
             />
@@ -124,7 +130,7 @@ const IndexHome = (props) => {
             </Modal>
             <div className="subHeader">
                 <div className="logo">
-                    <a href="">
+                    <a href="/">
                         <img src={bookLogo} className="logoimage" alt="" />
                     </a>
                     <a style={{ marginTop: '-10px' }}>
