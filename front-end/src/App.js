@@ -15,7 +15,7 @@ import BookControl from './containers/Admin/BookControl/bookcontrol';
 import BookList from './containers/Admin/BookControl/listbook';
 import BookEdit from './containers/Admin/BookControl/editbook';
 import BookAdd from './containers/Admin/BookControl/addbook';
-
+import Donhang from './containers/Donhang/';
 
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
         <PrivateRoute path="/admin/book/add" component={BookAdd} />
         <PrivateRoute path="/admin/book/all" component={BookList} />
         <PrivateRoute path="/admin/book" component={BookControl} />
-
+        <PrivateRoute path="/admin/orders" component={Donhang}/>
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
       </Switch>
