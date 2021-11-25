@@ -37,6 +37,8 @@ function App() {
     <div className="App">
 
       <Switch>
+      <Route path="/anh" exact component={Book} />
+
         <Route path="/" exact component={Book} />
         <Route path="/book/:id" component={BookDetail} />
         <Route path="/user/:id" exact component={UserInfo} />
