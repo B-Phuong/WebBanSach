@@ -1,5 +1,5 @@
-const Mongoose = require("mongoose");
-const Schema = Mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const user = require("./User");
 const bill = new Schema(
   {
@@ -13,7 +13,8 @@ const bill = new Schema(
     },
     chiTietHoaDon: [
       {
-        maSach: { type: String, required: true },
+        maSach: { type: mongoose.Schema.Types.ObjectId,
+                  ref: "Book" },
         tenSach: { type: String, required: true },
         soLuong: { type: Number, required: true },
         giamGia: { type: Number, default:0 },
@@ -21,9 +22,25 @@ const bill = new Schema(
         tongTienSauGiam: { type: Number, default:0 },
       },
     ],
+    orderStatus: [
+      {
+        type: {
+          type: String,
+          enum: ["ordered", "packed", "shipped", "delivered"],
+          default: "ordered",
+        },
+        date: {
+          type: Date,
+        },
+        isCompleted: {
+          type: Boolean,
+          default: false,
+        },
+      },
+    ],
     diaChiGiaoHang: { type: String, required: [true, "Chưa có địa chỉ giao hàng"] },
     phiGiaoHang: { type: Number, required: [true, "Chưa có phí giao hàng"] },
   },
   { timestamps: true }
 );
-module.exports = Mongoose.model("Bill", bill);
+module.exports = mongoose.model("Bill", bill);

@@ -19,6 +19,7 @@ import BookByGenres from './containers/Book/bookbygenres';
 import User from './containers/User/user';
 import UserInfo from './containers/User/userinfo';
 
+import Donhang from './containers/Donhang/';
 
 
 function App() {
@@ -48,8 +49,9 @@ function App() {
         <PrivateRoute path="/admin/book/add" component={BookAdd} />
         <PrivateRoute path="/admin/book/all" component={BookList} />
         <PrivateRoute path="/admin/book" component={BookControl} />
+       
+        <PrivateRoute path="/admin/orders" component={Donhang}/>
         <Route path="/:theLoai" component={BookByGenres} />
-
       </Switch>
     </div>
   );
