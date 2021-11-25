@@ -1,4 +1,5 @@
 const Bill = require("../model/Bill");
+const Book = require("../model/Book");
 const { mutipleMongoseToObject } = require("../util/mongoose");
 
 class BillController {
