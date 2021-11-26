@@ -1,19 +1,19 @@
-.book-content{
+.staff-content{
     margin-left:250px
 }
-.book-content .button{
+.staff-content .button{
     background-color: aquamarine;
     width: fit-content;
     height: fit-content;
 }
-.list-book{
+.list-staff{
     width: 700px;
     height: 300px;
     margin-left:250px ;
     border-radius: 4px;
     background-color: whitesmoke;
 }
-.list-book .book{
+.list-staff .staff{
     float: left;
 }
 
@@ -71,7 +71,7 @@ table td {
     background-color: #fff;
     transition: 0.3s ease-in-out;
 }
-#form-editbook, #form-addbook{
+#form-editstaff, #form-addstaff{
     margin-left:250px;
     width: 900px;
 }

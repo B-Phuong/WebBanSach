@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBooks } from '../../../actions';
+import { getAllStaffs } from '../../../actions';
 import { NavLink } from 'react-router-dom'
-import BookControl from './bookcontrol'
-import './bookcontrol.css'
+import StaffControl from './staffcontrol'
+import './staffcontrol.css'
 import { Modal } from 'react-bootstrap';
 import { IoMdBrush, IoMdCloseCircleOutline } from 'react-icons/io';
 
 import axiosIntance from '../../../helpers/axios';
 
 
-export const BookList = (props) => {
+export const StaffList = (props) => {
 
     const dispatch = useDispatch();
-    const books = useSelector(state => state.book.books);
+    const staffs = useSelector(state => state.staff.staffs);
     //const [sach, setSach] = useState('');
-    const categories = useSelector(state => state.category.categories);
     const [ID, setID] = useState('')
-    const [tenSach, setTenSach] = useState('')
+    const [tenNguoiDung, setTenNguoiDung] = useState('')
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
     // const { page } = product;
     useEffect(() => {
@@ -26,12 +25,12 @@ export const BookList = (props) => {
         // const payload = {
         //     params
         // }
-        dispatch(getAllBooks());
+        dispatch(getAllStaffs());
         //setSach(books)
     }, []);
     const confirmDelete = () => {
         const id = ID;
-        axiosIntance.delete(`/book/${id}`)
+        axiosIntance.delete(`/admin/staff/${id}`)
             .then(res => {
                 if (res.status === 200) {
                     console.log('Xóa thành công')
@@ -39,7 +38,7 @@ export const BookList = (props) => {
             })
             .catch(err => console.log('Lỗi'))
         setIsOpen(false);
-        props.history.push('/admin/book/all')
+        props.history.push('/admin/staff/all') // tiến1a
     }
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -53,7 +52,7 @@ export const BookList = (props) => {
     };
     return (
         <>
-            <BookControl />
+            <StaffControl />
             {/* <div className='list-book'>
                 <div>
                     <div className='book'>
@@ -70,26 +69,24 @@ export const BookList = (props) => {
                 <table>
                     <tr>
                         <th>STT</th>
-                        <th >Tên sách</th>
-                        <th>Hình ảnh</th>
-                        <th>Giá tiền</th>
-                        <th>Số lượng còn lại</th>
-                        <th>Tùy chọn</th>
+                        <th >Tên Người dùng</th>
+                        <th>Email</th>
+                        <th>Vai Trò</th>
+                        
 
                     </tr>
-                    {books && books.map((book, index) =>
+                    {staffs && staffs.map((staff, index) =>
                         <tr key={index}>
                             <td>{index + 1}</td>
-                            <td>{book.tenSach}</td>
-                            <td><img src={book.hinhAnh} alt="" /></td>
-                            <td>{book.giaTien}</td>
-                            <td>{book.soLuongConLai}</td>
+                            <td>{staff.tenNguoiDung}</td>
+                            <td>{staff.email}</td>
+                            <td>{staff.vaiTro}</td>
                             <td>
                                 <span class="action_btn">
-                                    <NavLink to={`/admin/book/${book._id}/edit`}><IoMdBrush></IoMdBrush></NavLink>
+                                    <NavLink to={`/admin/staff/${staff._id}/edit`}><IoMdBrush></IoMdBrush></NavLink>
                                     {/* <NavLink to={`/admin/book/${book._id}/edit`}>Edit</NavLink> */}
 
-                                    <IoMdCloseCircleOutline onClick={() => { setIsOpen(true); setID(book._id); setTenSach(book.tenSach) }}></IoMdCloseCircleOutline>
+                                    <IoMdCloseCircleOutline onClick={() => { setIsOpen(true); setID(staff._id); setTenNguoiDung(staff.tenNguoiDung) }}></IoMdCloseCircleOutline>
                                     {/* <button onClick={() => { setIsOpen(true); setID(book._id); setTenSach(book.tenSach) }}>Remove</button> */}
                                     {/* <NavLink to={`/admin/book/${book._id}`}>Remove</NavLink> */}
                                 </span>
@@ -102,10 +99,10 @@ export const BookList = (props) => {
             </div>
             <Modal show={isOpen} onHide={hideModal}>
                 <Modal.Header>
-                    <Modal.Title>Xóa thông tin sách</Modal.Title>
+                    <Modal.Title>Xóa thông tin nhân viên</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Bạn có chắc muốn xóa sách {tenSach}  không?
+                    Bạn có chắc muốn xóa sách {tenNguoiDung}  không?
                 </Modal.Body>
                 <Modal.Footer>
 
@@ -122,4 +119,4 @@ export const BookList = (props) => {
 
 }
 
-export default BookList
+export default StaffList

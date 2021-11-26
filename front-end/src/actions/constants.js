@@ -31,6 +31,14 @@ export const bookConstants = {
     GET_TOP10_BOOKS: 'GET_TOP10_BOOKS'
 
 };
+
+export const staffConstants = {
+    GET_ALL_STAFFS: 'GET_ALL_STAFFS',
+    GET_DETAIL_STAFF: 'GET_DETAIL_STAFF',
+    PUT_EDIT_STAFF: 'PUT_EDIT_STAFF',
+    POST_ADD_STAFF: 'POST_ADD_STAFF',
+
+};
 export const categoryConstants = {
     GET_ALL_CATEGORIES: 'GET_ALL_CATEGORIES'
 }

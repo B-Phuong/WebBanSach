@@ -2,19 +2,19 @@ import React from 'react'
 
 import { NavLink } from 'react-router-dom'
 import Home from '../../Home'
-import './bookcontrol.css'
+import './staffcontrol.css'
 
-export const BookControl = (props) => {
+export const StaffControl = (props) => {
     return (
         <>
             <Home />
-            <div className='book-content'>
+            <div className='staff-content'>
                 <div>
                     <div className='button'>
-                        <NavLink to='/admin/book/all'> <span >Hiển thị danh sách </span></NavLink>
+                        <NavLink to='/admin/staff/all'> <span >Hiển thị danh sách </span></NavLink>
                     </div>
                     <div className='button'>
-                        <NavLink to='/admin/book/add'> <span >Thêm sách </span></NavLink>
+                        <NavLink to='/admin/staff/add'> <span >Thêm nhân viên </span></NavLink>
 
                     </div>
                 </div>
@@ -27,4 +27,4 @@ export const BookControl = (props) => {
 
 }
 
-export default BookControl
+export default StaffControl

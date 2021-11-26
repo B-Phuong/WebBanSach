@@ -1,24 +1,24 @@
 
-import { bookConstants } from "./constants";
+import { staffConstants } from "./constants";
 import axios from "../helpers/axios";
 // import axios from "axios";
 // const token = window.localStorage.getItem('token');
 
 
 
-export const getAllBooks = () => {
+export const getAllStaffs = () => {
     return async dispatch => {
 
-        const res = await axios.get(`book`);
+        const res = await axios.get(`/admin/staff`);
 
         if (res.status === 200) {
             dispatch({
-                type: bookConstants.GET_ALL_BOOKS,
+                type: staffConstants.GET_ALL_STAFFS,
                 payload: res.data
             });
         } else {
             dispatch({
-                type: bookConstants.GET_ALL_BOOKS,
+                type: staffConstants.GET_ALL_STAFFS,
                 payload: { error: true }
             });
         }
@@ -26,105 +26,85 @@ export const getAllBooks = () => {
     }
 }
 
-export const getDetailBook = (id) => {
+export const getDetailStaff = (id) => {
     return async dispatch => {
         // const { id } = payload.params;
-        const res = await axios.get(`book/${id}`);
+        const res = await axios.get(`admin/staff/${id}`);
         console.log('lay')
         if (res.status === 200) {
             dispatch({
-                type: bookConstants.GET_DETAIL_BOOK,
+                type: staffConstants.GET_DETAIL_STAFF,
                 payload: res.data
             });
         } else {
             dispatch({
-                type: bookConstants.GET_DETAIL_BOOK,
+                type: staffConstants.GET_DETAIL_STAFF,
                 payload: { error: true }
             });
         }
 
     }
 }
-export const putEditBook = (id, newbook) => {
+export const putEditStaff = (id, newstaff) => {
     return async dispatch => {
         // const { id } = payload.params;
-        const res = await axios.put(`book/${id}`, { ...newbook });
+        const res = await axios.put(`admin/staff/${id}`, { ...newstaff });
 
-        console.log('>>>>cập nhật', newbook)
+        console.log('>>>>cập nhật', newstaff)
         if (res.status === 200) {
             dispatch({
-                type: bookConstants.PUT_EDIT_BOOK,
+                type: staffConstants.PUT_EDIT_STAFF,
                 payload: res.data
             });
         } else {
             dispatch({
-                type: bookConstants.PUT_EDIT_BOOK,
+                type: staffConstants.PUT_EDIT_STAFF,
                 payload: { error: true }
             });
         }
 
     }
 }
-export const AddBook = (newbook) => {
+export const AddStaff = (newstaff) => {
     return async dispatch => {
         // const { id } = payload.params;
-        const res = await axios.post(`http://localhost:3000/admin/book`, { ...newbook });
+        const res = await axios.post(`http://localhost:3000/admin/staff`, { ...newstaff });
 
-        console.log('>>>>cập nhật', newbook)
+        console.log('>>>>cập nhật', newstaff)
         if (res.status === 200) {
             dispatch({
-                type: bookConstants.POST_ADD_BOOK,
-                payload: res.data.book
+                type: staffConstants.POST_ADD_STAFF,
+                payload: res.data.staff
             });
         } else {
             dispatch({
-                type: bookConstants.POST_ADD_BOOK,
+                type: staffConstants.POST_ADD_STAFF,
                 payload: { error: res.data.message }
             });
         }
 
     }
 }
-export const getBookByGenres = (genres) => {
-    return async dispatch => {
-        // const { id } = payload.params;
-        console.log('láy ds theo thể loại')
-        const res = await axios.get(`http://localhost:3000/book/search/${genres}`);
+// export const getBookByGenres = (genres) => {
+//     return async dispatch => {
+//         // const { id } = payload.params;
+//         console.log('láy ds theo thể loại')
+//         const res = await axios.get(`http://localhost:3000/book/search/${genres}`);
 
-        console.log('danh sách sách đã được lấy', res)
-        if (res.status === 200) {
-            dispatch({
-                type: bookConstants.GET_BOOK_BY_GENRES,
-                payload: res.data
-            });
-        } else {
-            dispatch({
-                type: bookConstants.GET_BOOK_BY_GENRES,
-                payload: { error: res.data.message }
-            });
-        }
+//         console.log('danh sách sách đã được lấy', res)
+//         if (res.status === 200) {
+//             dispatch({
+//                 type: bookConstants.GET_BOOK_BY_GENRES,
+//                 payload: res.data
+//             });
+//         } else {
+//             dispatch({
+//                 type: bookConstants.GET_BOOK_BY_GENRES,
+//                 payload: { error: res.data.message }
+//             });
+//         }
 
-    }
-}
+//     }
+// }
 
-export const getTop10Book = () => {
-    return async dispatch => {
-        // const { id } = payload.params;
 
-        const res = await axios.get(`http://localhost:3000/book/top10`);
-
-        console.log('danh sách sách đã được lấy', res)
-        if (res.status === 200) {
-            dispatch({
-                type: bookConstants.GET_TOP10_BOOKS,
-                payload: res.data.top10
-            });
-        } else {
-            dispatch({
-                type: bookConstants.GET_TOP10_BOOKS,
-                payload: { error: res.data.message }
-            });
-        }
-
-    }
-}
