@@ -7,7 +7,7 @@ import Signup from './containers/Signup';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import { Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { isUserLoggedIn } from './actions';
+import { isUserLoggedIn, getInitialData } from './actions';
 
 import Book from './containers/Book';
 import BookDetail from './containers/BookDetail/detail';
@@ -29,6 +29,9 @@ function App() {
   useEffect(() => {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
+    }
+    if(auth.authenticate){
+      dispatch(getInitialData());
     }
   }, [auth.authenticate]);
 

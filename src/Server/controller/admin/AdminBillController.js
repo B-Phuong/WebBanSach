@@ -3,7 +3,7 @@ const Bill = require('../../model/Bill')
 class AdminBillController{
     updateBill(req, res){
         Bill.updateOne(
-            { _id: req.params.id, "orderStatus.type": req.body.type },
+            { _id: req.body._id, "orderStatus.type": req.body.type },
             {
               $set: {
                 "orderStatus.$": [

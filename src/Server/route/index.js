@@ -9,6 +9,7 @@ const adminauthRouter = require('./admin/auth');
 const categoryRouter = require('./category')
 const publisherRouter = require('./publisher')
 const adminBillRouter = require('./admin/adminbill')
+const initialDataRouter = require('./admin/initialData')
 function route(app) {
     app.use('/book', bookRouter);
     app.use('/user', userRouter);
@@ -20,6 +21,7 @@ function route(app) {
     app.use('/category', categoryRouter);
     app.use('/publisher', publisherRouter);
     app.use('/admin', adminBillRouter );
+    app.use('/admin',initialDataRouter)
 
 }
 
