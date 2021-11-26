@@ -108,6 +108,7 @@ export const BookEdit = (props) => {
                     value={giaTien}
                     name='giaTien'
                     type="number"
+                    min="0"
                     onChange={(e) => setGiaTien(e.target.value)} /**(e) => setGiaTien(e.target.value) */
                 />
                 <Input
@@ -116,6 +117,7 @@ export const BookEdit = (props) => {
                     value={giamGia}
                     type="number"
                     name='giamGia'
+                    min="0"
                     onChange={(e) => setGiamGia(e.target.value)}
                 />
                 {/* <Input
@@ -162,7 +164,7 @@ export const BookEdit = (props) => {
                     name='soLuongConLai'
                     type="number"
 
-                    min="30"
+                    min={book.soLuongConLai}
                     max="99"
                     onKeyPress="if(this.value>99){this.value='99';}else if(this.value<0){this.value='0';}"
                     onChange={(e) => setSoLuongConLai(e.target.value)}

@@ -4,7 +4,7 @@ import { Input } from '../../components/UI/input';
 import { useDispatch, useSelector } from 'react-redux';
 import IndexHome from '../../components/Layout/Header/indexHome';
 import './user.css'
-import { updatetUserInfo } from '../../actions';
+import { updatePassword, updatetUserInfo } from '../../actions';
 import axiosIntance from '../../helpers/axios';
 export const UserInfo = (props) => {
 
@@ -15,6 +15,8 @@ export const UserInfo = (props) => {
     const [email, setemail] = useState('')
     const [soDienThoai, setsoDienThoai] = useState('')
     const [diaChi, setdiaChi] = useState('')
+    const [matKhauMoi, setMatKhauMoi] = useState('')
+    const [nhapLaiMatKhau, setNhapLaiMatKhau] = useState('')
     const dispatch = useDispatch();
     //   const user = useSelector(state => state.user);
     useEffect(() => {
@@ -40,20 +42,30 @@ export const UserInfo = (props) => {
     }, []);
 
     const [isOpen, setIsOpen] = React.useState(false);
-
+    const [isOpenModal, setIsOpenModal] = React.useState(false);
     const showModal = () => {
         setIsOpen(true);
+    };
+    const showModalPassword = () => {
+        setIsOpenModal(true);
     };
 
     const hideModal = () => {
         setIsOpen(false);
     };
     const updateInfo = (e) => {
-        const newinfo = { ...nguoiDung, tenNguoiDung, tenTaiKhoan, soDienThoai, diaChi }
+        const newinfo = { ...nguoiDung, tenNguoiDung, tenTaiKhoan, soDienThoai, diaChi, matKhauMoi, nhapLaiMatKhau }
         const { id } = props.match.params;
         dispatch(updatetUserInfo(id, newinfo))
         setnguoiDung(newinfo)
         setIsOpen(false)
+    }
+    const UpdatePassword = (e) => {
+        const newinfo = { ...nguoiDung, matKhauMoi, nhapLaiMatKhau }
+        const { id } = props.match.params;
+        dispatch(updatePassword(id, newinfo))
+        setnguoiDung(newinfo)
+        setIsOpenModal(false)
     }
     //console.log('người dùng 2', user)
 
@@ -85,6 +97,8 @@ export const UserInfo = (props) => {
                 {nguoiDung.diaChi}
                 <div />
                 <button onClick={showModal}>Edit</button>
+                <div />
+                <button onClick={showModalPassword}>Change Password</button>
             </div>
 
 
@@ -149,6 +163,42 @@ export const UserInfo = (props) => {
                 <Modal.Footer>
                     <button onClick={hideModal}>Cancel</button>
                     <button onClick={updateInfo}>Save</button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={isOpenModal} onHide={() => { setIsOpenModal(false); }}>
+                <Modal.Header>
+                    <Modal.Title>Thay đổi mật khẩu</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>Mật khẩu mới</div>
+                    <input
+                        Label="Mật khẩu mới"
+                        placeholder="Mật khẩu mới"
+                        value={matKhauMoi}
+                        name='matKhauMoi'
+                        type='password'
+
+                        // min="30"
+                        // max="99"
+                        onChange={(e) => setMatKhauMoi(e.target.value)}
+                    />
+                    <div>Nhập lại mật khẩu</div>
+                    <input
+                        Label="Nhập lại mật khẩu"
+                        placeholder="Nhập lại mật khẩu"
+                        value={nhapLaiMatKhau}
+                        name='nhapLaiMatKhau'
+                        type='password'
+
+                        // min="30"
+                        // max="99"
+                        onChange={(e) => setNhapLaiMatKhau(e.target.value)}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <button onClick={() => { setIsOpenModal(false); }}>Cancel</button>
+                    <button onClick={UpdatePassword}>Save</button>
                 </Modal.Footer>
             </Modal>
 

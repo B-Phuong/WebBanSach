@@ -71,3 +71,51 @@ export const updatetUserInfo = (id, newinfo) => {
         }
     }
 }
+
+export const getPayPal = () => {
+    //console.log(id);
+    return async (dispatch) => {
+        dispatch({ type: userContants.GET_PAYPAL });
+
+        const res = await axios.get(`user/pay`)
+        console.log('tổng tiền', res)
+        //const { message, error } = res.data;
+        if (res.status === 200) {
+            dispatch({
+                type: userContants.GET_PAYPAL,
+                payload: res.data.total
+            });
+        } else {
+            {
+                dispatch({
+                    type: userContants.GET_PAYPAL,
+                    payload: res.data//{ error: message || error }
+                });
+            }
+        }
+    }
+}
+
+export const updatePassword = (id, newinfo) => {
+    //console.log(id);
+    return async (dispatch) => {
+        dispatch({ type: userContants.UPDATE_PASSWORD });
+
+        const res = await axios.put(`user/${id}/editpassword`, { ...newinfo })
+        console.log('tổng tiền', res)
+        //const { message, error } = res.data;
+        if (res.status === 200) {
+            dispatch({
+                type: userContants.UPDATE_PASSWORD,
+                payload: res.data
+            });
+        } else {
+            {
+                dispatch({
+                    type: userContants.UPDATE_PASSWORD,
+                    payload: res.data//{ error: message || error }
+                });
+            }
+        }
+    }
+}

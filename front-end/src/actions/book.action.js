@@ -106,3 +106,25 @@ export const getBookByGenres = (genres) => {
 
     }
 }
+
+export const getTop10Book = () => {
+    return async dispatch => {
+        // const { id } = payload.params;
+
+        const res = await axios.get(`http://localhost:3000/book/top10`);
+
+        console.log('danh sách sách đã được lấy', res)
+        if (res.status === 200) {
+            dispatch({
+                type: bookConstants.GET_TOP10_BOOKS,
+                payload: res.data.top10
+            });
+        } else {
+            dispatch({
+                type: bookConstants.GET_TOP10_BOOKS,
+                payload: { error: res.data.message }
+            });
+        }
+
+    }
+}

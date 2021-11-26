@@ -87,7 +87,7 @@ const Book = (props) => {
                                                     {abook.tenSach}</span>
                                             </div>
                                             <div> <span className="price" >
-                                                <b>{Format(abook.giaTien)} đ</b></span></div>
+                                                <b>{Format(abook.giaTien)}</b></span></div>
 
 
                                         </Card>

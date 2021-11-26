@@ -53,6 +53,14 @@ export default (state = initState, action) => {
             };
 
             break;
+        case bookConstants.GET_TOP10_BOOKS:
+            state = {
+                ...state,
+                books: action.payload,
+                // error: action.payload[0].error
+            };
+
+            break;
     }
     return state;
 

@@ -13,7 +13,7 @@ import { AddBook, getAllCategories, getAllPublishers } from '../../../actions';
 export const BookAdd = (props) => {
 
     const dispatch = useDispatch();
-    //const book = useSelector(state => state.book);
+    const book = useSelector(state => state.book);
     const categories = useSelector(state => state.category.categories);
     const publishers = useSelector(state => state.publisher.publishers);
     const [tenSach, setTenSach] = useState('');
@@ -52,7 +52,7 @@ export const BookAdd = (props) => {
         console.log('>>sách mới:', newbook);
         //const update = JSON.stringify(updatebook)
         dispatch(AddBook(newbook));
-        props.history.push('/admin/book/all')
+        //props.history.push('/admin/book/all')
         //setSach(update)
 
     }
@@ -77,6 +77,7 @@ export const BookAdd = (props) => {
                     placeholder="Nhập giá tiền"
                     value={giaTien}
                     type="number"
+                    min="0"
                     onChange={(e) => setGiaTien(e.target.value)}
                 />
                 <Input
@@ -84,6 +85,7 @@ export const BookAdd = (props) => {
                     placeholder="Nhập phần trăm giảm giá"
                     value={giamGia}
                     type="number"
+                    min="0"
                     onChange={(e) => setGiamGia(e.target.value)}
                 />
                 {/* <Input
@@ -152,7 +154,7 @@ export const BookAdd = (props) => {
                     placeholder="Nhập số lượng"
                     value={soLuongConLai}
                     type="number"
-                    min="30"
+                    min="0"
                     onChange={(e) => setSoLuongConLai(e.target.value)}
                 />
 
