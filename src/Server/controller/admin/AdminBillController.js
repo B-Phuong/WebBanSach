@@ -1,9 +1,11 @@
 const { model } = require('mongoose')
 const Bill = require('../../model/Bill')
 class AdminBillController{
+  
     updateBill(req, res){
+      var a = 5
         Bill.updateOne(
-            { _id: req.params.id, "orderStatus.type": req.body.type },
+            { _id: req.body.id, "orderStatus.type": req.body.type },
             {
               $set: {
                 "orderStatus.$": [
