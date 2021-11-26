@@ -10,7 +10,7 @@ class BookController {
     // với re là reqiure và res là response
     //[GET] /book/show
     showAll(req, res) {
-        Book.find({})
+        Book.find({ daXoa: false })
             .populate('maNhaXuatBan')
             .populate('maDanhMucCon')
             .then(data => {

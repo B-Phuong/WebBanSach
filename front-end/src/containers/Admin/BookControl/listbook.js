@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom'
 import BookControl from './bookcontrol'
 import './bookcontrol.css'
 import { Modal } from 'react-bootstrap';
-import axios from 'axios';
+import { IoMdBrush, IoMdCloseCircleOutline } from 'react-icons/io';
+
 import axiosIntance from '../../../helpers/axios';
 
 
@@ -13,6 +14,7 @@ export const BookList = (props) => {
 
     const dispatch = useDispatch();
     const books = useSelector(state => state.book.books);
+    //const [sach, setSach] = useState('');
     const categories = useSelector(state => state.category.categories);
     const [ID, setID] = useState('')
     const [tenSach, setTenSach] = useState('')
@@ -25,6 +27,7 @@ export const BookList = (props) => {
         //     params
         // }
         dispatch(getAllBooks());
+        //setSach(books)
     }, []);
     const confirmDelete = () => {
         const id = ID;
@@ -36,8 +39,8 @@ export const BookList = (props) => {
             })
             .catch(err => console.log('Lỗi'))
         setIsOpen(false);
+        props.history.push('/admin/book/all')
     }
-
     const [isOpen, setIsOpen] = React.useState(false);
 
     // const showModal = () => {
@@ -83,8 +86,11 @@ export const BookList = (props) => {
                             <td>{book.soLuongConLai}</td>
                             <td>
                                 <span class="action_btn">
-                                    <NavLink to={`/admin/book/${book._id}/edit`}>Edit</NavLink>
-                                    <button onClick={() => { setIsOpen(true); setID(book._id); setTenSach(book.tenSach) }}>Remove</button>
+                                    <NavLink to={`/admin/book/${book._id}/edit`}><IoMdBrush></IoMdBrush></NavLink>
+                                    {/* <NavLink to={`/admin/book/${book._id}/edit`}>Edit</NavLink> */}
+
+                                    <IoMdCloseCircleOutline onClick={() => { setIsOpen(true); setID(book._id); setTenSach(book.tenSach) }}></IoMdCloseCircleOutline>
+                                    {/* <button onClick={() => { setIsOpen(true); setID(book._id); setTenSach(book.tenSach) }}>Remove</button> */}
                                     {/* <NavLink to={`/admin/book/${book._id}`}>Remove</NavLink> */}
                                 </span>
                             </td>
@@ -102,6 +108,8 @@ export const BookList = (props) => {
                     Bạn có chắc muốn xóa sách {tenSach}  không?
                 </Modal.Body>
                 <Modal.Footer>
+
+
                     <button className='btn-OK' onClick={confirmDelete}>Delete</button>
                     <button onClick={hideModal}>Cancel</button>
 

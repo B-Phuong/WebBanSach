@@ -4,7 +4,9 @@ const initState = {
     error: null,
     message: '',
     loading: false,
-    userinfor: null
+    userinfor: null,
+    totalCurrentBill: null,
+    paypal: null
 }
 export default (state = initState, action) => {
     switch (action.type) {
@@ -64,6 +66,18 @@ export default (state = initState, action) => {
                 ...state,
                 error: action.payload.error
 
+            }
+            break;
+        case userContants.GET_PAYPAL:
+            state = {
+                ...state,
+                totalCurrentBill: action.payload
+            }
+            break;
+        case userContants.UPDATE_PASSWORD:
+            state = {
+                ...state,
+                userinfor: action.payload
             }
             break;
 

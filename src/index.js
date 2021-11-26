@@ -6,7 +6,13 @@ const route = require('./Server/route');
 const db = require('./Server/config/database');
 const cors = require('cors');
 var bodyParser = require('body-parser');
+const paypal = require('paypal-rest-sdk');
 
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'AVSsoXfkVjr4Onhha6mdXf2yqOJcgxI1qL4nan3KSJTz7rDfHoOKtSA-OHmxNnZbED1GEkOOpDjBejy0',
+  'client_secret': 'EKKWhYhmNwIfyVhmNhNamNNk4Tz4gAeohafRWiAzhvsO8ZprgwbRXxFeke5b6mCD38wgVXI10H9c4q54'
+});
 app.use(bodyParser.urlencoded({ extended: false }))
 
 //Connect to DB

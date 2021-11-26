@@ -20,6 +20,8 @@ import User from './containers/User/user';
 import UserInfo from './containers/User/userinfo';
 
 import Donhang from './containers/Donhang/';
+import Chart from './containers/Admin/ChartControl/chart';
+import Payment from './containers/Payment/payment';
 
 
 function App() {
@@ -39,8 +41,9 @@ function App() {
       <Switch>
         <Route path="/" exact component={Book} />
         <Route path="/book/:id" component={BookDetail} />
-        <Route path="/user/:id" exact component={UserInfo} />
+        <Route path="/user/cartPayment" exact component={Payment} />
 
+        <Route path="/user/:id" exact component={UserInfo} />
 
         <PrivateRoute path="/admin" exact component={Home} />
         <Route path="/signin" component={Signin} />
@@ -49,8 +52,9 @@ function App() {
         <PrivateRoute path="/admin/book/add" component={BookAdd} />
         <PrivateRoute path="/admin/book/all" component={BookList} />
         <PrivateRoute path="/admin/book" component={BookControl} />
-       
-        <PrivateRoute path="/admin/orders" component={Donhang}/>
+
+        <PrivateRoute path="/admin/orders" component={Donhang} />
+        <PrivateRoute path="/admin/chart" component={Chart} />
         <Route path="/:theLoai" component={BookByGenres} />
       </Switch>
     </div>

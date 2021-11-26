@@ -15,6 +15,8 @@ export const Input = (props) => {
                 placeholder={props.placeholder}
                 value={props.value}
                 onChange={props.onChange}
+                min={props.min}
+                max={props.max}
 
             />
             <Form.Text className="text-muted">
