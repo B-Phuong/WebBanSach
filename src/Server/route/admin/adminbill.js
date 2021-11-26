@@ -4,7 +4,7 @@ const AdminBillController = require("../../controller/admin/AdminBillController"
 const router = express.Router();
 
 router.post(`/order/update`, requireSignin, superAdminMiddleware, AdminBillController.updateBill);
-router.get(
+router.post(
   `/order/getCustomerOrders`,
   requireSignin,
   superAdminMiddleware,

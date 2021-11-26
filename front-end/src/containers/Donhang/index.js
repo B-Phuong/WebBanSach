@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateOrder } from "../../actions";
 import Layout from "../../components/Layout";
 import Card from "../../components/UI/Card";
-import { Container, Form, Row, Col, Button } from 'react-bootstrap'
-import { getCustomerOrders } from "../../actions";
 import "./style.css";
 
 /**
