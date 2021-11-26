@@ -1,29 +1,6 @@
 import axios from "../helpers/axios";
 import { orderConstants } from "./constants";
 import { getInitialData } from "./initialData.action";
-export const getCustomerOrders = () => {
-  return async (dispatch) => {
-    dispatch({ type: orderConstants.GET_CUSTOMER_ORDER_REQUEST });
-    try {
-      const res = await axios.get("admin/order/getCustomerOrders");
-      if (res.status === 200) {
-        const { bills } = res.data;
-        dispatch({
-          type: orderConstants.GET_CUSTOMER_ORDER_SUCCESS,
-          payload: { bills },
-        });
-      } else {
-        const { error } = res.data;
-        dispatch({
-          type: orderConstants.GET_CUSTOMER_ORDER_FAILURE,
-          payload: { error },
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
 
 export const updateOrder = (payload) => {
   return async (dispatch) => {
