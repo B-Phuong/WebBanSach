@@ -42,6 +42,21 @@ class AdminController {
     }
   }
 
+  //[Get] /staff
+  listStaff(req, res, next) {
+    User.find({ vaiTro: "admin" })
+    .then(data => {
+        if (data.length != 0)
+            res.status(200).json(data)
+        else {
+            res.status(200).json({ message: 'Hiện không có sách nào' })
+        }//
+    }
+    )
+    .catch(err => {
+        res.status(500).json({ message: err || 'Lỗi hệ thống' });
+    })
+  }
   // Update a new idetified user by user id
   update(req, res) {
     if (!req.body) {

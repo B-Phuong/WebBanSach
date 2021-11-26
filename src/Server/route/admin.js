@@ -20,6 +20,8 @@ const upload = multer({ storage: storage });
 
 const adminController = require('../controller/AdminController');
 const bookController = require('../controller/BookController');
+router.post('/staff',  adminController.listStaff);
+// router.post('/staff', requireSignin, superAdminMiddleware, adminController.addStaff);
 router.post('/user/addStaff', requireSignin, superAdminMiddleware, adminController.addStaff);
 router.put('/user/blockuser/:id', requireSignin, superAdminMiddleware, adminController.block);
 router.get('/user/:id', requireSignin, superAdminMiddleware, adminController.find);
