@@ -5,6 +5,7 @@ export * from './user.action';
 
 export * from './book.action';
 export * from './staff.action';
+export * from './cart.action';
 
 export * from './publisher.action';
 export * from './category.action';

@@ -8,7 +8,7 @@ import PrivateRoute from './components/HOC/PrivateRoute';
 import { Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { isUserLoggedIn } from './actions';
-
+import CartPage from "./containers/Cart";
 import Book from './containers/Book';
 import BookDetail from './containers/BookDetail/detail';
 import BookControl from './containers/Admin/BookControl/bookcontrol';
@@ -44,6 +44,7 @@ function App() {
     <div className="App">
 
       <Switch>
+      <Route path="/cart" component={CartPage} />
       <Route path="/anh" exact component={Book} />
 
         <Route path="/" exact component={Book} />
