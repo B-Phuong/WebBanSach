@@ -27,11 +27,11 @@ export const StaffEdit = (props) => {
         axios.get(`/admin/staff/${id}`)
             .then(res => {
                 if (res.status === 200) {
-                    st = res.data[0]
+                    staff = res.data[0]
                     //setBook(res.data[0])
-                    setTenNguoiDung(st.tenNguoiDung)
-                    setTenTaiKhoan(st.tenTaiKhoan)
-                    setEmail(st.email)
+                    setTenNguoiDung(staff.tenNguoiDung)
+                    setTenTaiKhoan(staff.tenTaiKhoan)
+                    setEmail(staff.email)
                    
                     console.log('lấy chi tiết', res.data[0])
                 }
@@ -106,9 +106,9 @@ export const StaffEdit = (props) => {
                     Label="Email"
                     placeholder="Nhập Email"
                     value={email}
-                    type="text"
+                    type="email"
                     name='email'
-                    onChange={(e) => setGiamGia(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 {/* <Input
                     Label="Mô tả"

@@ -66,15 +66,15 @@ export const StaffAdd = (props) => {
                     Label="Mật khẩu"
                     placeholder="Nhập mật khẩu"
                     value={matKhau}
-                    type="text"
-                    onChange={(e) => setMatkhau(e.target.value)}
+                    type="password"
+                    onChange={(e) => setMatKhau(e.target.value)}
                 />
                 <Input
                     Label="Xác nhận mật khẩu"
                     placeholder="Nhập mật khẩu lần 2"
                     value={xacNhanMatKhau}
-                    type="text"
-                    onChange={(e) => setXacNhanMatkhau(e.target.value)}
+                    type="password"
+                    onChange={(e) => setXacNhanMatKhau(e.target.value)}
                 />
                 
                 
