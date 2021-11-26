@@ -4,7 +4,7 @@ const { initialData } = require('../../controller/admin/initialData');
 const router = express.Router();
 
 
-router.post('/initialdata', requireSignin, superAdminMiddleware , initialData);
+router.get('/initialdata', requireSignin, superAdminMiddleware , initialData);
 
 
 module.exports = router;

@@ -33,7 +33,10 @@ function App() {
     if(auth.authenticate){
       dispatch(getInitialData());
     }
+    
+
   }, [auth.authenticate]);
+
 
 
   return (
@@ -43,8 +46,6 @@ function App() {
         <Route path="/" exact component={Book} />
         <Route path="/book/:id" component={BookDetail} />
         <Route path="/user/:id" exact component={UserInfo} />
-
-
         <PrivateRoute path="/admin" exact component={Home} />
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
@@ -52,7 +53,6 @@ function App() {
         <PrivateRoute path="/admin/book/add" component={BookAdd} />
         <PrivateRoute path="/admin/book/all" component={BookList} />
         <PrivateRoute path="/admin/book" component={BookControl} />
-       
         <PrivateRoute path="/admin/orders" component={Donhang}/>
         <Route path="/:theLoai" component={BookByGenres} />
       </Switch>

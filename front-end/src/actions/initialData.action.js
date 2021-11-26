@@ -6,7 +6,7 @@ import {
   
   export const getInitialData = () => {
     return async (dispatch) => {
-      const res = await axios.post(`/admin/initialData`);
+      const res = await axios.get(`/admin/initialData`);
       if (res.status === 200) {
         const { bills } = res.data;
         dispatch({

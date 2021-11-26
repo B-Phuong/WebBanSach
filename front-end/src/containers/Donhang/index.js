@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateOrder } from "../../actions";
+import { updateOrder, getInitialData } from "../../actions";
 import Layout from "../../components/Layout";
 import Card from "../../components/UI/Card";
 import "./style.css";
@@ -13,6 +13,7 @@ import "./style.css";
 const Donhang = (props) => {
   const donHang = useSelector((state) => state.donHang);
   const [type, setType] = useState('');
+
   const dispatch = useDispatch();
   const onOrderUpdate = (_id) => {
     const payload = {
@@ -20,6 +21,7 @@ const Donhang = (props) => {
       type,
     };
     dispatch((updateOrder(payload)))
+   
   }
   const formatDate = (date) => {
     if (date) {
@@ -109,13 +111,17 @@ const Donhang = (props) => {
                 </select>
               </div>
               {/* button để confirm */}
-              <div style={{
-                padding: '0 50px',
-                boxSizing: 'border-box'
-              }}>
-                <button onClick={() => onOrderUpdate(chiTietDonHang._id)}>Đồng ý</button>
-              </div>
-              </div>
+              <div
+              style={{
+                padding: "0 50px",
+                boxSizing: "border-box",
+              }}
+            >
+              <button className="button" onClick={() => onOrderUpdate(chiTietDonHang._id)}>
+                Chấp nhận
+              </button>
+            </div>
+          </div>
           </Card>))
       }
 
