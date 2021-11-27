@@ -6,12 +6,13 @@ const { validationOders, isRequestValidated, validationUser } = require('../vali
 const hoaDonController = require('../controller/HoaDonController');
 const { requireSignin, userMiddleware } = require('../common-middleware');
 
+router.put('/:id/editpassword', requireSignin, userMiddleware, userController.editPassword);
 router.get('/purchase/:orderstatus', userController.getOrderByStatus);
 router.get('/pay', requireSignin, userMiddleware, userController.getPaypal);
 // router.post('/orders', validationOders, isRequestValidated, userController.orderBooks);
 router.get('/:id', requireSignin, userMiddleware, userController.info);
 router.put('/:id', validationUser, isRequestValidated, userController.edit);
-router.put('/:id/editpassword', requireSignin, userMiddleware, userController.editPassword);
+
 // router.delete('/delete/:id', userController.delete); 
 // router.get('/pay/success', (req, res) => {
 //     const payerId = req.query.PayerID;

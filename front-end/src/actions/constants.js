@@ -28,7 +28,8 @@ export const bookConstants = {
     PUT_EDIT_BOOK: 'PUT_EDIT_BOOK',
     POST_ADD_BOOK: 'POST_ADD_BOOK',
     GET_BOOK_BY_GENRES: 'GET_BOOK_BY_GENRES',
-    GET_TOP10_BOOKS: 'GET_TOP10_BOOKS'
+    GET_TOP10_BOOKS: 'GET_TOP10_BOOKS',
+    GET_ERROR: 'GET_ERORR'
 
 };
 export const categoryConstants = {

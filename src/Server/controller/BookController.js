@@ -17,12 +17,12 @@ class BookController {
                 if (data.length != 0)
                     res.status(200).json(data)
                 else {
-                    res.status(200).json({ message: 'Hiện không có sách nào' })
+                    res.status(200).json({ error: 'Hiện không có sách nào' })
                 }//
             }
             )
             .catch(err => {
-                res.status(500).json({ message: err || 'Lỗi hệ thống' });
+                res.status(500).json({ error: err || 'Lỗi hệ thống' });
             })
     }
     //[POST] /book/create
@@ -34,16 +34,16 @@ class BookController {
         Book.find({ tenSach: book.tenSach })
             .then(data => {
                 if (data.length != 0) {
-                    res.status(400).json('Tên sách bị trùng')
+                    res.status(400).json({ error: 'Tên sách bị trùng' })
                 }
                 else {
                     book.ISBN = Math.floor(10000000 + Math.random() * 9000000);
                     book.daXoa = false;
                     //const error = book.validateSync();
                     book.save()
-                        .then((book) => res.status(200).json(book))
+                        .then((book) => res.status(200).json({ book }))
                         .catch(error => {
-                            return res.status(400).json({ message: 'Lưu thất bại' })
+                            return res.status(400).json({ error: 'Lưu thất bại' })
                         })
 
                 }
@@ -60,7 +60,7 @@ class BookController {
         const book = new Book(req.body)
         Book.find({ "tenSach": book.tenSach })
             .then((data) => {
-                if (data.length > 1) res.status(400).json({ message: 'Trùng tên sách' })
+                if (data.length > 1) res.status(400).json({ error: 'Trùng tên sách' })
                 else {
                     // if(!book.tenSach || !book.giaTien !! !book.maNhaXuatBan || book.maDanh m)
                     Book.findByIdAndUpdate(req.params.id, book)
@@ -71,7 +71,7 @@ class BookController {
                         }
                         )
                         .catch(error => {
-                            return res.status(500).json({ message: 'Vui lòng thử lại' })
+                            return res.status(500).json({ error: 'Vui lòng thử lại' })
                             // res.status(500).json({ message: "Không tìm thấy sách muốn sửa" || 'Lỗi hệ thống'});
                         })
                 }
@@ -85,21 +85,21 @@ class BookController {
             .then((data) => {
                 console.log((data))
                 if (data.length > 0)
-                    return res.status(200).json({ message: "Sách này đang trong giỏ hàng của khách hàng" })
+                    return res.status(200).json({ error: "Sách này đang trong giỏ hàng của khách hàng" })
                 else {
                     Book.findByIdAndUpdate(id, { daXoa: 'true' })
                         .then((book) => {
                             // if (data)
-                            res.status(200).json({ message: "Đã xóa sách  " + book.tenSach })
+                            res.status(200).json({ error: "Đã xóa sách  " + book.tenSach })
                             //else res.status(500).json({ message:"Không thể xóa"});
                         })
                         .catch(err => {
-                            res.status(500).json({ message: 'Không thể xóa, kiểm tra lại id' });
+                            res.status(500).json({ error: 'Không thể xóa, kiểm tra lại id' });
                         })
                     // res.status(400).json({ message: "" })
                 }
             })
-            .catch(err => { res.status(500).json({ message: 'Kiểm tra lại id sách' }) })
+            .catch(err => { res.status(500).json({ error: 'Kiểm tra lại id sách' }) })
 
     }
     //[GET] /search/:idTheLoai  //XEM SÁCH TƯƠNG ỨNG VỚI MỖI THỂ LOẠI
@@ -120,7 +120,7 @@ class BookController {
                 //else res.status(404).json({ message: err || 'Không tìm thấy sách thích hợp' })
             })
             .catch(err => {
-                res.status(500).json({ message: 'Không tìm thấy sách thích hợp' });
+                res.status(500).json({ error: 'Không tìm thấy sách thích hợp' });
             })
     }
     //[GET] /:id
@@ -132,7 +132,7 @@ class BookController {
                 res.status(200).json(data)
             })
             .catch(err => {
-                res.status(500).json({ message: 'Không tìm thấy thông tin sách' });
+                res.status(500).json({ error: 'Không tìm thấy thông tin sách' });
             })
 
     }

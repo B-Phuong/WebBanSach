@@ -40,7 +40,7 @@ export default (state = initState, action) => {
                 ...state,
                 books: [...state.books, action.payload],
                 bookDetails: action.payload,
-                // error: action.payload[0].error
+                // error: action.payload.error
             };
 
             break;
@@ -56,6 +56,15 @@ export default (state = initState, action) => {
             state = {
                 ...state,
                 books: action.payload,
+                // error: action.payload[0].error
+            };
+
+            break;
+
+        case bookConstants.GET_ERROR:
+            state = {
+                ...state,
+                error: action.payload,
                 // error: action.payload[0].error
             };
 

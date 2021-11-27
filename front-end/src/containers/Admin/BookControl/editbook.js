@@ -84,7 +84,7 @@ export const BookEdit = (props) => {
         //const update = JSON.stringify(updatebook)
         dispatch(putEditBook(id, updatebook));
         //setSach(update)
-        props.history.push('/admin/book/all')
+        // props.history.push('/admin/book/all')
     }
 
     // const [error, setError] = useState('');

@@ -40,19 +40,34 @@ class UserController {
   }
   //[PUT] /user/:id/editPassword
   editPassword(req, res, next) {
-    console.log(req.body)
+    User.findById(req.params.id)
+      .then(user => {
+        console.log('người dùng', user)
+        if (bcrypt.compareSync(req.body.matKhau, user.hash_matKhau)) {
+          if (req.body.matKhauMoi === req.body.nhapLaiMatKhau) {
+            const hashPassword = bcrypt.hashSync(req.body.matKhauMoi, 10);
+            User.findByIdAndUpdate(req.params.id, { hash_matKhau: hashPassword })
+              .then(res.status(200).json('Cập nhật thành công'))
+              .catch((err) => {
+                res.status(404).json('Cập nhật thất bại');
+              })
+          }
+          else {
+            res.status(500).json('Mật khẩu chưa đồng nhất');
 
-    if (req.body.matKhauMoi === req.body.nhapLaiMatKhau) {
-      const hashPassword = bcrypt.hashSync(req.body.matKhauMoi, 10);
-      User.findByIdAndUpdate(req.params.id, { hash_matKhau: hashPassword })
-        .then((data) => res.status(200).json({ message: 'Cập nhật thành công', data: data }))
-        .catch((err) => {
-          res.status(500).json({ message: 'Cập nhật thất bại' });
-        })
-    }
-    else {
-      res.status(500).json({ message: 'Mật khẩu chưa đồng nhất' });
-    }
+          }
+        }
+        else {
+          res.status(500).json('Mật khẩu chưa đúng');
+
+        }
+      })
+      .catch(err => {
+        err = new Error('Vui lòng thử lại');
+        // err = new Error('Hệ thống đang xử lý, hãy chờ giây lát');
+        err.statusCode = 500
+        return next(err)
+      })
 
 
 

@@ -16,6 +16,7 @@ export const UserInfo = (props) => {
     const [soDienThoai, setsoDienThoai] = useState('')
     const [diaChi, setdiaChi] = useState('')
     const [matKhauMoi, setMatKhauMoi] = useState('')
+    const [matKhau, setMatKhau] = useState('')
     const [nhapLaiMatKhau, setNhapLaiMatKhau] = useState('')
     const dispatch = useDispatch();
     //   const user = useSelector(state => state.user);
@@ -61,10 +62,12 @@ export const UserInfo = (props) => {
         setIsOpen(false)
     }
     const UpdatePassword = (e) => {
-        const newinfo = { ...nguoiDung, matKhauMoi, nhapLaiMatKhau }
+        const newinfo = { ...nguoiDung, matKhau, matKhauMoi, nhapLaiMatKhau }
         const { id } = props.match.params;
         dispatch(updatePassword(id, newinfo))
-        setnguoiDung(newinfo)
+        setMatKhauMoi('')
+        setMatKhau('')
+        setNhapLaiMatKhau('')
         setIsOpenModal(false)
     }
     //console.log('người dùng 2', user)
@@ -96,7 +99,7 @@ export const UserInfo = (props) => {
                 </div>
                 {nguoiDung.diaChi}
                 <div />
-                <button onClick={showModal}>Edit</button>
+                <button id='edit-btn' onClick={showModal}>Edit</button>
                 <div />
                 <button onClick={showModalPassword}>Change Password</button>
             </div>
@@ -171,6 +174,18 @@ export const UserInfo = (props) => {
                     <Modal.Title>Thay đổi mật khẩu</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    <div>Mật khẩu hiện tại</div>
+                    <input
+                        Label="Mật khẩu hiện tại"
+                        placeholder="Mật khẩu hiện tại"
+                        value={matKhau}
+                        name='matKhau'
+                        type='password'
+
+                        // min="30"
+                        // max="99"
+                        onChange={(e) => setMatKhau(e.target.value)}
+                    />
                     <div>Mật khẩu mới</div>
                     <input
                         Label="Mật khẩu mới"

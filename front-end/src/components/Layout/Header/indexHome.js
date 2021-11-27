@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo, homelogin, homesignout } from '../../../actions'
 import { NavLink, Link } from 'react-router-dom'
+
 /**
 * @author
 * @function Header
@@ -45,16 +46,18 @@ const IndexHome = (props) => {
     }) //mới thêm
     const renderLoggedInMenu = () => {
         return (
-            <DropdownMenu
-                menu={<a className="tenNguoiDung">Chào {auth.user.tenNguoiDung}</a>}
-                menus={[
-                    { label: 'Thông tin cá nhân', href: `/user/${auth.user._id}`, icon: null },
-                    { label: 'Chi tiết đơn hàng', href: '/user/cartPayment', icon: null },
-                    { label: "Logout", href: '/', icon: '', onClick: logout }
-                ]}
+            <>
 
-            />
+                <DropdownMenu
+                    menu={<a className="tenNguoiDung">Chào {auth.user.tenNguoiDung}</a>}
+                    menus={[
+                        { label: 'Thông tin cá nhân', href: `/user/${auth.user._id}`, icon: null },
+                        { label: 'Chi tiết đơn hàng', href: '/user/cartPayment', icon: null },
+                        { label: "Logout", href: '/', icon: '', onClick: logout }
+                    ]}
 
+                />
+            </>
         );
     }
 
