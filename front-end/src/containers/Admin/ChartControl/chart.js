@@ -12,7 +12,7 @@ import {
     CartesianGrid,
     Bar,
 } from "recharts";
-import { CategoryScale } from 'chart.js'
+//import { CategoryScale } from 'chart.js'
 import { getTop10Book } from '../../../actions';
 import Home from '../../Home';
 import './chart.css'

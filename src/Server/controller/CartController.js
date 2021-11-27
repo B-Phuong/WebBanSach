@@ -163,7 +163,7 @@ class CartController {
     let userId = req.user._id;
     await User.find({ _id: userId })
       .then((data) => {
-        if (data.length != 0) res.status(200).json({giohang: data[0].gioHang});
+        if (data.length != 0) res.status(200).json({cartItems: data[0].gioHang});
         else {
           res.status(200).json({ message: "Không tìm thấy user" });
         } //

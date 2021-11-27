@@ -5,6 +5,7 @@ import bookReducer from "./book.reducer";
 import categoryReducer from "./category.reducer";
 import donHangReducer from "./donhang.reducer";
 import publisherReducer from "./publisher.reducer";
+import cartReducer from './cart.reducer';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     category: categoryReducer,
     book: bookReducer,
     donHang: donHangReducer,
-    publisher: publisherReducer
+    publisher: publisherReducer,
+    cart: cartReducer
 
 });
 

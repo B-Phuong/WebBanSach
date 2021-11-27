@@ -20,6 +20,11 @@ const upload = multer({ storage: storage });
 
 const adminController = require('../controller/AdminController');
 const bookController = require('../controller/BookController');
+const { validateSignupStaffRequest} = require('../validators/auth');
+
+router.get('/staff', requireSignin, superAdminMiddleware, adminController.listStaff);
+router.post('/staff', requireSignin, superAdminMiddleware, adminController.signupStaff);
+router.get('/staff', requireSignin, superAdminMiddleware, adminController.listStaff);
 router.post('/user/addStaff', requireSignin, superAdminMiddleware, adminController.addStaff);
 router.put('/user/blockuser/:id', requireSignin, superAdminMiddleware, adminController.block);
 router.get('/user/:id', requireSignin, superAdminMiddleware, adminController.find);

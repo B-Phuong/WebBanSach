@@ -1,0 +1,84 @@
+.staff-content{
+    margin-left:250px
+}
+.staff-content .button{
+    background-color: aquamarine;
+    width: fit-content;
+    height: fit-content;
+}
+.list-staff{
+    width: 700px;
+    height: 300px;
+    margin-left:250px ;
+    border-radius: 4px;
+    background-color: whitesmoke;
+}
+.list-staff .staff{
+    float: left;
+}
+
+
+.table_responsive {
+    max-width: 900px;
+    border: 1px solid #00bcd4;
+    background-color: #efefef33;
+    padding: 15px;
+    overflow: auto;
+    margin-left: 250px;
+    border-radius: 4px;
+}
+
+.table_responsive table {
+    width: 100%;
+    font-size: 13px;
+    color: #444;
+    /* white-space: nowrap; */
+    border-collapse: collapse;
+}
+
+.table_responsive table th,
+table td {
+    border: 1px solid #00000017;
+    padding: 10px 15px;
+}
+
+
+.table_responsive table>tr>td>img {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 2px 6px #0003;
+}
+
+
+.action_btn {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+
+.action_btn:hover {
+    box-shadow: 0 3px 8px #0003;
+}
+
+
+.table_responsive table>tr {
+    background-color: #fff;
+    transition: 0.3s ease-in-out;
+}
+#form-editstaff, #form-addstaff{
+    margin-left:250px;
+    width: 900px;
+}
+textarea{
+    width:900px;
+    height: 150px
+}
+.btn-OK{
+    background: red;
+}

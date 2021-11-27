@@ -20,6 +20,7 @@ export default (state = initState, action) => {
             };
             break;
         case bookConstants.GET_DETAIL_BOOK:
+            console.log('té',action)
             state = {
                 ...state,
                 // loading: false,

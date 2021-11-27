@@ -1,6 +1,7 @@
 const User = require("../model/User");
 const { mutipleMongoseToObject } = require("../util/mongoose");
-
+const bcrypt = require("bcrypt");
+const shortid = require("shortid");
 class AdminController {
   // với re là require và res là response
   //[GET] /user/show
@@ -42,6 +43,21 @@ class AdminController {
     }
   }
 
+  //[Get] /staff
+  listStaff(req, res, next) {
+    User.find({ vaiTro: "admin" })
+    .then(data => {
+        if (data.length != 0)
+            res.status(200).json(data)
+        else {
+            res.status(200).json({ message: 'Hiện không có sách nào' })
+        }//
+    }
+    )
+    .catch(err => {
+        res.status(500).json({ message: err || 'Lỗi hệ thống' });
+    })
+  }
   // Update a new idetified user by user id
   update(req, res) {
     if (!req.body) {
@@ -120,7 +136,7 @@ class AdminController {
   // tạo tài khoản nhân viên
   // [POST] /admin/addstaff
   addStaff(req, res, next) {
-    
+      
     //kiểm tra các trường bắt buộc
     if (
       !req.body.tenNguoiDung ||
@@ -176,7 +192,44 @@ class AdminController {
       } );
   }
 
-   
+  async signupStaff(req, res) {
+    User.findOne({ email: req.body.email }).exec(async (error, user) => {
+      if(error) return res.status(400).json({error})
+        if (user)
+            return res.status(400).json({
+                error: "Tài khoản admin đã có người đăng ký",
+            });
+
+        const { tenNguoiDung, email, matKhau, xacNhanMatKhau } = req.body;
+        if(matKhau.trim() !== xacNhanMatKhau.trim()) {
+          return res.status(400).json({error: "Mật khẩu xác nhận không khớp", })
+        }
+        const hash_matKhau = await bcrypt.hash(matKhau, 10);
+        const _user = new User({
+            tenNguoiDung,
+            email,
+            hash_matKhau,
+            tenTaiKhoan: shortid.generate(),
+            vaiTro: 'admin'
+        });
+
+        _user.save((error, user) => {
+            if (error) {
+                return res.status(400).json({
+                    message: "Có gì đó không ổn",
+                });
+            }
+
+            if (user) {
+                return res.status(201).json({
+                    message: "Tài khoản admin được tạo thành công"
+                });
+            }
+        });
+    });
+}
+
+
 
   
 }
