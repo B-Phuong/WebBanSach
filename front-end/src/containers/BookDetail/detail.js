@@ -40,7 +40,7 @@ const BookDetail = (props) => {
                         <span>Tác giả:<> <b>{book.tacGia}</b></></span>
                     </div>
                     <div id='publisher'>
-                        <span>Nhà xuất bản:<> <b>{book.maNhaXuatBan.tenNhaXuatBan}</b></></span>
+                        <span>Nhà xuất bản:<> <b>{book.maNhaXuatBan.tenNhaXuatBan?book.maNhaXuatBan.tenNhaXuatBan:""}</b></></span>
                     </div>
 
                 </div>

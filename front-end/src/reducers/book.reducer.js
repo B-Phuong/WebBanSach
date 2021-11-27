@@ -6,7 +6,7 @@ const initState = {
     //pageRequest: false,
     //page: {},
     error: null,
-    bookDetails: {},
+    bookDetails: {maNhaXuatBan:{},},
     //loading: false,
 };
 

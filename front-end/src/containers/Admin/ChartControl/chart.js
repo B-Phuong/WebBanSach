@@ -55,21 +55,22 @@ export const Chart = () => {
                     <Tooltip />
                 </PieChart> */}
                 <BarChart
-                    width={500}
+                    width={1000}
                     height={300}
                     data={book}
                     margin={{
-                        top: 5,
-                        right: 30,
-                        left: 200,
+                        top: 20,
+                        right: 50,
+                        left: 300,
                         bottom: 5,
                     }}
-                    barSize={30}
+                    barSize={20}
                 >
                     <XAxis
                         dataKey="tenSach"
                         scale="" //"point"
-                        padding={{ left: 5, right: 5 }}
+                        padding={{ left: 10, right: 50 }}
+                        ticks =  {[1,2,3,4,5,6,7,8,9,10]}
                     />
                     <YAxis />
                     <Tooltip />
