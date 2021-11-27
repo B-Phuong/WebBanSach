@@ -37,20 +37,21 @@ const CartPage = (props) => {
   }, [cart.cartItems]);
 
   useEffect(() => {
-    if (auth.authenticate) {
+  //  if (auth.authenticate) {
       dispatch(getCartItems());
-    }
+    //}
   }, [auth.authenticate]);
 
   const onQuantityIncrement = (_id, qty) => {
     //console.log({_id, qty});
-    const { name, price, img } = cartItems[_id];
-    dispatch(addToCart({ _id, name, price, img }, 1));
+   // const { tenSach, giaGoc, hinhAnh } = cartItems[_id];
+    //dispatch(addToCart({ _id, tenSach, giaGoc, hinhAnh }, 1));
+    dispatch(addToCart({ _id }, 1));
   };
 
   const onQuantityDecrement = (_id, qty) => {
-    const { name, price, img } = cartItems[_id];
-    dispatch(addToCart({ _id, name, price, img }, -1));
+    // const { tenSach, giaGoc, hinhAnh } = cartItems[_id];
+    dispatch(addToCart({ _id }, -1));
   };
 
   const onRemoveCartItem = (_id) => {
@@ -76,8 +77,8 @@ const CartPage = (props) => {
     <Layout>
       <div className="cartContainer" style={{ alignItems: "flex-start" }}>
         <Card
-          headerLeft={`My Cart`}
-          headerRight={<div>Deliver to</div>}
+          headerLeft={`Giỏ hàng`}
+          headerRight={<div>Số tiền</div>}
           style={{ width: "calc(100% - 400px)", overflow: "hidden" }}
         >
           {Object.keys(cartItems).map((key, index) => (
@@ -111,11 +112,11 @@ const CartPage = (props) => {
         </Card>
         <PriceDetails
           totalItem={Object.keys(cart.cartItems).reduce(function (qty, key) {
-            return qty + cart.cartItems[key].qty;
+            return qty + cart.cartItems[key].soLuong;
           }, 0)}
           totalPrice={Object.keys(cart.cartItems).reduce((totalPrice, key) => {
-            const { price, qty } = cart.cartItems[key];
-            return totalPrice + price * qty;
+            const { giaGoc, soLuong,giamGia } = cart.cartItems[key];
+            return giaGoc * soLuong * (100 - giamGia) /100;
           }, 0)}
         />
       </div>

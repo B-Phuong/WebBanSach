@@ -45,8 +45,8 @@ exports.validationCart = [
     check('soLuong')
         .notEmpty()
         .withMessage('Thiếu số lượng')
-        .isFloat({ min: 0 })
-        .withMessage('Sai định dạng kiểu số ( giá trị số nguyên >= 0 )')
+        // .isFloat({ min: 0 })
+        // .withMessage('Sai định dạng kiểu số ( giá trị số nguyên >= 0 )')
 ]
 
 exports.validationOders = [

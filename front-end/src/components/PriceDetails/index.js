@@ -8,7 +8,7 @@ import Card from "../../components/UI/Card";
 
 const PriceDetails = (props) => {
   return (
-    <Card headerLeft={"Price Details"} style={{ maxWidth: "380px" }}>
+    <Card headerLeft={"Chi tiết giá"} style={{ maxWidth: "380px" }}>
       <div
         style={{
           padding: "20px",
@@ -16,15 +16,15 @@ const PriceDetails = (props) => {
         }}
       >
         <div className="flexRow sb" style={{ margin: "10px 0" }}>
-          <div>Price ({props.totalItem} items)</div>
+          <div>Giá ({props.totalItem} món)</div>
           <div>{props.totalPrice}</div>
         </div>
         <div className="flexRow sb" style={{ margin: "10px 0" }}>
-          <div>Delivery Charges</div>
+          <div>Phí giao hàng</div>
           <div>FREE</div>
         </div>
         <div className="flexRow sb" style={{ margin: "10px 0" }}>
-          <div>Total Amount</div>
+          <div>Tổng tiền</div>
           <div>{props.totalPrice}</div>
         </div>
       </div>

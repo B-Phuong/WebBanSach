@@ -7,33 +7,34 @@ import "./style.css";
  **/
 
 const CartItem = (props) => {
-  const [qty, setQty] = useState(props.cartItem.qty);
+  const [qty, setQty] = useState(props.cartItem.soLuong);
 
-  const { _id, name, price, img } = props.cartItem;
+  const { _id,maSach, tenSach, giaGoc,giamGia, hinhAnh,tongTien } = props.cartItem;
 
   const onQuantityIncrement = () => {
     setQty(qty + 1);
-    props.onQuantityInc(_id, qty + 1);
+    props.onQuantityInc(maSach, qty + 1);
   };
 
   const onQuantityDecrement = () => {
     if (qty <= 1) return;
     setQty(qty - 1);
-    props.onQuantityDec(_id, qty - 1);
+    props.onQuantityDec(maSach, qty - 1);
   };
 
   return (
     <div className="cartItemContainer">
       <div className="flexRow">
         <div className="cartProImgContainer">
-          <img src={img} alt={""} />
+          <img src={hinhAnh} alt={""} />
         </div>
         <div className="cartItemDetails">
           <div>
-            <p>{name}</p>
-            <p>Rs. {price}</p>
+            <p>{tenSach}</p>
+            <p>Giá gốc: {giaGoc} (-{giamGia}%) </p>
+            <p>Giá sau khi giảm: {giaGoc}  </p>
           </div>
-          <div>Delivery in 3 - 5 days</div>
+          <div>{tongTien}</div>
         </div>
       </div>
       <div
