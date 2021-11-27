@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import IndexHome from '../../components/Layout/Header/indexHome'
 import Layout from "../../components/Layout";
 import Card from "../../components/UI/Card";
 import CartItem from "./CartItem";
