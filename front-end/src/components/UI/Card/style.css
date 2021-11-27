@@ -1,6 +1,6 @@
 .card{
     width: 100%;
-    background: gray;
+    background: rgb(255, 255, 255);
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 0px !important;
     margin: 20px;
 }
@@ -8,10 +8,10 @@
     display: flex;
     justify-content: space-between;
     padding: 20px 20px;
-    border-bottom: 1px solid #da4040;
+    border-bottom: 1px solid #2874f0;
 }
 .card:hover{
-    background: cadetblue;
+    background: rgb(231, 254, 255);
 }
 /* .name  {
     font-size: 13px;

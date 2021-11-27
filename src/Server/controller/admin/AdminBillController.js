@@ -5,7 +5,7 @@ class AdminBillController{
     updateBill(req, res){
       var a = 5
         Bill.updateOne(
-            { _id: req.body.id, "orderStatus.type": req.body.type },
+            { _id: req.body._id, "orderStatus.type": req.body.type },
             {
               $set: {
                 "orderStatus.$": [

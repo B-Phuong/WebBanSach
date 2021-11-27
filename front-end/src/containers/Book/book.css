@@ -4,19 +4,23 @@
     max-height: 300px;
     margin: 10px
 }
-.name{
-    display:block; width: 300px;
-    color: #c7e3ee;
+.book:hover{
+    background: rgb(231, 254, 255);
+}
+.name, .name:link, .name:visited{
+    display: inline-block; width: 300px;
+    color: #000000;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: Ellipsis;
+    text-decoration: none;
 }
 .category{
     float: left;
     position: absolute;
     width:130px;
     margin-top: 10px;
-    background-color: cadetblue;
+    background-color: #2874f0;
     border-radius: 8px;   
 }
 .category  li{   
@@ -36,7 +40,7 @@
 }
 .category .sub-category{
     position: absolute;
-    background-color: cadetblue;
+    background-color: rgb(9, 104, 182);
     border-radius: 8px;
     font-weight: normal;
     left: 100px;

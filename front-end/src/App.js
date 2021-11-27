@@ -7,7 +7,7 @@ import Signup from './containers/Signup';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import { Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { isUserLoggedIn } from './actions';
+import { isUserLoggedIn, getInitialData } from './actions';
 
 import Book from './containers/Book';
 import BookDetail from './containers/BookDetail/detail';
@@ -30,7 +30,13 @@ function App() {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     }
+    if(auth.authenticate){
+      dispatch(getInitialData());
+    }
+    
+
   }, [auth.authenticate]);
+
 
 
   return (
@@ -40,8 +46,6 @@ function App() {
         <Route path="/" exact component={Book} />
         <Route path="/book/:id" component={BookDetail} />
         <Route path="/user/:id" exact component={UserInfo} />
-
-
         <PrivateRoute path="/admin" exact component={Home} />
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
@@ -49,7 +53,6 @@ function App() {
         <PrivateRoute path="/admin/book/add" component={BookAdd} />
         <PrivateRoute path="/admin/book/all" component={BookList} />
         <PrivateRoute path="/admin/book" component={BookControl} />
-       
         <PrivateRoute path="/admin/orders" component={Donhang}/>
         <Route path="/:theLoai" component={BookByGenres} />
       </Switch>

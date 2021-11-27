@@ -10,3 +10,4 @@ export * from './category.action';
 export * from './donhang.action';
 export * from './homeauth.action';
 
+export * from './initialData.action'
