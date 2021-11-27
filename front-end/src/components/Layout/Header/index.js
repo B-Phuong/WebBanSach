@@ -3,7 +3,6 @@ import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom'
 import { signout } from '../../../actions';
-import ErrorHandler from '../../Error/ErrorHandler';
 /**
 * @author
 * @function Header
@@ -41,7 +40,6 @@ export const Header = (props) => {
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" style={{ zIndex: 1 }}>
-            <ErrorHandler/>
             <Container fluid>
                 
 

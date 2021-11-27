@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { Input } from '../../../components/UI/input';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { NavLink } from 'react-router-dom'
 import BookControl from './bookcontrol'
 import './bookcontrol.css'
@@ -36,12 +37,12 @@ export const BookAdd = (props) => {
         dispatch(getAllPublishers())
     }, []);
 
-    const addBook = (e) => {
+    const addBook = async(e) => {
         e.preventDefault();
         let indexDM = document.getElementById('maDanhMucCon');
         let indexNXB = document.getElementById('maNhaXuatBan');
         //setGiaTri(index.options[index.selectedIndex].value);
-
+        setErrorMessage(err)
         const newbook = {
             tenSach,
             giaTien, giamGia, moTa, hinhAnh, tacGia, soLuongConLai,
@@ -52,10 +53,13 @@ export const BookAdd = (props) => {
         console.log('mã nhà xuất bản', newbook.maNhaXuatBan)
         console.log('>>sách mới:', newbook);
         //const update = JSON.stringify(updatebook)
-        dispatch(AddBook(newbook));
-        setErrorMessage(err)
-        //setmessageError(loi)
-        console.log('lỗi-----', errorMessage)
+        await dispatch(AddBook(newbook))
+        //await setErrorMessage(err)
+                //setmessageError(loi)
+        // if(errorMessage) {
+        //     console.log("CÓ lối rồi tiến")
+        //     await toast.success(errorMessage);
+        // }
         //props.history.push('/admin/book/all')
         //setSach(update)
 
@@ -169,7 +173,7 @@ export const BookAdd = (props) => {
                     Submit
                 </Button>
             </Form>
-
+            <ToastContainer />                    
         </>
 
 
