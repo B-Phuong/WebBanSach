@@ -99,9 +99,9 @@ export const UserInfo = (props) => {
                 </div>
                 {nguoiDung.diaChi}
                 <div />
-                <button id='edit-btn' onClick={showModal}>Edit</button>
+                <button className="button" onClick={showModal}>Chỉnh sửa</button>
                 <div />
-                <button onClick={showModalPassword}>Change Password</button>
+                <button className="button" onClick={showModalPassword}>Đổi mật khẩu</button>
             </div>
 
 
@@ -164,8 +164,8 @@ export const UserInfo = (props) => {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <button onClick={hideModal}>Cancel</button>
-                    <button onClick={updateInfo}>Save</button>
+                    <button className="button" onClick={hideModal}>Huỷ</button>
+                    <button className="button" onClick={updateInfo}>Lưu</button>
                 </Modal.Footer>
             </Modal>
 
@@ -212,8 +212,8 @@ export const UserInfo = (props) => {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <button onClick={() => { setIsOpenModal(false); }}>Cancel</button>
-                    <button onClick={UpdatePassword}>Save</button>
+                    <button className="button" onClick={() => { setIsOpenModal(false); }}>Huỷ</button>
+                    <button className="button" onClick={UpdatePassword}>Lưu</button>
                 </Modal.Footer>
             </Modal>
 

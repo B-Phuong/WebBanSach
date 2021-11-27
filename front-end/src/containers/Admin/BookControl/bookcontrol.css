@@ -16,7 +16,9 @@
 .list-book .book{
     float: left;
 }
-
+.form-add .book{
+    margin-left:250px
+}
 
 .table_responsive {
     max-width: 900px;

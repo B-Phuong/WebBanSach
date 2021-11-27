@@ -13,7 +13,14 @@
 }
 .info-user h3{
     background-color: #2874f0;
-    color: black;
+    color: rgb(255, 255, 255);
+    display: block;
+    font-size: 26px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight:lighter;
 }
 .info-user #name-user, #email-user, #account-user, #phone-user, #address-user{
     color: blue;
@@ -21,3 +28,14 @@
 .info-user #edit-btn{
     margin: 4px 0px;
 }
+.button {
+    background-color: #2874f0;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
