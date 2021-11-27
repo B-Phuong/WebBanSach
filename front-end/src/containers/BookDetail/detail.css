@@ -13,16 +13,16 @@ margin: 20px;
 
 #author{
     height: 50px;
-    border: 1px solid gray;
+    border: 1px solid whitesmoke;
 }
 #publisher{
   height: 50px;
-  border: 1px solid gray;
+  border: 1px solid whitesmoke;
 }
 #image{
 height: 300px;
 box-sizing:border-box;
-border: 1px solid gray;
+border: 1px solid rgb(255, 255, 255);
 background:white;
 }
 .tam{
@@ -35,7 +35,7 @@ background:white;
   height: 200px;
   float:left;
   width: 400px;
-  border: 1px solid gray;
+  border: 1px solid whitesmoke;
 }
 
 .detail-sidebar{
@@ -44,14 +44,14 @@ background:white;
     float: right;
     height: 400px;
     width: 600px;
-    border: 1px solid gray;
+    border: 1px solid whitesmoke;
 }
 .content{
   box-sizing: border-box;
   float: right;
   height: 200px;
   width: 600px;
-  border: 1px solid gray;
+  border: 1px solid whitesmoke;
 }
 #image img{
   height: 300px;
@@ -103,7 +103,7 @@ background:white;
   width: 1000px;
   margin: 20px;
   justify-content: center;
-  border: 1px solid gray;
+  border: 1px solid whitesmoke;
   background:whitesmoke;
 }
 
