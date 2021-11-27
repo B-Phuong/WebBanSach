@@ -103,6 +103,7 @@ height: 4px;
   font-weight: 500;
   font-size: 16px;
   cursor: pointer;
+  text-decoration: none;
 }
 .more, .tenNguoiDung {
   font-weight: bold;
@@ -111,9 +112,11 @@ height: 4px;
   align-items: center;
   margin: 0 10px;
   cursor: pointer;
+  text-decoration: none;
 }
 .cart {
   font-weight: bold;
+  text-decoration: none;
   color: #fff;
   display: flex;
   align-items: center;

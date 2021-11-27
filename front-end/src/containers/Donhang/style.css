@@ -10,7 +10,7 @@
     font-size: 12px;
 }
 .orderStatus.active{
-    background: #26A541;
+    background: #2874f0;
 }
 .orderStatus:last-child{
     width: 0;
@@ -24,7 +24,7 @@
     top: -5px;
 }
 .orderStatus .point.active{
-    background-color: #26A541;
+    background-color: #2874f0;
 }
 .orderInfo{
     height: 60px;
@@ -37,15 +37,15 @@
 }
 
 .title{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
 }
 .value{
-    font-size: 12px;
+    font-size: 13px;
     text-transform: capitalize;
 }
 .button {
-    background-color: #4CAF50;
+    background-color: #2874f0;
     border: none;
     color: white;
     text-align: center;
