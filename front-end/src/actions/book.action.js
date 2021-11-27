@@ -3,7 +3,8 @@ import { bookConstants } from "./constants";
 import axios from "../helpers/axios";
 // import axios from "axios";
 // const token = window.localStorage.getItem('token');
-
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export const getAllBooks = () => {
@@ -91,6 +92,7 @@ export const AddBook = (newbook) => {
             }
         }
         catch (err) {
+            await toast.error(err.response.data.error,{autoClose:2000});
             console.log('lỗi thêm sách', err.response.data.error)
             //error = err.response.data.error
             // setmessageError({
