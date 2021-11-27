@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { Input } from '../../../components/UI/input';
-//import {  } from '../../../actions';
+
 import { NavLink } from 'react-router-dom'
 import BookControl from './bookcontrol'
 import './bookcontrol.css'
@@ -13,7 +13,8 @@ import { AddBook, getAllCategories, getAllPublishers } from '../../../actions';
 export const BookAdd = (props) => {
 
     const dispatch = useDispatch();
-    //const book = useSelector(state => state.book);
+    const book = useSelector(state => state.book);
+    const err = useSelector(state => state.book.error)
     const categories = useSelector(state => state.category.categories);
     const publishers = useSelector(state => state.publisher.publishers);
     const [tenSach, setTenSach] = useState('');
@@ -23,7 +24,7 @@ export const BookAdd = (props) => {
     const [moTa, setMoTa] = useState('');
     const [tacGia, setTacGia] = useState('');
     const [soLuongConLai, setSoLuongConLai] = useState('');
-    // const [maNhaXuatBan, setMaNhaXuatBan] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     //const [maDanhMucCon, setMaDanhMucCon] = useState('');
     //const [giaTri, setGiaTri] = useState('')
 
@@ -52,7 +53,10 @@ export const BookAdd = (props) => {
         console.log('>>sách mới:', newbook);
         //const update = JSON.stringify(updatebook)
         dispatch(AddBook(newbook));
-        props.history.push('/admin/book/all')
+        setErrorMessage(err)
+        //setmessageError(loi)
+        console.log('lỗi-----', errorMessage)
+        //props.history.push('/admin/book/all')
         //setSach(update)
 
     }
@@ -63,6 +67,7 @@ export const BookAdd = (props) => {
     return (
         <>
             <BookControl />
+            {/* <ErrorHandler coLoi={''} /> */}
             <Form id='form-addbook' onSubmit={addBook} >
                 {/* <Form onSubmit={userSignp}> */}
                 <Input
@@ -77,6 +82,7 @@ export const BookAdd = (props) => {
                     placeholder="Nhập giá tiền"
                     value={giaTien}
                     type="number"
+                    min="0"
                     onChange={(e) => setGiaTien(e.target.value)}
                 />
                 <Input
@@ -84,6 +90,7 @@ export const BookAdd = (props) => {
                     placeholder="Nhập phần trăm giảm giá"
                     value={giamGia}
                     type="number"
+                    min="0"
                     onChange={(e) => setGiamGia(e.target.value)}
                 />
                 {/* <Input
@@ -152,7 +159,7 @@ export const BookAdd = (props) => {
                     placeholder="Nhập số lượng"
                     value={soLuongConLai}
                     type="number"
-                    min="30"
+                    min="0"
                     onChange={(e) => setSoLuongConLai(e.target.value)}
                 />
 

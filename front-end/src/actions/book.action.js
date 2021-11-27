@@ -47,41 +47,66 @@ export const getDetailBook = (id) => {
 }
 export const putEditBook = (id, newbook) => {
     return async dispatch => {
-        // const { id } = payload.params;
-        const res = await axios.put(`book/${id}`, { ...newbook });
+        try {
+            const res = await axios.put(`book/${id}`, { ...newbook });
 
-        console.log('>>>>cập nhật', newbook)
-        if (res.status === 200) {
-            dispatch({
-                type: bookConstants.PUT_EDIT_BOOK,
-                payload: res.data
-            });
-        } else {
-            dispatch({
-                type: bookConstants.PUT_EDIT_BOOK,
-                payload: { error: true }
-            });
+            console.log('>>>>cập nhật', newbook)
+            if (res.status === 200) {
+                dispatch({
+                    type: bookConstants.PUT_EDIT_BOOK,
+                    payload: res.data
+                });
+            }
+
         }
+        catch (err) {
+            {
+                console.log('lỗi edit sách', err.response.data.error)
+                //error = err.response.data.error
+                // setmessageError({
+                //     hasError: true,
+                //     message: err.response.data.error,
+                // })
+                dispatch({
+                    type: bookConstants.GET_ERROR,
+                    payload: err.response.data.error
+                });
+            }
+        }
+
 
     }
 }
 export const AddBook = (newbook) => {
     return async dispatch => {
-        // const { id } = payload.params;
-        const res = await axios.post(`http://localhost:3000/admin/book`, { ...newbook });
+        try {
+            const res = await axios.post(`http://localhost:3000/admin/book`, { ...newbook });
 
-        console.log('>>>>cập nhật', newbook)
-        if (res.status === 200) {
-            dispatch({
-                type: bookConstants.POST_ADD_BOOK,
-                payload: res.data.book
-            });
-        } else {
-            dispatch({
-                type: bookConstants.POST_ADD_BOOK,
-                payload: { error: res.data.message }
-            });
+            console.log('>>>>cập nhật', newbook)
+            if (res.status === 200) {
+                dispatch({
+                    type: bookConstants.POST_ADD_BOOK,
+                    payload: res.data.book
+                });
+            }
         }
+        catch (err) {
+            console.log('lỗi thêm sách', err.response.data.error)
+            //error = err.response.data.error
+            // setmessageError({
+            //     hasError: true,
+            //     message: err.response.data.error,
+            // })
+            dispatch({
+                type: bookConstants.GET_ERROR,
+                payload: err.response.data.error
+            });
+
+        }
+
+        // const { id } = payload.params;
+
+
 
     }
 }
@@ -100,6 +125,28 @@ export const getBookByGenres = (genres) => {
         } else {
             dispatch({
                 type: bookConstants.GET_BOOK_BY_GENRES,
+                payload: { error: res.data.message }
+            });
+        }
+
+    }
+}
+
+export const getTop10Book = () => {
+    return async dispatch => {
+        // const { id } = payload.params;
+
+        const res = await axios.get(`http://localhost:3000/book/top10`);
+
+        console.log('danh sách sách đã được lấy', res)
+        if (res.status === 200) {
+            dispatch({
+                type: bookConstants.GET_TOP10_BOOKS,
+                payload: res.data.top10
+            });
+        } else {
+            dispatch({
+                type: bookConstants.GET_TOP10_BOOKS,
                 payload: { error: res.data.message }
             });
         }

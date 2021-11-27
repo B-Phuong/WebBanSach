@@ -5,12 +5,12 @@ const { superAdminMiddleware } = require('../common-middleware');
 const { requireSignin } = require('../common-middleware');
 const multer = require("multer");
 //const shortid = require("shortid");
-//const path = require("path");
+const path = require("path");
 
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "src/Server/uploads");
+        cb(null, "src/Server/uploads")//)//"src/Server/uploads");
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + "-" + file.originalname);
