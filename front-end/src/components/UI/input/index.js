@@ -17,6 +17,7 @@ export const Input = (props) => {
                 onChange={props.onChange}
                 min={props.min}
                 max={props.max}
+                name = {props.name}
 
             />
             <Form.Text className="text-muted">

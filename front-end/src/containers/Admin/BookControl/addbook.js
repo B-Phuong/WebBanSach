@@ -9,6 +9,7 @@ import BookControl from './bookcontrol'
 import './bookcontrol.css'
 import { AddBook, getAllCategories, getAllPublishers } from '../../../actions';
 
+import axios from 'axios'
 
 
 export const BookAdd = (props) => {
@@ -22,12 +23,32 @@ export const BookAdd = (props) => {
     const [giaTien, setGiaTien] = useState('');
     const [giamGia, setGiamGia] = useState('');
     const [hinhAnh, setHinhAnh] = useState('');
+    const [filehinhAnh, setFileHinhAnh] = useState(null);
     const [moTa, setMoTa] = useState('');
     const [tacGia, setTacGia] = useState('');
     const [soLuongConLai, setSoLuongConLai] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     //const [maDanhMucCon, setMaDanhMucCon] = useState('');
     //const [giaTri, setGiaTri] = useState('')
+   
+   
+    const UploadFile = async() => {
+        
+        //await setHinhAnh(ramdom+'_'+hinhAnh)
+        const fd = new FormData();
+        fd.append('file',filehinhAnh,hinhAnh)
+        axios.post("http://localhost:3000/upload",fd,{
+            onUploadProgress : progressEvent => {
+                console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total*100)+ '%')
+            }
+        }).then((e) => {
+            //setHinhAnh(ramdom+'_'+hinhAnh)
+            console.log('Success')
+        })
+        .catch ((e) => {
+            console.error('Error', e)
+        })
+     }    
 
     useEffect(() => {
         dispatch(getAllCategories())
@@ -39,6 +60,9 @@ export const BookAdd = (props) => {
 
     const addBook = async(e) => {
         e.preventDefault();
+        await UploadFile()
+
+
         let indexDM = document.getElementById('maDanhMucCon');
         let indexNXB = document.getElementById('maNhaXuatBan');
         //setGiaTri(index.options[index.selectedIndex].value);
@@ -117,12 +141,16 @@ export const BookAdd = (props) => {
                     type="file"
                     accept=".jpg, .png"
                     Label="Hình ảnh"
-                    name='hinhAnh'
+                    name='file'
                     // value={''}
                     onChange={(event) => {
-                        console.log('tên hình:', event.target.files[0].name);
-                        setHinhAnh(event.target.files[0].name);
+                        console.log('file  hình:', event.target.files);
+                        //setHinhAnh(event.target.files[0].name);
+                        setFileHinhAnh(event.target.files[0]);
+                        console.log('file  hình2 :', filehinhAnh);
+                        setHinhAnh(Date.now() + '_' + event.target.files[0].name);
                     }}
+                    //onChange={ (e) => fileSeletectedHandler(e)}
                 // onChange={(e) => setHinhAnh(e.target.value)}
                 />
                 <Input
