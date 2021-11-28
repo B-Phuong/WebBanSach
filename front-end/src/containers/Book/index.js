@@ -82,7 +82,7 @@ const Book = (props) => {
 
                                                     width: '100%',
                                                     height: '250px'
-                                                }} src={abook.hinhAnh} alt="Ảnh bị lỗi hiển thị" />
+                                                }} src={`http://localhost:3000/images/${abook.hinhAnh}`} alt="logo192.png" />
                                                 <span className="name" >
                                                     {abook.tenSach}</span>
                                             </div>

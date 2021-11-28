@@ -60,7 +60,7 @@ export const BookAdd = (props) => {
 
     const addBook = async(e) => {
         e.preventDefault();
-        await UploadFile()
+        //await UploadFile()
 
 
         let indexDM = document.getElementById('maDanhMucCon');
@@ -77,7 +77,10 @@ export const BookAdd = (props) => {
         console.log('mã nhà xuất bản', newbook.maNhaXuatBan)
         console.log('>>sách mới:', newbook);
         //const update = JSON.stringify(updatebook)
-        await dispatch(AddBook(newbook))
+          //await setHinhAnh(ramdom+'_'+hinhAnh)
+    const fd = new FormData();
+    fd.append('file',filehinhAnh,hinhAnh)
+        await dispatch(AddBook(newbook,fd ))
         //await setErrorMessage(err)
                 //setmessageError(loi)
         // if(errorMessage) {

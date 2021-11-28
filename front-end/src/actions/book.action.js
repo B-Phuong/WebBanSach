@@ -6,6 +6,8 @@ import axios from "../helpers/axios";
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+   
+
 
 export const getAllBooks = () => {
     return async dispatch => {
@@ -78,17 +80,28 @@ export const putEditBook = (id, newbook) => {
 
     }
 }
-export const AddBook = (newbook) => {
+export const AddBook = (newbook,fd) => {
     return async dispatch => {
         try {
             const res = await axios.post(`http://localhost:3000/admin/book`, { ...newbook });
 
             console.log('>>>>cập nhật', newbook)
             if (res.status === 200) {
-                dispatch({
-                    type: bookConstants.POST_ADD_BOOK,
-                    payload: res.data.book
-                });
+                axios.post("http://localhost:3000/upload",fd,{
+                    onUploadProgress : progressEvent => {
+                        console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total*100)+ '%')
+                    }
+                }).then((e) => {
+                    //setHinhAnh(ramdom+'_'+hinhAnh)
+                    console.log('Success')
+                    dispatch({
+                        type: bookConstants.POST_ADD_BOOK,
+                        payload: res.data.book
+                    });
+                })
+                .catch ((e) => {
+                    console.error('Errorooo', e)
+                })
             }
         }
         catch (err) {
