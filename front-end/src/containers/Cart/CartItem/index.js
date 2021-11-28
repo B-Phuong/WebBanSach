@@ -15,7 +15,9 @@ const CartItem = (props) => {
     setQty(qty + 1);
     props.onQuantityInc(maSach, qty + 1);
   };
-
+  const onRemoveCartItem = () => {
+    props.onRemoveCartItem(maSach);
+  };
   const onQuantityDecrement = () => {
     if (qty <= 1) return;
     setQty(qty - 1);
@@ -49,12 +51,12 @@ const CartItem = (props) => {
           <input value={qty} readOnly />
           <button onClick={onQuantityIncrement}>+</button>
         </div>
-        <button className="cartActionBtn">save for later</button>
+       
         <button
           className="cartActionBtn"
-          onClick={() => props.onRemoveCartItem(_id)}
+          onClick={() => onRemoveCartItem()}
         >
-          Remove
+          Xóa
         </button>
       </div>
     </div>

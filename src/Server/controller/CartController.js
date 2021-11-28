@@ -5,6 +5,51 @@ const mongoose = require("mongoose");
 class CartController {
   // function
 
+
+  // xóa item khỏi giỏ hàng
+  async removeBookFromCart(req, res, next) {
+    //return res.status(200).json({ok: req})
+    var maSach = req.params.id
+    let userId = req.user._id;
+    // kiểm tra mã sách có phải ObjectId (String is of 12 bytes or a string of 24 hex)
+    // nếu không kiểm tra thì sẽ bị treo khi gửi request findById khi sai điều kiện: "String is of 12 bytes or a string of 24 hex "
+    if (!mongoose.isValidObjectId(maSach)) {
+      return res
+        .status(400)
+        .json({ message: "Mã sách Sai định dạng ObjectId" });
+    }
+    await User.findById({ _id: userId }) // sau này có token thì sữa lại lấy user từ token
+      .then(async (user) => {
+        if (!user)
+          return res.status(404).json({
+            status: 404,
+            message: "không tìm thấy Id User",
+          });
+        else {
+          // nếu giỏ hàng chưa có thì khởi tạo
+          var newCart;
+          if (!user.gioHang) newCart = [];
+          else newCart = user.gioHang.filter(x=> x.maSach !== maSach);
+          //kiểm tra nếu sản phẩm có ở giỏ hàng thì xóa
+          // if(user.gioHang[id])
+          await User.updateOne({ _id: userId }, { gioHang: newCart })
+          .then((cartUpdated) => {
+            return res
+              .status(200)
+              .json({
+                message: "Đã xóa Item trong giỏ hàng",
+                newCart,
+              });
+          })
+          .catch((err) => {
+            return res.status(400).json({ err });
+          });
+       
+        }
+      })
+      .catch((err) => res.status(400).json({ message: err }));
+  }
+
   // thêm sản phẩm vào giỏ hàng
   //[PUT] /cart/:iduser
   async addBookToCart(req, res, next) {

@@ -93,6 +93,7 @@ const MaterialButton = (props) => {
           backgroundColor: props.bgColor,
           color: props.textColor,
           fontSize: props.fontSize,
+          marginTop: 5
         }}
         onClick={onClick}
       >

@@ -4,7 +4,7 @@ import IndexHome from "../../components/Layout/Header/indexHome";
 import Layout from "../../components/Layout";
 import Card from "../../components/UI/Card";
 import CartItem from "./CartItem";
-import { addToCart, getCartItems, removeCartItem, getAllBooks, getAllCategories, getPayPal } from "../../actions";
+import { orderDefault, addToCart, getCartItems, removeCartItem, getAllBooks, getAllCategories, getPayPal } from "../../actions";
 import PriceDetails from "../../components/PriceDetails";
 
 import PayPal from "../Payment/Paypal";
@@ -63,6 +63,13 @@ const CartPage = (props) => {
     dispatch(addToCart({ _id }, 1));
   };
 
+  const onOrderDefault = (_id) => {
+    //console.log({_id, qty});
+    // const { tenSach, giaGoc, hinhAnh } = cartItems[_id];
+    //dispatch(addToCart({ _id, tenSach, giaGoc, hinhAnh }, 1));
+    dispatch(orderDefault({ _id }));
+  };
+
   const onQuantityDecrement = (_id, qty) => {
     // const { tenSach, giaGoc, hinhAnh } = cartItems[_id];
     dispatch(addToCart({ _id }, -1));
@@ -117,22 +124,23 @@ const CartPage = (props) => {
             }}
           >
             <div style={{ width: "250px" }}>
-              {/* <MaterialButton
-                title="PLACE ORDER"
-                onClick={() => props.history.push(`/checkout`)}
-              /> */}
+              <MaterialButton
+                title="Thanh toán khi nhận hàng"
+                onClick={() => orderDefault("ok")}
+              />
 
               <div className="payment-option">
                 {checkout ? (
                   <PayPal total={totalBill} />
                 ) : (
-                  <button
+                  <MaterialButton
+                  title="Thanh toán khi trực tuyến"
                     onClick={() => {
                       setCheckOut(true);
                     }}
-                  >
-                    Thanh toán trực tuyến
-                  </button>
+                 
+                   
+                  />
                 )}
               </div>
             </div>
@@ -144,7 +152,7 @@ const CartPage = (props) => {
           }, 0)}
           totalPrice={Object.keys(cart.cartItems).reduce((totalPrice, key) => {
             const { giaGoc, soLuong, giamGia } = cart.cartItems[key];
-            return (giaGoc * soLuong * (100 - giamGia)) / 100;
+            return totalPrice + (giaGoc * soLuong * (100 - giamGia)) / 100;
           }, 0)}
         />
       </div>
