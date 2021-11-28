@@ -23,6 +23,7 @@ const bookController = require('../controller/BookController');
 const { validateSignupStaffRequest} = require('../validators/auth');
 
 router.get('/staff', requireSignin, superAdminMiddleware, adminController.listStaff);
+router.delete('/staff/:id', requireSignin, superAdminMiddleware, adminController.deleteStaff);
 router.post('/staff', requireSignin, superAdminMiddleware, adminController.signupStaff);
 router.get('/staff', requireSignin, superAdminMiddleware, adminController.listStaff);
 router.post('/user/addStaff', requireSignin, superAdminMiddleware, adminController.addStaff);

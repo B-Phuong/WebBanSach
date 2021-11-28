@@ -37,15 +37,18 @@ const userSchema = new mongoose.Schema(
     diaChi: { type: String },
     soDienThoai: { type: String },
     anhDaiDien: { type: String },
-    gioHang: [{
-      maSach: { type: String, require: true },
-      tenSach: { type: String, require: true },
-      hinhAnh: { type: String, require: true },
-      soLuong: { type: Number, require: true },
-      tongTien: { type: Number, default: 0 },
-      giaGoc: { type: Number, require: true },
-      giamGia: { type: Number, require: true },
-    }],
+    gioHang: [
+      {
+        maSach: { type: String, require: true },
+        tenSach: { type: String, require: true },
+        hinhAnh: { type: String, require: true },
+        soLuong: { type: Number, require: true },
+        tongTien: { type: Number, default: 0 },
+        giaGoc: { type: Number, require: true },
+        giamGia: { type: Number, require: true },
+      },
+    ],
+    daXoa: { type: Boolean },
   },
   { timestamps: true }
 );
@@ -55,7 +58,6 @@ userSchema.methods = {
     return await bcrypt.compare(matKhau, this.hash_matKhau);
   },
 };
-
 
 // const user = new Schema({
 //     tenNguoiDung:  {type: String, maxlength: 50},
@@ -77,6 +79,5 @@ userSchema.methods = {
 //     conHoatDong: {type: Boolean, default: true},
 // },{timestamps: true});
 // module.exports = Mongoose.model('User', user)
-
 
 module.exports = mongoose.model("User", userSchema);

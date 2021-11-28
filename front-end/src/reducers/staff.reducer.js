@@ -12,7 +12,7 @@ const initState = {
 
 export default (state = initState, action) => {
     switch (action.type) {
-        case bookConstants.GET_ALL_STAFFS:
+        case staffConstants.GET_ALL_STAFFS:
             state = {
                 ...state,
                 // loading: false,

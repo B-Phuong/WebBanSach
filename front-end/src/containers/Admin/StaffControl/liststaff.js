@@ -72,6 +72,8 @@ export const StaffList = (props) => {
                         <th >Tên Người dùng</th>
                         <th>Email</th>
                         <th>Vai Trò</th>
+                        <th>Số điện thoại</th>
+                        <th>Tùy chọn</th>
                         
 
                     </tr>
@@ -81,6 +83,7 @@ export const StaffList = (props) => {
                             <td>{staff.tenNguoiDung}</td>
                             <td>{staff.email}</td>
                             <td>{staff.vaiTro}</td>
+                            <td>{staff.soDienThoai}</td>
                             <td>
                                 <span class="action_btn">
                                     <NavLink to={`/admin/staff/${staff._id}/edit`}><IoMdBrush></IoMdBrush></NavLink>
@@ -102,7 +105,7 @@ export const StaffList = (props) => {
                     <Modal.Title>Xóa thông tin nhân viên</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Bạn có chắc muốn xóa sách {tenNguoiDung}  không?
+                    Bạn có chắc muốn xóa {tenNguoiDung}  không?
                 </Modal.Body>
                 <Modal.Footer>
 

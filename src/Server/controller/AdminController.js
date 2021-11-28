@@ -45,7 +45,7 @@ class AdminController {
 
   //[Get] /staff
   listStaff(req, res, next) {
-    User.find({ vaiTro: "admin" })
+    User.find({ vaiTro: "admin", daXoa: false||null })
     .then(data => {
         if (data.length != 0)
             res.status(200).json(data)
@@ -200,7 +200,7 @@ class AdminController {
                 error: "Tài khoản admin đã có người đăng ký",
             });
 
-        const { tenNguoiDung, email, matKhau, xacNhanMatKhau } = req.body;
+        const { tenNguoiDung, email, matKhau,soDienThoai, xacNhanMatKhau } = req.body;
         if(matKhau.trim() !== xacNhanMatKhau.trim()) {
           return res.status(400).json({error: "Mật khẩu xác nhận không khớp", })
         }
@@ -209,6 +209,7 @@ class AdminController {
             tenNguoiDung,
             email,
             hash_matKhau,
+            soDienThoai,
             tenTaiKhoan: shortid.generate(),
             vaiTro: 'admin'
         });
@@ -229,7 +230,23 @@ class AdminController {
     });
 }
 
+deleteStaff(req, res) {
+  const id = req.params.id;
+  User.find({ _id: id })
+      .then( async (data) => {
+          console.log((data))
+          if (data.length > 0)
+            await User.findByIdAndUpdate({_id:id},{daXoa:true})
+            .then( data => {return res.status(200).json({error:"Đã Xóa"})})
+            .catch((err) => { return res.status(400).json({error:"Lỗi khi cập nhật"})})
+          else {
+              
+            return res.status(400).json({ err: "Không tìm thấy user" })
+          }
+      })
+      .catch(err => { res.status(500).json({ error: 'Kiểm tra lại id User' }) })
 
+}
 
   
 }

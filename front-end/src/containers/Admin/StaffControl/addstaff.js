@@ -19,6 +19,7 @@ export const StaffAdd = (props) => {
     const [email, setEmail] = useState('');
     const [matKhau, setMatKhau] = useState('');
     const [xacNhanMatKhau, setXacNhanMatKhau] = useState('');
+    const [soDienThoai, setSoDienThoai] = useState('');
     
 
 
@@ -29,7 +30,7 @@ export const StaffAdd = (props) => {
 
         const newstaff = {
             tenNguoiDung,
-            email, matKhau, xacNhanMatKhau,
+            email, matKhau, xacNhanMatKhau, soDienThoai
         }
 
         console.log('>>nhân viên mới:', newstaff);
@@ -61,6 +62,13 @@ export const StaffAdd = (props) => {
                     value={email}
                     type="email"
                     onChange={(e) => setEmail(e.target.value)}
+                />
+                <Input
+                    Label="Số điện thoại"
+                    placeholder="Nhập số điện thoại"
+                    value={soDienThoai}
+                    type="text"
+                    onChange={(e) => setSoDienThoai(e.target.value)}
                 />
                 <Input
                     Label="Mật khẩu"
