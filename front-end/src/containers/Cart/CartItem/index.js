@@ -13,10 +13,15 @@ const CartItem = (props) => {
 
   const onQuantityIncrement = () => {
     if(qty+1> soLuongConLai)
-    return
+    {
+      props.onQuantityInc(maSach, qty + 1);
+      return
+    }
+    
     var a = soLuongConLai
-    setQty(qty + 1);
+    
     props.onQuantityInc(maSach, qty + 1);
+    setQty(qty + 1);
   };
   const onRemoveCartItem = () => {
     props.onRemoveCartItem(maSach);
