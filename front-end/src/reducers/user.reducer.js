@@ -1,4 +1,4 @@
-import { userContants } from "../actions/constants"
+import { userContants, userOrderConstant } from "../actions/constants"
 
 const initState = {
     error: null,
@@ -6,7 +6,8 @@ const initState = {
     loading: false,
     userinfor: null,
     totalCurrentBill: null,
-    paypal: null
+    paypal: null,
+    bill:null
 }
 export default (state = initState, action) => {
     switch (action.type) {
@@ -15,20 +16,6 @@ export default (state = initState, action) => {
                 ...state,
                 message: action.payload
             }
-            break;
-            // case userContants.USER_REGISTER_SUCCESS:
-            //     state = {
-            //         ...state,
-            //         loading: false,
-            //         message: action.payload.message
-            //     }
-            //     break;
-            // case userContants.USER_REGISTER_FAILURE:
-            // state = {
-            //     ...state,
-            //     loading: false,
-            //     error: action.payload.error
-            // }
             break;
         case userContants.GET_USER_INFO:
             state = {
@@ -55,19 +42,6 @@ export default (state = initState, action) => {
                 userinfor: action.payload
             }
             break;
-            // case userContants.UPDATE_USER_INFO_SUCCESS:
-            //     state = {
-            //         ...state,
-            //         userinfor: action.payload,
-            //     }
-            //     break;
-            // case userContants.UPDATE_USER_INFO_FAIL:
-            //     state = {
-            //         ...state,
-            //         error: action.payload.error
-
-            //     }
-            break;
         case userContants.GET_PAYPAL:
             state = {
                 ...state,
@@ -78,6 +52,12 @@ export default (state = initState, action) => {
             state = {
                 ...state,
                 userinfor: action.payload
+            }
+            break;
+        case userOrderConstant.USER_ORDER_SUCCESS:
+            state = {
+                ...state,
+                bill: action.payload
             }
             break;
 

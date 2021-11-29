@@ -7,7 +7,7 @@ import Signup from './containers/Signup';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import { Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { isUserLoggedIn, getInitialData } from './actions';
+import { isUserLoggedIn, getInitialData, getuserBill } from './actions';
 
 
 import CartPage from "./containers/Cart";
@@ -29,6 +29,7 @@ import UserInfo from './containers/User/userinfo';
 import Donhang from './containers/Donhang/';
 import Chart from './containers/Admin/ChartControl/chart';
 import Payment from './containers/Payment/payment';
+import UserBill from './containers/UserBill/UserBill';
 
 
 
@@ -78,6 +79,8 @@ function App() {
         <PrivateRoute path="/admin/orders" component={Donhang} />
         <PrivateRoute path="/admin/chart" component={Chart} />
         <Route path="/:theLoai" component={BookByGenres} />
+
+        <PrivateRoute path="/user/bill" component={UserBill} />
       </Switch>
     </div>
   );

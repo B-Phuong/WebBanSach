@@ -85,3 +85,8 @@ export const cartConstants = {
     ORDER_ONLINE_FAILURE: "ORDER_ONLINE_FAILURE",
   };
   
+export const userOrderConstant ={
+    USER_ORDER_REQUEST:"USER_ORDER_REQUEST",
+    USER_ORDER_SUCCESS:"USER_ORDER_SUCCESS",
+    USER_ORDER_FAILURE:"USER_ORDER_FAILURE",
+}

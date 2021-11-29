@@ -54,7 +54,7 @@ const IndexHome = (props) => {
                     menu={<a className="tenNguoiDung">Chào {auth.user.tenNguoiDung}</a>}
                     menus={[
                         { label: 'Thông tin cá nhân', href: `/user/${auth.user._id}`, icon: null },
-                        { label: 'Chi tiết đơn hàng', href: '/user/cartPayment', icon: null },
+                        { label: 'Chi tiết đơn hàng', href: '/user/bill', icon: null },
                         { label: "Logout", href: '', icon: '', onClick: logout }
                     ]}
 
