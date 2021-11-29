@@ -5,7 +5,9 @@ import Card from "../../components/UI/Card";
  * @author
  * @function PriceDetails
  **/
-
+ const Format = (x) => {
+  return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
+ }
 const PriceDetails = (props) => {
   return (
     <Card headerLeft={"Chi tiết giá"} style={{ maxWidth: "380px" }}>
@@ -17,7 +19,7 @@ const PriceDetails = (props) => {
       >
         <div className="flexRow sb" style={{ margin: "10px 0" }}>
           <div>Giá ({props.totalItem} món)</div>
-          <div>{props.totalPrice}</div>
+          <div>{Format(props.totalPrice)}</div>
         </div>
         <div className="flexRow sb" style={{ margin: "10px 0" }}>
           <div>Phí giao hàng</div>
@@ -25,7 +27,7 @@ const PriceDetails = (props) => {
         </div>
         <div className="flexRow sb" style={{ margin: "10px 0" }}>
           <div>Tổng tiền</div>
-          <div>{props.totalPrice}</div>
+          <div>{Format(props.totalPrice)}</div>
         </div>
       </div>
     </Card>

@@ -6,6 +6,7 @@ import Card from "../../components/UI/Card";
 import CartItem from "./CartItem";
 import { orderDefault, addToCart, getCartItems, removeCartItem, getAllBooks, getAllCategories, getPayPal } from "../../actions";
 import PriceDetails from "../../components/PriceDetails";
+import { ToastContainer, toast } from 'react-toastify';
 
 import PayPal from "../Payment/Paypal";
 
@@ -63,11 +64,11 @@ const CartPage = (props) => {
     dispatch(addToCart({ _id }, 1));
   };
 
-  const onOrderDefault = (_id) => {
+  const onOrderDefault = () => {
     //console.log({_id, qty});
     // const { tenSach, giaGoc, hinhAnh } = cartItems[_id];
     //dispatch(addToCart({ _id, tenSach, giaGoc, hinhAnh }, 1));
-    dispatch(orderDefault({ _id }));
+    dispatch(orderDefault());
   };
 
   const onQuantityDecrement = (_id, qty) => {
@@ -126,7 +127,7 @@ const CartPage = (props) => {
             <div style={{ width: "250px" }}>
               <MaterialButton
                 title="Thanh toán khi nhận hàng"
-                onClick={() => orderDefault("ok")}
+                onClick={() => onOrderDefault()}
               />
 
               <div className="payment-option">
@@ -156,6 +157,7 @@ const CartPage = (props) => {
           }, 0)}
         />
       </div>
+      <ToastContainer /> 
     </Layout>
   );
 };

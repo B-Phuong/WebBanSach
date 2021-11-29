@@ -1,6 +1,7 @@
 import axios from "../helpers/axios";
 import { cartConstants } from "./constants";
 import store from "../store";
+import {  toast } from 'react-toastify';
 
 const getCartItems = () => {
   return async (dispatch) => {
@@ -79,7 +80,7 @@ export const addToCart = (product, newQty = 1) => {
 
 
 
-export const orderDefault = (products) => {
+export const orderDefault = () => {
   return async (dispatch) => {
     const {
       cart: { cartItems },
@@ -110,14 +111,18 @@ export const orderDefault = (products) => {
         //     soLuong: newQty,
         //   },      
         
-            Items: products,
-            
+           // Items: products,
+           listbooksOder :   cartItems,
+           diaChiGiaoHang : "Nhà phương",
+           phiGiaoHang: 0
         
       };
       console.log(payload);
-      const res = await axios.put(`/cart`, payload);
+      const res = await axios.post(`/hoadon/taohoadon`, payload);
       console.log(res);
       if (res.status === 200) {
+        await toast.success("Đặt hàng thành công",{autoClose:3000});
+
         dispatch(getCartItems());
       }
     } else {

@@ -23,7 +23,9 @@ const CartItem = (props) => {
     setQty(qty - 1);
     props.onQuantityDec(maSach, qty - 1);
   };
-
+  const Format = (x) => {
+    return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
+}
   return (
     <div className="cartItemContainer">
       <div className="flexRow">
@@ -33,10 +35,10 @@ const CartItem = (props) => {
         <div className="cartItemDetails">
           <div>
             <p>{tenSach}</p>
-            <p>Giá gốc: {giaGoc} (-{giamGia}%) </p>
-            <p>Giá sau khi giảm: {giaGoc}  </p>
+            <p>Giá gốc: {Format(giaGoc)} (-{giamGia}%) </p>
+            <p>Giá sau khi giảm: {Format(giaGoc)}  </p>
           </div>
-          <div>{tongTien}</div>
+          <div>{Format(tongTien)}</div>
         </div>
       </div>
       <div

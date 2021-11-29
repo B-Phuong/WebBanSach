@@ -51,8 +51,7 @@ export default (state = initState, action) => {
     case cartConstants.ORDER_DEFAULT_REQUEST:
       state = {
         ...state,
-        updatingCart: false,
-        error: action.payload.error,
+       //error: action.payload.error,
       };
       break;
     case cartConstants.ADD_TO_CART_FAILURE:
