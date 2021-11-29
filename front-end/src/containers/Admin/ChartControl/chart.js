@@ -37,6 +37,12 @@ export const Chart = () => {
         donHang.bills.forEach((item) => {
             totalAmount += item.tongTien
         })
+    
+    let tongDonHang = 0;
+    donHang&&
+        donHang.bills.forEach((item)=>{
+            tongDonHang = tongDonHang +1
+        })
     // { name: "Facebook", users: 2000000000 },
     // { name: "Instagram", users: 1500000000 },
     // { name: "Twiter", users: 1000000000 },
@@ -49,6 +55,10 @@ export const Chart = () => {
                     <div>
                         <p>
                             Doanh thu cửa hàng: <br /> {totalAmount} VND
+                            
+                        </p>
+                        <p>
+                            Tổng số đơn hàng: <br />{tongDonHang} Đơn hàng
                         </p>
                     </div>
                 </div>
