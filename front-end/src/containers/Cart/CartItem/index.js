@@ -9,9 +9,12 @@ import "./style.css";
 const CartItem = (props) => {
   const [qty, setQty] = useState(props.cartItem.soLuong);
 
-  const { _id,maSach, tenSach, giaGoc,giamGia, hinhAnh,tongTien } = props.cartItem;
+  const { _id,maSach, tenSach, giaGoc,giamGia, hinhAnh,tongTien, soLuongConLai } = props.cartItem;
 
   const onQuantityIncrement = () => {
+    if(qty+1> soLuongConLai)
+    return
+    var a = soLuongConLai
     setQty(qty + 1);
     props.onQuantityInc(maSach, qty + 1);
   };
@@ -52,6 +55,7 @@ const CartItem = (props) => {
           <button onClick={onQuantityDecrement}>-</button>
           <input value={qty} readOnly />
           <button onClick={onQuantityIncrement}>+</button>
+          <h4 style={{ margin: '10px',fontSize: '.875rem', color: '#757575'}}> {soLuongConLai} sản phẩm có sẵn </h4>
         </div>
        
         <button

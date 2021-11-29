@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema(
         tenSach: { type: String, require: true },
         hinhAnh: { type: String, require: true },
         soLuong: { type: Number, require: true },
+        soLuongConLai: { type: Number, require: true },
         tongTien: { type: Number, default: 0 },
         giaGoc: { type: Number, require: true },
         giamGia: { type: Number, require: true },

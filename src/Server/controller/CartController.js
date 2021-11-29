@@ -109,6 +109,7 @@ class CartController {
                         item.hinhAnh = data.hinhAnh;
                         item.giaGoc = data.giaTien;
                         item.giamGia = data.giamGia;
+                        item.soLuongConLai = data.soLuongConLai;
                         item.soLuong =
                           soLuongBanDauTrongGio + SoLuongCanThemVaoGio;
                         item.tongTien =
@@ -164,6 +165,7 @@ class CartController {
                       giaGoc: data.giaTien,
                       giamGia: data.giamGia,
                       soLuong: soLuong,
+                      soLuongConLai: data.soLuongConLai,
                       tongTien:
                         (data.giaTien - (data.giaTien * data.giamGia) / 100) *
                         soLuong,
