@@ -31,10 +31,6 @@ export const Chart = () => {
     console.log('top10', top10)
     console.log('book', book)
     const data = top10
-    // { name: "Facebook", users: 2000000000 },
-    // { name: "Instagram", users: 1500000000 },
-    // { name: "Twiter", users: 1000000000 },
-    // { name: "Telegram", users: 500000000 },
     return (
         <div>
             <Home />
@@ -70,7 +66,7 @@ export const Chart = () => {
                         dataKey="tenSach"
                         scale="" //"point"
                         padding={{ left: 10, right: 50 }}
-                        ticks =  {[1,2,3,4,5,6,7,8,9,10]}
+                        ticks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                     />
                     <YAxis />
                     <Tooltip />

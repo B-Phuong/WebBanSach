@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { Input } from '../../../components/UI/input';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { NavLink } from 'react-router-dom'
 import BookControl from './bookcontrol'
@@ -30,25 +30,25 @@ export const BookAdd = (props) => {
     const [errorMessage, setErrorMessage] = useState('');
     //const [maDanhMucCon, setMaDanhMucCon] = useState('');
     //const [giaTri, setGiaTri] = useState('')
-   
-   
-    const UploadFile = async() => {
-        
+
+
+    const UploadFile = async () => {
+
         //await setHinhAnh(ramdom+'_'+hinhAnh)
         const fd = new FormData();
-        fd.append('file',filehinhAnh,hinhAnh)
-        axios.post("http://localhost:3000/upload",fd,{
-            onUploadProgress : progressEvent => {
-                console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total*100)+ '%')
+        fd.append('file', filehinhAnh, hinhAnh)
+        axios.post("http://localhost:3000/upload", fd, {
+            onUploadProgress: progressEvent => {
+                console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + '%')
             }
         }).then((e) => {
             //setHinhAnh(ramdom+'_'+hinhAnh)
             console.log('Success')
         })
-        .catch ((e) => {
-            console.error('Error', e)
-        })
-     }    
+            .catch((e) => {
+                console.error('Error', e)
+            })
+    }
 
     useEffect(() => {
         dispatch(getAllCategories())
@@ -58,7 +58,7 @@ export const BookAdd = (props) => {
         dispatch(getAllPublishers())
     }, []);
 
-    const addBook = async(e) => {
+    const addBook = async (e) => {
         e.preventDefault();
         //await UploadFile()
 
@@ -77,12 +77,12 @@ export const BookAdd = (props) => {
         console.log('mã nhà xuất bản', newbook.maNhaXuatBan)
         console.log('>>sách mới:', newbook);
         //const update = JSON.stringify(updatebook)
-          //await setHinhAnh(ramdom+'_'+hinhAnh)
-    const fd = new FormData();
-    fd.append('file',filehinhAnh,hinhAnh)
-        await dispatch(AddBook(newbook,fd ))
+        //await setHinhAnh(ramdom+'_'+hinhAnh)
+        const fd = new FormData();
+        fd.append('file', filehinhAnh, hinhAnh)
+        await dispatch(AddBook(newbook, fd))
         //await setErrorMessage(err)
-                //setmessageError(loi)
+        //setmessageError(loi)
         // if(errorMessage) {
         //     console.log("CÓ lối rồi tiến")
         //     await toast.success(errorMessage);
@@ -153,7 +153,7 @@ export const BookAdd = (props) => {
                         console.log('file  hình2 :', filehinhAnh);
                         setHinhAnh(Date.now() + '_' + event.target.files[0].name);
                     }}
-                    //onChange={ (e) => fileSeletectedHandler(e)}
+                //onChange={ (e) => fileSeletectedHandler(e)}
                 // onChange={(e) => setHinhAnh(e.target.value)}
                 />
                 <Input
@@ -204,7 +204,7 @@ export const BookAdd = (props) => {
                     Submit
                 </Button>
             </Form>
-            <ToastContainer />                    
+            <ToastContainer />
         </>
 
 

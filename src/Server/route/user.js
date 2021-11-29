@@ -11,7 +11,7 @@ router.get('/purchase/:orderstatus', userController.getOrderByStatus);
 router.get('/pay', requireSignin, userMiddleware, userController.getPaypal);
 // router.post('/orders', validationOders, isRequestValidated, userController.orderBooks);
 router.get('/:id', requireSignin, userMiddleware, userController.info);
-router.put('/:id', requireSignin,validationUser, isRequestValidated, userController.edit);
+router.put('/:id', requireSignin, userMiddleware, validationUser, isRequestValidated, userController.edit);
 
 // router.delete('/delete/:id', userController.delete); 
 // router.get('/pay/success', (req, res) => {

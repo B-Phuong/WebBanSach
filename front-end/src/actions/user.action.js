@@ -1,28 +1,40 @@
 import axiosIntance from "../helpers/axios";
 import { authConstants, userContants } from "./constants"
 import axios from "../helpers/axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const signup = (user) => {
     console.log(user);
     return async (dispatch) => {
-        dispatch({ type: userContants.USER_REGISTER_REQUEST });
+        //dispatch({ type: userContants.USER_REGISTER });
+        try {
+            const res = await axios.post(`auth/signup`, {
+                ...user
+            })
 
-        const res = await axios.post(`auth/signup`, {
-            ...user
-        })
-        if (res.status === 201) {
-            const { message } = res.data;
-            dispatch({
-                type: userContants.USER_REGISTER_SUCCESS,
-                payload: { message }
-            });
-        } else {
-            if (res.status = 400) {
+            if (res.status === 201) {
+                const { message } = res.data;
+                console.log('lỗi đăng kí', res)
+                toast.success(message, { autoClose: 2000 });
                 dispatch({
-                    type: userContants.USER_REGISTER_FAILURE,
-                    payload: { error: res.data.error }
+                    type: userContants.USER_REGISTER,
+                    payload: message
                 });
             }
+
         }
+        catch (err) {
+            console.log('lỗi đăng kí')
+            toast.error(err.response.data.error, { autoClose: 2000 });
+            // dispatch({
+            //     type: userContants.GET_ERROR,
+            //     payload: res.data.error
+            // });
+
+
+        }
+
     }
 }
 
@@ -52,23 +64,31 @@ export const getUserInfo = (id) => {
 export const updatetUserInfo = (id, newinfo) => {
     console.log(id);
     return async (dispatch) => {
-        dispatch({ type: userContants.UPDATE_USER_INFO });
+        //dispatch({ type: userContants.UPDATE_USER_INFO });
+        try {
+            const res = await axios.put(`user/${id}`, { ...newinfo })
+            //const { message, error } = res.data;
 
-        const res = await axios.put(`user/${id}`, { ...newinfo })
-        const { message, error } = res.data;
-        if (res.status === 200) {
-            dispatch({
-                type: userContants.UPDATE_USER_INFO_SUCCESS,
-                payload: res.data
-            });
-        } else {
-            {
+            if (res.status === 200) {
+                await toast.success('Thành công', { autoClose: 2000 });
                 dispatch({
-                    type: userContants.UPDATE_USER_INFO_FAIL,
-                    payload: { error: message || error }
+                    type: userContants.UPDATE_USER_INFO,
+                    payload: res.data
                 });
             }
         }
+        catch (err) {
+            {
+                //console.log(err)
+                toast.error(err.response.data.error, { autoClose: 2000 });
+                // dispatch({
+                //     type: userContants.GET_ERROR,
+                //     payload: err.response.data.error
+                // });
+            }
+        }
+
+
     }
 }
 
@@ -99,23 +119,27 @@ export const getPayPal = () => {
 export const updatePassword = (id, newinfo) => {
     //console.log(id);
     return async (dispatch) => {
-        dispatch({ type: userContants.UPDATE_PASSWORD });
+        try {
+            dispatch({ type: userContants.UPDATE_PASSWORD });
 
-        const res = await axios.put(`user/${id}/editpassword`, { ...newinfo })
-        console.log('tổng tiền', res)
-        //const { message, error } = res.data;
-        if (res.status === 200) {
-            dispatch({
-                type: userContants.UPDATE_PASSWORD,
-                payload: res.data
-            });
-        } else {
-            {
+            const res = await axios.put(`user/${id}/editpassword`, { ...newinfo })
+            //console.log('tổng tiền', res)
+            //const { message, error } = res.data;
+            if (res.status === 200) {
+                await toast.success(res.data.message, { autoClose: 2000 });
                 dispatch({
                     type: userContants.UPDATE_PASSWORD,
-                    payload: res.data//{ error: message || error }
+                    payload: res.data
                 });
             }
         }
+        catch (err) {
+            {
+                await toast.error(err.response.data.error, { autoClose: 2000 });
+            }
+        }
+
+
+
     }
 }

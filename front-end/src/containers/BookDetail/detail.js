@@ -1,4 +1,4 @@
-import React, { useEffect , useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetailBook } from '../../actions';
 import IndexHome from '../../components/Layout/Header/indexHome'
@@ -8,6 +8,7 @@ const BookDetail = (props) => {
     const dispatch = useDispatch();
     const book = useSelector(state => state.book.bookDetails);
     const [qty, setQty] = useState(1);
+    // const [book, setBook] = useState('');
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
     // const { page } = product;
     useEffect(() => {
@@ -25,19 +26,23 @@ const BookDetail = (props) => {
         //     params
         // }
         dispatch(getDetailBook(id));
+        //setBook(books)
     }, []);
-    const AddQuatity= (e) => {
+    const AddQuatity = (e) => {
         if (qty + 1 > book.soLuongBan) return;
         setQty(qty + 1);
     }
-    const SubQuatity= (e) => {
+    const SubQuatity = (e) => {
         if (qty <= 1) return;
-    setQty(qty - 1);
-     }
-     const ChangeQuatity= (e) => {
-       
+        setQty(qty - 1);
+    }
+    const ChangeQuatity = (e) => {
+
         console.log("e.value")
-     }
+    }
+    const Format = (x) => {
+        return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
+    }
     return (
         <>
             <IndexHome />
@@ -45,27 +50,38 @@ const BookDetail = (props) => {
 
                 <div className='tam'>
                     <div id='image'>
-                        <img src={book.hinhAnh} />
+                        <img src={`http://localhost:3000/images/${book.hinhAnh}`} alt="Ảnh bị lỗi hiển thị" />
                     </div>
                     <div id='author'>
                         <span>Tác giả:<> <b>{book.tacGia}</b></></span>
                     </div>
                     <div id='publisher'>
-                        <span>Nhà xuất bản:<> <b>{book.maNhaXuatBan.tenNhaXuatBan?book.maNhaXuatBan.tenNhaXuatBan:""}</b></></span>
+                        <span>Nhà xuất bản:<> <b>{book.maNhaXuatBan.tenNhaXuatBan ? book.maNhaXuatBan.tenNhaXuatBan : ""}</b></></span>
                     </div>
 
                 </div>
 
 
                 <div className='detail-sidebar'>
-                    <h3 style={{ margin: '20px' }}>{book.tenSach}</h3>
+                    <h3 style={{ margin: '20px 20px 30px 20px' }}>{book.tenSach}</h3>
                     <div style={{ height: '50px', width: '550px', margin: '20px' }}>
-                        <h4> <b>{book.giaTien} đồng</b></h4>
+                        {
+                            book.giamGia > 0 ?
+                                <div className="price">
+                                    <span className="price_before_sale" ><b>{book.giaTien && Format(book.giaTien)}</b> </span>
+                                    <span className="price_after_sale" ><b>{book.giaTien && Format(book.giaTien * (1 - book.giamGia / 100))}</b></span>
+                                    <span className="sale_off_percent"><b>-{book.giamGia}%</b></span>
+                                </div>
+                                : <div className="price">
+                                    <span ><b>{book.giaTien && Format(book.giaTien)}</b> </span>
+                                    {/* <span className="price_after_sale" ><b>{Format(abook.giaTien * (1 - abook.giamGia * 100))}</b></span> */}
+                                </div>
+                        }
                     </div>
                     <div className="buttons_added">
                         <h4 >Số lượng </h4>
-                        <input className="minus is-form" type='button' value='-'onClick={SubQuatity}></input>
-                        <input className="input-qty" type='number' value = {qty} min="1" max="5" onChange={(e) => ChangeQuatity(e.target.value)}></input>
+                        <input className="minus is-form" type='button' value='-' onClick={SubQuatity}></input>
+                        <input className="input-qty" type='number' value={qty} min="1" max="5" onChange={(e) => ChangeQuatity(e.target.value)}></input>
                         <input className="plus is-form" type='button' value='+' onClick={AddQuatity}></input>
                     </div>
                     <div><h4 style={{ margin: '20px' }}>Số lượng bán: {book.soLuongBan}</h4></div>

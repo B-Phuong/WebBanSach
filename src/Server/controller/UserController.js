@@ -33,7 +33,7 @@ class UserController {
       })
       .catch((err) => {
         res.status(500).json({
-          message:
+          error:
             "Không thể tìm thấy sách bạn muốn chỉnh sửa" || "Lỗi hệ thống",
         });
       });
@@ -47,26 +47,23 @@ class UserController {
           if (req.body.matKhauMoi === req.body.nhapLaiMatKhau) {
             const hashPassword = bcrypt.hashSync(req.body.matKhauMoi, 10);
             User.findByIdAndUpdate(req.params.id, { hash_matKhau: hashPassword })
-              .then(res.status(200).json('Cập nhật thành công'))
+              .then(res.status(200).json({ message: 'Cập nhật thành công' }))
               .catch((err) => {
-                res.status(404).json('Cập nhật thất bại');
+                res.status(404).json({ error: 'Cập nhật thất bại' });
               })
           }
           else {
-            res.status(500).json('Mật khẩu chưa đồng nhất');
+            res.status(500).json({ error: 'Mật khẩu chưa đồng nhất' });
 
           }
         }
         else {
-          res.status(500).json('Mật khẩu chưa đúng');
+          res.status(500).json({ error: 'Mật khẩu chưa đúng' });
 
         }
       })
       .catch(err => {
-        err = new Error('Vui lòng thử lại');
-        // err = new Error('Hệ thống đang xử lý, hãy chờ giây lát');
-        err.statusCode = 500
-        return next(err)
+        res.status(500).json({ error: 'Vui lòng giữ lại' });
       })
 
 

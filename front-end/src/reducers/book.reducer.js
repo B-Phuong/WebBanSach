@@ -4,9 +4,8 @@ const initState = {
     books: [],
     // productsByPrice: {},
     //pageRequest: false,
-    //page: {},
     error: null,
-    bookDetails: {maNhaXuatBan:{},},
+    bookDetails: { maNhaXuatBan: {}, },
     //loading: false,
 };
 
@@ -20,7 +19,7 @@ export default (state = initState, action) => {
             };
             break;
         case bookConstants.GET_DETAIL_BOOK:
-            console.log('té',action)
+            //console.log('té',action)
             state = {
                 ...state,
                 // loading: false,
@@ -66,6 +65,22 @@ export default (state = initState, action) => {
             state = {
                 ...state,
                 error: action.payload,
+                // error: action.payload[0].error
+            };
+
+            break;
+        case bookConstants.GET_MESSAGE:
+            state = {
+                ...state,
+                message: action.payload,
+                // error: action.payload[0].error
+            };
+
+            break;
+        case bookConstants.DELETE_BOOK_BY_ID:
+            state = {
+                ...state,
+                bookDetails: action.payload,
                 // error: action.payload[0].error
             };
 

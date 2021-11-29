@@ -31,7 +31,7 @@ class AuthController {
 
                 if (user) {
                     return res.status(201).json({
-                        message: "Tài khoản admin được tạo thành công"
+                        error: "Tài khoản admin được tạo thành công"
                     });
                 }
             });
@@ -39,25 +39,25 @@ class AuthController {
     }
     signin(req, res) {
         User.findOne({ email: req.body.email })
-            .exec(async(error, user) => {
+            .exec(async (error, user) => {
                 if (error) return res.status(400).json({ error });
                 if (user) {
                     const isMatKhau = await user.authenticate(req.body.matKhau);
-                    if (isMatKhau &&  (user.vaiTro === 'super-admin' ||user.vaiTro === 'admin' )) {
-                        const token = jwt.sign({ _id: user._id, vaiTro:user.vaiTro }, JWT_SECRET, { expiresIn: '1h' });
+                    if (isMatKhau && (user.vaiTro === 'super-admin' || user.vaiTro === 'admin')) {
+                        const token = jwt.sign({ _id: user._id, vaiTro: user.vaiTro }, JWT_SECRET, { expiresIn: '1h' });
                         const { _id, tenNguoiDung, email, vaiTro } = user;
-                        res.cookie('token', token, {expiresIn: '1h'});
+                        res.cookie('token', token, { expiresIn: '1h' });
                         res.status(200).json({
                             token,
-                            user: {_id, tenNguoiDung, email, vaiTro}
+                            user: { _id, tenNguoiDung, email, vaiTro }
                         });
                     } else {
                         return res.status(400).json({
-                            message: 'Tên tài khoản và mật khẩu không đúng'
+                            error: 'Tên tài khoản và mật khẩu không đúng'
                         })
                     }
                 } else {
-                    return res.status(400).json({ message: "Có gì đó hông ổn" });
+                    return res.status(400).json({ error: "Có gì đó hông ổn" });
                 }
             });
     }

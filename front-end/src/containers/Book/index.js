@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBooks, getAllCategories } from '../../actions';
+import { getAllBooks, getAllCategories, getDetailBook } from '../../actions';
 import Card from '../../components/UI/Card';
 import Layout from '../../components/Layout';
 import IndexHome from '../../components/Layout/Header/indexHome'
@@ -18,7 +18,7 @@ const Book = (props) => {
     //  const [book, setBook] = useState([]);
     //const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [booksPerPage] = useState(9);
+    const [booksPerPage, setbooksPerPage] = useState(9);
 
 
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
@@ -81,14 +81,26 @@ const Book = (props) => {
                                                 <img style={{
 
                                                     width: '100%',
-                                                    height: '250px'
-                                                }} src={`http://localhost:3000/images/${abook.hinhAnh}`} alt="logo192.png" />
+                                                    height: '220px'
+                                                }} src={`http://localhost:3000/images/${abook.hinhAnh}`} alt="Ảnh bị lỗi hiển thị" />
                                                 <span className="name" >
                                                     {abook.tenSach}</span>
                                             </div>
-                                            <div> <span className="price" >
-                                                <b>{Format(abook.giaTien)}</b></span></div>
-
+                                            {abook.giamGia > 0 ?
+                                                <div className="price">
+                                                    <span className="price_before_sale" ><b>{Format(abook.giaTien)}</b> </span>
+                                                    <span className="price_after_sale" ><b>{Format(abook.giaTien * (1 - abook.giamGia / 100))}</b></span>
+                                                    <span className="sale_off_percent"><b>-{abook.giamGia}%</b></span>
+                                                </div>
+                                                :
+                                                <div className="price">
+                                                    <span ><b>{Format(abook.giaTien)}</b> </span>
+                                                    {/* <span className="price_after_sale" ><b>{Format(abook.giaTien * (1 - abook.giamGia * 100))}</b></span> */}
+                                                </div>
+                                            }
+                                            <div className='item-sold'>
+                                                <span><>Đã bán {abook.soLuongBan}</> </span>
+                                            </div>
 
                                         </Card>
                                     </div> </NavLink>
@@ -99,11 +111,21 @@ const Book = (props) => {
 
 
                     </div>
+                    <select id='bookPerPage'>
+                        <option value='9' onClick={() => setbooksPerPage(9)}>9</option>
+                        <option value='12' onClick={() => setbooksPerPage(12)}>12</option>
+                        <option value='15' onClick={() => setbooksPerPage(15)}>15</option>
+                    </select>
+                    <button onClick={() => {
+                        const value = document.getElementById('bookPerPage')
+                        setbooksPerPage(value.options[value.selectedIndex].value)
+                    }}>Xác nhận</button>
                     <Pagination
                         booksPerPage={booksPerPage}
                         totalBooks={books.length}
                         paginate={paginate}
                     />
+
 
                 </div>
 

@@ -3,6 +3,8 @@ import { staffConstants } from "./constants";
 import axios from "../helpers/axios";
 // import axios from "axios";
 // const token = window.localStorage.getItem('token');
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -47,42 +49,54 @@ export const getDetailStaff = (id) => {
 }
 export const putEditStaff = (id, newstaff) => {
     return async dispatch => {
-        // const { id } = payload.params;
-        const res = await axios.put(`admin/staff/${id}`, { ...newstaff });
+        try {
+            const res = await axios.put(`admin/staff/${id}`, { ...newstaff });
 
-        console.log('>>>>cập nhật', newstaff)
-        if (res.status === 200) {
-            dispatch({
-                type: staffConstants.PUT_EDIT_STAFF,
-                payload: res.data
-            });
-        } else {
+            console.log('>>>>cập nhật', newstaff)
+            if (res.status === 200) {
+                await toast.success('Cập nhật thành công', { autoClose: 2000 });
+                dispatch({
+                    type: staffConstants.PUT_EDIT_STAFF,
+                    payload: res.data
+                });
+            }
+        }
+        catch (err) {
+            await toast.success(err.response.data.error, { autoClose: 2000 });
             dispatch({
                 type: staffConstants.PUT_EDIT_STAFF,
                 payload: { error: true }
             });
         }
+        // const { id } = payload.params;
+
+
+
 
     }
 }
 export const AddStaff = (newstaff) => {
     return async dispatch => {
         // const { id } = payload.params;
-        const res = await axios.post(`http://localhost:3000/admin/staff`, { ...newstaff });
+        try {
+            const res = await axios.post(`http://localhost:3000/admin/staff`, { ...newstaff });
 
-        console.log('>>>>cập nhật', newstaff)
-        if (res.status === 200) {
+            console.log('>>>>cập nhật', newstaff)
+            if (res.status === 200) {
+                await toast.success(res.data.message, { autoClose: 2000 });
+                dispatch({
+                    type: staffConstants.POST_ADD_STAFF,
+                    payload: res.data.staff
+                });
+            }
+        }
+        catch (err) {
+            await toast.success(err.response.data.error, { autoClose: 2000 });
             dispatch({
                 type: staffConstants.POST_ADD_STAFF,
-                payload: res.data.staff
-            });
-        } else {
-            dispatch({
-                type: staffConstants.POST_ADD_STAFF,
-                payload: { error: res.data.message }
+                payload: { error: err.data.message }
             });
         }
-
     }
 }
 // export const getBookByGenres = (genres) => {

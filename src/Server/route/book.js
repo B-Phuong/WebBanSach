@@ -20,12 +20,13 @@ const upload = multer({ storage: storage });
 const bookController = require('../controller/BookController');
 
 router.get('/search/:theLoai', bookController.filterKindOfBook);
-router.get('/', bookController.showAll);
+
 // router.post('/', upload.single('hinhAnh'), validationBook, isRequestValidated, bookController.create);
 router.get('/top10', bookController.top10Books);
 router.get('/:id', bookController.detail);
-router.put('/:id', requireSignin, superAdminMiddleware, upload.single('hinhAnh'), validationBook, isRequestValidated, bookController.edit);
-router.delete('/:id', /*requireSignin, superAdminMiddleware,*/ bookController.delete);
+router.put('/:id', requireSignin, superAdminMiddleware,/* upload.single('hinhAnh'),*/ validationBook, isRequestValidated, bookController.edit);
+router.delete('/:id', requireSignin, superAdminMiddleware, bookController.delete);
+router.get('/', bookController.showAll);
 
 
 

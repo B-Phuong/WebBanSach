@@ -10,25 +10,25 @@ const initState = {
 }
 export default (state = initState, action) => {
     switch (action.type) {
-        case userContants.USER_REGISTER_REQUEST:
+        case userContants.USER_REGISTER:
             state = {
                 ...state,
-                loading: true
+                message: action.payload
             }
             break;
-        case userContants.USER_REGISTER_SUCCESS:
-            state = {
-                ...state,
-                loading: false,
-                message: action.payload.message
-            }
-            break;
-        case userContants.USER_REGISTER_FAILURE:
-            state = {
-                ...state,
-                loading: false,
-                error: action.payload.error
-            }
+            // case userContants.USER_REGISTER_SUCCESS:
+            //     state = {
+            //         ...state,
+            //         loading: false,
+            //         message: action.payload.message
+            //     }
+            //     break;
+            // case userContants.USER_REGISTER_FAILURE:
+            // state = {
+            //     ...state,
+            //     loading: false,
+            //     error: action.payload.error
+            // }
             break;
         case userContants.GET_USER_INFO:
             state = {
@@ -52,21 +52,21 @@ export default (state = initState, action) => {
         case userContants.UPDATE_USER_INFO:
             state = {
                 ...state,
-                loading: true,
+                userinfor: action.payload
             }
             break;
-        case userContants.UPDATE_USER_INFO_SUCCESS:
-            state = {
-                ...state,
-                userinfor: action.payload,
-            }
-            break;
-        case userContants.UPDATE_USER_INFO_FAIL:
-            state = {
-                ...state,
-                error: action.payload.error
+            // case userContants.UPDATE_USER_INFO_SUCCESS:
+            //     state = {
+            //         ...state,
+            //         userinfor: action.payload,
+            //     }
+            //     break;
+            // case userContants.UPDATE_USER_INFO_FAIL:
+            //     state = {
+            //         ...state,
+            //         error: action.payload.error
 
-            }
+            //     }
             break;
         case userContants.GET_PAYPAL:
             state = {
