@@ -17,10 +17,10 @@ export const Layout = (props) => {
                     <Container fluid>
                         <Col md={2} className="sidebar">
                             <ul>
+                                <li><NavLink to={`/admin/chart`}>Thống kê</NavLink></li>
                                 <li><NavLink to={`/admin/book`}>Quản lý sách</NavLink></li>
                                 <li><NavLink to={`/admin/staff`}>Quản lý nhân viên</NavLink></li>
-                                <li><NavLink to={`/admin/orders`}>Quản lý đơn hàng</NavLink></li>
-                                <li><NavLink to={`/admin/chart`}>Thống kê</NavLink></li>
+                                <li><NavLink to={`/admin/orders`}>Quản lý đơn hàng</NavLink></li>  
                             </ul>
                         </Col>
                         <Col md={10} style={{ marginLeft: 'auto' }}>
