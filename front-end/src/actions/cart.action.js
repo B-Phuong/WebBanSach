@@ -1,7 +1,7 @@
 import axios from "../helpers/axios";
 import { cartConstants } from "./constants";
 import store from "../store";
-import {  toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const getCartItems = () => {
   return async (dispatch) => {
@@ -30,16 +30,6 @@ export const addToCart = (product, newQty = 1) => {
       cart: { cartItems },
       auth,
     } = store.getState();
-    //console.log('action::products', products);
-    //const product = action.payload.product;
-    //const products = state.products;
-    // const qty = cartItems[product._id]
-    //   ? parseInt(cartItems[product._id].qty + newQty)
-    //   : 1;
-    // cartItems[product._id] = {
-    //   ...product,
-    //   qty,
-    // };
 
     if (auth.authenticate) {
       dispatch({ type: cartConstants.ADD_TO_CART_REQUEST });
@@ -53,17 +43,33 @@ export const addToCart = (product, newQty = 1) => {
         // cartItems:   {
         //     maSach: product._id,
         //     soLuong: newQty,
-        //   },      
-        
-            maSach: product._id,
-            soLuong: newQty,
-        
+        //   },
+
+        maSach: product._id,
+        soLuong: newQty,
       };
       console.log(payload);
-      const res = await axios.put(`/cart`, payload);
-      console.log(res);
-      if (res.status === 200) {
-        dispatch(getCartItems());
+      try {
+        const res = await axios.put(`/cart`, payload);
+        console.log(res);
+        if (res.status === 200) {
+          if (newQty == -1) {
+            await toast.success("Thay đổi số lượng thành công", {
+              autoClose: 3000,
+            });
+          } else
+            await toast.success("Thêm vào giỏ hàng thành công", {
+              autoClose: 3000,
+            });
+          dispatch(getCartItems());
+        } else {
+          await toast.error(
+            res.body.error ? res.body.error : "Lỗi khi thêm vào giỏ hàng",
+            { autoClose: 3000 }
+          );
+        }
+      } catch (err) {
+        await toast.error(err.response.data.error, { autoClose: 2000 });
       }
     } else {
       localStorage.setItem("cart", JSON.stringify(cartItems));
@@ -78,9 +84,7 @@ export const addToCart = (product, newQty = 1) => {
   };
 };
 
-
-
-export const orderDefault = () => {
+export const orderDefault = (info) => {
   return async (dispatch) => {
     const {
       cart: { cartItems },
@@ -109,19 +113,18 @@ export const orderDefault = () => {
         // cartItems:   {
         //     maSach: product._id,
         //     soLuong: newQty,
-        //   },      
-        
-           // Items: products,
-           listbooksOder :   cartItems,
-           diaChiGiaoHang : "Nhà phương",
-           phiGiaoHang: 0
-        
+        //   },
+
+        // Items: products,
+        listbooksOder: cartItems,
+        diaChiGiaoHang: "Nhà phương",
+        phiGiaoHang: 20000,
       };
       console.log(payload);
       const res = await axios.post(`/hoadon/taohoadon`, payload);
       console.log(res);
       if (res.status === 200) {
-        await toast.success("Đặt hàng thành công",{autoClose:3000});
+        await toast.success("Đặt hàng thành công", { autoClose: 3000 });
 
         dispatch(getCartItems());
       }

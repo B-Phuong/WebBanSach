@@ -1,18 +1,21 @@
 import React, { useEffect , useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDetailBook } from '../../actions';
+import { getDetailBook , addToCart} from '../../actions';
 import IndexHome from '../../components/Layout/Header/indexHome'
 import './detail.css'
+import { ToastContainer, toast } from 'react-toastify';
 
 const BookDetail = (props) => {
     const dispatch = useDispatch();
     const book = useSelector(state => state.book.bookDetails);
     const [qty, setQty] = useState(1);
+    const [idBook, setIdBook] = useState('');
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
     // const { page } = product;
     useEffect(() => {
         const { id } = props.match.params;
         console.log(id);
+        setIdBook(id)
         console.log('chi tiết sách ở trang chủ', book)
         // const payload = {
         //     params: {
@@ -26,8 +29,12 @@ const BookDetail = (props) => {
         // }
         dispatch(getDetailBook(id));
     }, []);
+    const onAddToCart = () => {
+      
+       dispatch(addToCart({_id:idBook},qty))
+    }
     const AddQuatity= (e) => {
-        if (qty + 1 > book.soLuongBan) return;
+        if (qty + 1 > book.soLuongConLai) return;
         setQty(qty + 1);
     }
     const SubQuatity= (e) => {
@@ -65,11 +72,13 @@ const BookDetail = (props) => {
                     <div className="buttons_added">
                         <h4 >Số lượng </h4>
                         <input className="minus is-form" type='button' value='-'onClick={SubQuatity}></input>
-                        <input className="input-qty" type='number' value = {qty} min="1" max="5" onChange={(e) => ChangeQuatity(e.target.value)}></input>
+                        <input className="input-qty" type='number' value={qty} min="1" max="5" onChange={(e) => ChangeQuatity(e.target.value)}></input>
                         <input className="plus is-form" type='button' value='+' onClick={AddQuatity}></input>
+                        <div><h4 style={{ margin: '10px',fontSize: '.875rem', color: '#757575'}}> {book.soLuongConLai} sản phẩm có sẵn</h4></div>
                     </div>
-                    <div><h4 style={{ margin: '20px' }}>Số lượng bán: {book.soLuongBan}</h4></div>
-                    <div className='button'>
+                    <div><h4 style={{ margin: '20px',fontSize: '15px'}}>Số lượng đã bán: {book.soLuongBan}</h4></div>
+                    
+                    <div className='button' onClick={onAddToCart}>
                         <span>Thêm vào giỏ hàng </span>
                     </div>
 
@@ -92,7 +101,7 @@ const BookDetail = (props) => {
                     <div style={{ margin: '20px' }}>Nội dung bình luận</div>
                 </div>
             </div>
-
+            <ToastContainer /> 
 
         </>
     )

@@ -16,14 +16,14 @@ class CartController {
     if (!mongoose.isValidObjectId(maSach)) {
       return res
         .status(400)
-        .json({ message: "Mã sách Sai định dạng ObjectId" });
+        .json({ error: "Mã sách Sai định dạng ObjectId" });
     }
     await User.findById({ _id: userId }) // sau này có token thì sữa lại lấy user từ token
       .then(async (user) => {
         if (!user)
           return res.status(404).json({
             status: 404,
-            message: "không tìm thấy Id User",
+            error: "không tìm thấy Id User",
           });
         else {
           // nếu giỏ hàng chưa có thì khởi tạo
@@ -60,7 +60,7 @@ class CartController {
     if (!mongoose.isValidObjectId(maSach)) {
       return res
         .status(400)
-        .json({ message: "Mã sách Sai định dạng ObjectId" });
+        .json({ error: "Mã sách Sai định dạng ObjectId" });
     }
 
     await User.findById({ _id: userId }) // sau này có token thì sữa lại lấy user từ token
@@ -68,7 +68,7 @@ class CartController {
         if (!user)
           return res.status(404).json({
             status: 404,
-            message: "không tìm thấy Id User",
+            error: "không tìm thấy Id User",
           });
         else {
           // nếu giỏ hàng chưa có thì khởi tạo
@@ -133,9 +133,8 @@ class CartController {
                     res
                       .status(400)
                       .json({
-                        message: "Không đủ số lượng",
-                        soLuongCoTheThem:
-                          data.soLuongConLai - soLuongBanDauTrongGio,
+                        error: `Không đủ số lượng, số lượng có thể thêm: ${data.soLuongConLai - soLuongBanDauTrongGio} `,
+                        
                       });
                   }
                 }

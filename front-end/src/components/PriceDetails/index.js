@@ -23,11 +23,11 @@ const PriceDetails = (props) => {
         </div>
         <div className="flexRow sb" style={{ margin: "10px 0" }}>
           <div>Phí giao hàng</div>
-          <div>FREE</div>
+          <div>{props.totalItem>0?"20.000 VND":"0 VND" }</div>
         </div>
         <div className="flexRow sb" style={{ margin: "10px 0" }}>
           <div>Tổng tiền</div>
-          <div>{Format(props.totalPrice)}</div>
+          <div>{Format(props.totalPrice > 0 ? props.totalPrice + 20000 : 0)}</div>
         </div>
       </div>
     </Card>

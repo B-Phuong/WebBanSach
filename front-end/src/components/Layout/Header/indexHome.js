@@ -166,7 +166,8 @@ const IndexHome = (props) => {
                     <div>
                         <a className="cart">
                             <IoIosCart />
-                            <span style={{ margin: '0 10px' }}>Giỏ hàng</span>
+                            <NavLink to="/cart" className="cart" >Giỏ hàng</NavLink>
+                            {/* <span style={{ margin: '0 10px' }}>Giỏ hàng</span> */}
                         </a>
                     </div>
                 </div>

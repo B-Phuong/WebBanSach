@@ -6,7 +6,7 @@ const { validateSignupRequest, isRequestValidated, validateSigninRequest } = req
 
 router.post('/signup',validateSignupRequest, isRequestValidated, AuthController.signup);
 router.post('/signin',validateSigninRequest, isRequestValidated, AuthController.signin);
-router.post('/signout', requireSignin, AuthController.signout);
+router.post('/signout', AuthController.signout);
 router.post('/profile', AuthController.requireSignin,(req,res)=>{
     res.status(200).json({user:'profile'})
 });

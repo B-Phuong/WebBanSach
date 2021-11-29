@@ -18,7 +18,7 @@ const Book = (props) => {
     //  const [book, setBook] = useState([]);
     //const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [booksPerPage] = useState(9);
+    const [booksPerPage,setBookPerPage] = useState(9);
 
 
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
@@ -35,6 +35,9 @@ const Book = (props) => {
     }, []);
     const Format = (x) => {
         return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
+    }
+    const changeSizePage = (e) =>{
+        setBookPerPage(e)
     }
     const indexOfLastBook = currentPage * booksPerPage;
     const indexOfFirstBook = indexOfLastBook - booksPerPage;
@@ -99,11 +102,20 @@ const Book = (props) => {
 
 
                     </div>
-                    <Pagination
+                   
+                    <div> kích thước trang: 
+                    <select name="cars" id="cars" margin="20px" onChange={(e)=>changeSizePage(e.target.value)} >
+                        <option value="9">9</option>
+                        <option value="16">16</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                    </select>
+                        <Pagination
                         booksPerPage={booksPerPage}
                         totalBooks={books.length}
                         paginate={paginate}
                     />
+                    </div> 
 
                 </div>
 

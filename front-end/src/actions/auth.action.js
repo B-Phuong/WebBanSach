@@ -1,6 +1,7 @@
 import axiosIntance from "../helpers/axios";
 import { authConstants } from "./constants"
 import axios from "../helpers/axios";
+import { browserHistory } from 'react-router';
 export const login = (user) => {
     console.log(user);
     return async (dispatch) => {
@@ -59,6 +60,7 @@ export const signout = () => {
         if (res.status === 200) {
             localStorage.clear();
             dispatch({type: authConstants.LOGOUT_SUCCESS});
+    
         } else {
             dispatch({
                 type: authConstants.LOGOUT_FAILURE,
