@@ -9,7 +9,9 @@ import "./style.css";
  * @author
  * @function Donhang
  **/
-
+ const Format = (x) => {
+  return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
+}
 const Donhang = (props) => {
   const donHang = useSelector((state) => state.donHang);
   const [type, setType] = useState('');
@@ -23,6 +25,7 @@ const Donhang = (props) => {
     dispatch((updateOrder(payload)))
    
   }
+  
   const formatDate = (date) => {
     if (date) {
       const d = new Date(date);
@@ -59,7 +62,7 @@ const Donhang = (props) => {
               <div>
                 <span className="title">Tổng giá tiền</span>
                 <br />
-                <span className="value">{chiTietDonHang.tongTien}</span>
+                <span className="value">{Format(chiTietDonHang.tongTien)}</span>
               </div>
               </div>
               <div

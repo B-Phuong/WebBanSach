@@ -79,7 +79,8 @@ export const BookAdd = (props) => {
         //const update = JSON.stringify(updatebook)
         //await setHinhAnh(ramdom+'_'+hinhAnh)
         const fd = new FormData();
-        fd.append('file', filehinhAnh, hinhAnh)
+        if(filehinhAnh!=null)
+            fd.append('file', filehinhAnh, hinhAnh)
         await dispatch(AddBook(newbook, fd))
         //await setErrorMessage(err)
         //setmessageError(loi)

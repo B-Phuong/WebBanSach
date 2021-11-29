@@ -224,7 +224,7 @@ class AdminController {
         }
 
         if (user) {
-          return res.status(201).json({
+          return res.status(200).json({
             message: "Tài khoản admin được tạo thành công"
           });
         }

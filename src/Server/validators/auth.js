@@ -7,8 +7,8 @@ exports.validateSignupRequest = [
         .isEmail()
         .withMessage('Bạn phải nhập đúng email'),
     check('matKhau')
-        .isLength({ min: 6 })
-        .withMessage('Mật khẩu phải trên 6 ký tự')
+        .isLength({ min: 8 })
+        .withMessage('Mật khẩu phải trên 8 ký tự')
 ]
 exports.validateSignupStaffRequest = [
     check('tenNguoiDung')
@@ -22,8 +22,8 @@ exports.validateSignupStaffRequest = [
     check('matKhau')
         .notEmpty()
         .withMessage('Mật khẩu bắt buộc')
-        .isLength({ min: 6 })
-        .withMessage('Mật khẩu phải trên 6 ký tự'),
+        .isLength({ min: 8 })
+        .withMessage('Mật khẩu phải trên 8 ký tự'),
     check('xacNhanMatKhau')
         .notEmpty()
         .withMessage('Xác nhận mật khẩu bắt buộc')
@@ -33,9 +33,7 @@ exports.validateSigninRequest = [
     check('email')
         .isEmail()
         .withMessage('Bạn phải nhập đúng email'),
-    check('matKhau')
-        .isLength({ min: 6 })
-        .withMessage('Mật khẩu phải trên 6 ký tự')
+    
 ]
 exports.isRequestValidated = (req, res, next) => {
     const errors = validationResult(req)

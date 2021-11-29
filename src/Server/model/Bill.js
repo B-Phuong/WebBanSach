@@ -39,6 +39,7 @@ const bill = new Schema(
     ],
     diaChiGiaoHang: { type: String, required: [true, "Chưa có địa chỉ giao hàng"] },
     phiGiaoHang: { type: Number, required: [true, "Chưa có phí giao hàng"] },
+    soDienThoai: { type: String, required: [true, "Số điện thoại"] },
   },
   { timestamps: true }
 );

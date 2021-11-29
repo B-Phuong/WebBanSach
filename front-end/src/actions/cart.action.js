@@ -55,17 +55,17 @@ export const addToCart = (product, newQty = 1) => {
         if (res.status === 200) {
           if (newQty == -1) {
             await toast.success("Thay đổi số lượng thành công", {
-              autoClose: 3000,
+              autoClose: 2000,
             });
           } else
             await toast.success("Thêm vào giỏ hàng thành công", {
-              autoClose: 3000,
+              autoClose: 2000,
             });
           dispatch(getCartItems());
         } else {
           await toast.error(
             res.body.error ? res.body.error : "Lỗi khi thêm vào giỏ hàng",
-            { autoClose: 3000 }
+            { autoClose: 2000 }
           );
         }
       } catch (err) {
@@ -117,20 +117,30 @@ export const orderDefault = (info) => {
 
         // Items: products,
         listbooksOder: cartItems,
-        diaChiGiaoHang: "Nhà phương",
+        diaChiGiaoHang: info.diaChiGiaoHang,
+        soDienThoai: info.soDienThoai,
         phiGiaoHang: 20000,
       };
       console.log(payload);
+      try{
       const res = await axios.post(`/hoadon/taohoadon`, payload);
       console.log(res);
       if (res.status === 200) {
-        await toast.success("Đặt hàng thành công", { autoClose: 3000 });
+        await toast.success("Đặt hàng thành công", { autoClose: 2000 });
 
         dispatch(getCartItems());
       }
+    }
+    catch (err) {
+      await toast.error(err.response.data.error, { autoClose: 2000 });
+    }
+
+
+
     } else {
       localStorage.setItem("cart", JSON.stringify(cartItems));
     }
+
 
     console.log("addToCart::", cartItems);
 

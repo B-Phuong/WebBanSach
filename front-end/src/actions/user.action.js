@@ -61,7 +61,7 @@ export const getUserInfo = (id) => {
     }
 }
 
-export const updatetUserInfo = (id, newinfo) => {
+export const updatetUserInfo = (id, newinfo,setNguoiDung) => {
     console.log(id);
     return async (dispatch) => {
         //dispatch({ type: userContants.UPDATE_USER_INFO });
@@ -70,6 +70,7 @@ export const updatetUserInfo = (id, newinfo) => {
             //const { message, error } = res.data;
 
             if (res.status === 200) {
+                setNguoiDung(newinfo)
                 await toast.success('Thành công', { autoClose: 2000 });
                 dispatch({
                     type: userContants.UPDATE_USER_INFO,

@@ -22,6 +22,23 @@ class UserController {
         });
       });
   }
+
+
+  getinfo(req, res) {
+    var userId = req.user._id
+    User.find({ _id: userId })
+      .select("-vaiTro -matKhau")
+      .then((data) => {
+        // if (data)
+        res.status(200).json(data);
+        // else res.status(400).json({ message: 'Không tìm thấy thông tin người dùng' })
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: "Không tìm thấy thông tin người dùng" || "Lỗi hệ thống",
+        });
+      });
+  }
   //[GET] /user/edit:id
   edit(req, res) {
     User.findByIdAndUpdate(req.params.id, req.body)
@@ -73,8 +90,26 @@ class UserController {
   // [GET] /user/purchase/:oderstatus
   // test --> http://localhost:3000/user/purchase/%C4%91ang%20giao
   getOrderByStatus(req, res, next) {
-    console.log(req.params.orderstatus);
-    Bill.find({ trangThai: req.params.orderstatus })
+    var { trangThai } = req.body;
+    let userId = req.user._id;
+    // switch(trangThai) {
+    //   case "ordered":
+    //     // code block
+    //     break;
+    //   case "packed":
+    //     // code block
+    //     break;
+    //   case "shipped":
+    //     // code block
+    //     break;
+    //   case "delivered":
+    //     // code block
+    //     break;
+    //   default:
+    //     // code block
+    // }
+    //Bill.find({maKhachHang:userId, trangThai: trangThai })
+    Bill.find({maKhachHang:userId})
       .then((oders) => {
         res.send({
           status: 200,
@@ -85,6 +120,7 @@ class UserController {
         res.status(500).json(err);
       });
   }
+
 
   // thanh toán  paypal
   // [POST] /user/pay

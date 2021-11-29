@@ -91,10 +91,10 @@ export const AddStaff = (newstaff) => {
             }
         }
         catch (err) {
-            await toast.success(err.response.data.error, { autoClose: 2000 });
+            await toast.error(err.response.data.error, { autoClose: 2000 });
             dispatch({
                 type: staffConstants.POST_ADD_STAFF,
-                payload: { error: err.data.message }
+                payload: { error: err.response.data.error }
             });
         }
     }

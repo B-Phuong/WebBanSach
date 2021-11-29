@@ -29,6 +29,9 @@ export const Chart = () => {
         setTop10(book)
         // setNameTop10(book.tenSach)
     }, [])
+    const Format = (x) => {
+        return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
+    }
     console.log('top10', top10)
     console.log('book', book)
     const data = top10
@@ -54,7 +57,7 @@ export const Chart = () => {
                 <div className="dashboardSummary">
                     <div>
                         <p>
-                            Doanh thu cửa hàng: <br /> {totalAmount} VND
+                            Doanh thu cửa hàng: <br /> {Format(totalAmount)} 
                             
                         </p>
                         <p>

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { validationBook, isRequestValidated } = require('../validators/value');
+const { validationBook, isRequestValidated ,valida} = require('../validators/value');
 const { superAdminMiddleware } = require('../common-middleware');
 const { requireSignin } = require('../common-middleware');
 const multer = require("multer");
@@ -24,7 +24,7 @@ const { validateSignupStaffRequest} = require('../validators/auth');
 
 router.get('/staff', requireSignin, superAdminMiddleware, adminController.listStaff);
 router.delete('/staff/:id', requireSignin, superAdminMiddleware, adminController.deleteStaff);
-router.post('/staff', requireSignin, superAdminMiddleware, adminController.signupStaff);
+router.post('/staff', requireSignin, superAdminMiddleware,validateSignupStaffRequest,isRequestValidated, adminController.signupStaff);
 router.get('/staff', requireSignin, superAdminMiddleware, adminController.listStaff);
 router.post('/user/addStaff', requireSignin, superAdminMiddleware, adminController.addStaff);
 router.put('/user/blockuser/:id', requireSignin, superAdminMiddleware, adminController.block);

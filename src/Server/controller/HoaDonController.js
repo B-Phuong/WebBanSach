@@ -1,5 +1,6 @@
 const Bill = require("../model/Bill");
 const Book = require("../model/Book");
+const User = require("../model/User");
 const { mutipleMongoseToObject } = require("../util/mongoose");
 
 class BillController {
@@ -15,7 +16,7 @@ class BillController {
   //  Book.find({_id:listIdBooks2}).then(data=> {return res.status(200).json({data})})
 
     var IdUser = req.user._id
-    const { listbooksOder , diaChiGiaoHang,phiGiaoHang} = req.body;
+    const { listbooksOder , diaChiGiaoHang,phiGiaoHang,soDienThoai} = req.body;
     if (!Array.isArray(listbooksOder)) {
       // nếu không phải là mảng danh sách book
       return res.status(400).json({
@@ -36,7 +37,7 @@ class BillController {
         
         // kiểm tra số lượng oder >
         if(listOderSort.length != listBook.length)
-        return res.status(400).json({message: `Kiểm tra lại mã sách, số lượng sách gửi yêu cầu: ${listOderSort.length}, số lượng sách tìm thấy ${listBook.length}`})
+        return res.status(400).json({error: `Kiểm tra lại mã sách, số lượng sách gửi yêu cầu: ${listOderSort.length}, số lượng sách tìm thấy ${listBook.length}`})
         let viTriKhongDuSoLuongSach = -1
         let checkAvailable = listBook.every((book, index) => {
           {
@@ -45,7 +46,7 @@ class BillController {
         }});
         console.log(viTriKhongDuSoLuongSach)
         if (!checkAvailable)
-          res.status(404).json({ message: `sách có mã ${listOderSort[viTriKhongDuSoLuongSach].maSach} Không đủ số lượng để đặt`,
+          res.status(404).json({ error: `sách có mã ${listOderSort[viTriKhongDuSoLuongSach].maSach} Không đủ số lượng để đặt`,
         soLuongConLai:  listBook[viTriKhongDuSoLuongSach].soLuongConLai});
         else {
           // tính tổng tiền
@@ -60,6 +61,7 @@ class BillController {
           // tạo hóa đơn
           var hoadon = new Bill();
           hoadon.phiGiaoHang = phiGiaoHang;
+          hoadon.soDienThoai = soDienThoai;
           hoadon.tongTien = tongtien + phiGiaoHang;
           hoadon.maKhachHang = IdUser;
           //var giatiensaugiam = (  - (  * listBook[index].giamGia) / 100) *  listOderSort[index].soLuong)
@@ -116,11 +118,13 @@ class BillController {
           let billQuery = Bill.find({})
           Promise.all([truSoluongSach,luuhoadon])
             .then((data) => {
-              res.status(200).json({
-                    status: 200,
-                    message: "Tạo hóa đơn thành công",
-                    data: data[1],
-              })
+              User.update({_id:IdUser},{gioHang: []})
+              .then((data2) => {res.status(200).json({
+                message: "Tạo hóa đơn thành công",
+                data: data[1],
+          })})
+          .catch((error)=>{res.status(400).json({error:"Lỗi khi tạo hóa đơn"})})
+              
             }) // lỗi khi lưu hóa đơn hoặc trừ số lượng sách bị lỗi
             .catch((err) => { return res.status(400).json({ error : err })})
         }

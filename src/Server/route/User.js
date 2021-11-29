@@ -9,8 +9,10 @@ const { requireSignin, userMiddleware } = require('../common-middleware');
 router.put('/:id/editpassword', requireSignin, userMiddleware, userController.editPassword);
 router.get('/purchase/:orderstatus', userController.getOrderByStatus);
 router.get('/pay', requireSignin, userMiddleware, userController.getPaypal);
+router.get('/bill', requireSignin, userMiddleware, userController.getOrderByStatus);
 // router.post('/orders', validationOders, isRequestValidated, userController.orderBooks);
 router.get('/:id', requireSignin, userMiddleware, userController.info);
+router.get('/', requireSignin, userMiddleware, userController.getinfo);
 router.put('/:id', requireSignin, userMiddleware, validationUser, isRequestValidated, userController.edit);
 
 // router.delete('/delete/:id', userController.delete); 

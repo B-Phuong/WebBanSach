@@ -38,13 +38,13 @@ const CartItem = (props) => {
     <div className="cartItemContainer">
       <div className="flexRow">
         <div className="cartProImgContainer">
-          <img src={hinhAnh} alt={""} />
+          <img src={`http://localhost:3000/images/${hinhAnh}`} alt={""} />
         </div>
         <div className="cartItemDetails">
           <div>
             <p>{tenSach}</p>
             <p>Giá gốc: {Format(giaGoc)} (-{giamGia}%) </p>
-            <p>Giá sau khi giảm: {Format(giaGoc)}  </p>
+            <p>Giá sau khi giảm: {Format(giaGoc * (100-giamGia)/100)}  </p>
           </div>
           <div>{Format(tongTien)}</div>
         </div>
