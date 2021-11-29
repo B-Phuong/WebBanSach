@@ -23,6 +23,7 @@ export const Chart = () => {
     const book = useSelector(state => state.book.books)
     const [top10, setTop10] = useState('')
     const [nameTop10, setNameTop10] = useState('')
+    const donHang = useSelector(state => state.donHang)
     useEffect(() => {
         dispatch(getTop10Book())
         setTop10(book)
@@ -31,6 +32,17 @@ export const Chart = () => {
     console.log('top10', top10)
     console.log('book', book)
     const data = top10
+    let totalAmount = 0;
+    donHang &&
+        donHang.bills.forEach((item) => {
+            totalAmount += item.tongTien
+        })
+    
+    let tongDonHang = 0;
+    donHang&&
+        donHang.bills.forEach((item)=>{
+            tongDonHang = tongDonHang +1
+        })
     // { name: "Facebook", users: 2000000000 },
     // { name: "Instagram", users: 1500000000 },
     // { name: "Twiter", users: 1000000000 },
@@ -38,30 +50,30 @@ export const Chart = () => {
     return (
         <div>
             <Home />
-            {/* <div >   style={{ textAlign: "center" }} */}
+            <center>
+                <div className="dashboardSummary">
+                    <div>
+                        <p>
+                            Doanh thu cửa hàng: <br /> {totalAmount} VND
+                            
+                        </p>
+                        <p>
+                            Tổng số đơn hàng: <br />{tongDonHang} Đơn hàng
+                        </p>
+                    </div>
+                </div>
+            </center>
+            <center><h5>THỐNG KÊ SỐ SÁCH BÁN CHẠY</h5></center>
             <div >
-                <h1>THỐNG KÊ</h1>
-                {/* <PieChart width={400} height={400} margin={200}>
-                    <Pie
-                        dataKey="soLuongBan" //users
-                        isAnimationActive={false}
-                        data={book}
-                        cx={200}
-                        cy={200}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        label
-                    />
-                    <Tooltip />
-                </PieChart> */}
+
                 <BarChart
                     width={1000}
                     height={300}
                     data={book}
                     margin={{
                         top: 20,
-                        right: 50,
-                        left: 300,
+                        right: 10,
+                        left: 400,
                         bottom: 5,
                     }}
                     barSize={20}
@@ -70,7 +82,7 @@ export const Chart = () => {
                         dataKey="tenSach"
                         scale="" //"point"
                         padding={{ left: 10, right: 50 }}
-                        ticks =  {[1,2,3,4,5,6,7,8,9,10]}
+                        ticks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                     />
                     <YAxis />
                     <Tooltip />
@@ -80,6 +92,7 @@ export const Chart = () => {
                 </BarChart>
 
             </div>
+
         </div>
     )
 }
