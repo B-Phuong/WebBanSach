@@ -3,29 +3,38 @@ import { bookConstants } from "./constants";
 import axios from "../helpers/axios";
 // import axios from "axios";
 // const token = window.localStorage.getItem('token');
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-   
 
 
 export const getAllBooks = () => {
     return async dispatch => {
+        try {
+            const res = await axios.get(`book`);
 
-        const res = await axios.get(`book`);
+            if (res.status === 200) {
+                dispatch({
+                    type: bookConstants.GET_ALL_BOOKS,
+                    payload: res.data
+                });
 
-        if (res.status === 200) {
-            dispatch({
-                type: bookConstants.GET_ALL_BOOKS,
-                payload: res.data
-            });
-        } else {
-            dispatch({
-                type: bookConstants.GET_ALL_BOOKS,
-                payload: { error: true }
-            });
+            } else if (res.status === 204) {
+                await toast.error(res.data.message, { autoClose: 2000 });
+                dispatch({
+                    type: bookConstants.GET_MESSAGE,
+                    payload: res.data.message
+                });
+            }
         }
-
+        catch (err) {
+            {
+                await toast.error(err.response.data.error, { autoClose: 2000 });
+                dispatch({
+                    type: bookConstants.GET_ERROR,
+                    payload: { error: true }
+                });
+            }
+        }
     }
 }
 
@@ -39,6 +48,7 @@ export const getDetailBook = (id) => {
                 type: bookConstants.GET_DETAIL_BOOK,
                 payload: res.data
             });
+
         } else {
             dispatch({
                 type: bookConstants.GET_DETAIL_BOOK,
@@ -48,22 +58,35 @@ export const getDetailBook = (id) => {
 
     }
 }
-export const putEditBook = (id, newbook) => {
+export const putEditBook = (id, newbook, fd) => {
     return async dispatch => {
         try {
             const res = await axios.put(`book/${id}`, { ...newbook });
 
             console.log('>>>>cập nhật', newbook)
-            if (res.status === 200) {
-                dispatch({
-                    type: bookConstants.PUT_EDIT_BOOK,
-                    payload: res.data
-                });
-            }
 
+            if (res.status === 200) {
+                axios.post("http://localhost:3000/upload", fd, {
+                    onUploadProgress: progressEvent => {
+                        console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + '%')
+                    }
+                }).then((e) => {
+                    //setHinhAnh(ramdom+'_'+hinhAnh)
+                    toast.success('Chỉnh sửa thành công', { autoClose: 2000 });
+                    dispatch({
+                        type: bookConstants.PUT_EDIT_BOOK,
+                        payload: res.data
+                    });
+                })
+                    .catch((e) => {
+                        toast.error('Chỉnh sửa thất bại', { autoClose: 2000 });
+                        console.error('Error', e)
+                    })
+            }
         }
         catch (err) {
             {
+                await toast.error(err.response.data.error, { autoClose: 2000 });
                 console.log('lỗi edit sách', err.response.data.error)
                 //error = err.response.data.error
                 // setmessageError({
@@ -80,32 +103,33 @@ export const putEditBook = (id, newbook) => {
 
     }
 }
-export const AddBook = (newbook,fd) => {
+export const AddBook = (newbook, fd) => {
     return async dispatch => {
         try {
             const res = await axios.post(`http://localhost:3000/admin/book`, { ...newbook });
 
             console.log('>>>>cập nhật', newbook)
             if (res.status === 200) {
-                axios.post("http://localhost:3000/upload",fd,{
-                    onUploadProgress : progressEvent => {
-                        console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total*100)+ '%')
+                axios.post("http://localhost:3000/upload", fd, {
+                    onUploadProgress: progressEvent => {
+                        console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + '%')
                     }
                 }).then((e) => {
                     //setHinhAnh(ramdom+'_'+hinhAnh)
-                    console.log('Success')
+                    toast.success('Thêm sách thành công', { autoClose: 2000 });
                     dispatch({
                         type: bookConstants.POST_ADD_BOOK,
                         payload: res.data.book
                     });
                 })
-                .catch ((e) => {
-                    console.error('Errorooo', e)
-                })
+                    .catch((e) => {
+                        toast.error('Lưu thất bại', { autoClose: 2000 });
+                        console.error('Errorooo', e)
+                    })
             }
         }
         catch (err) {
-            await toast.error(err.response.data.error,{autoClose:2000});
+            await toast.error(err.response.data.error, { autoClose: 2000 });
             console.log('lỗi thêm sách', err.response.data.error)
             //error = err.response.data.error
             // setmessageError({
@@ -166,5 +190,31 @@ export const getTop10Book = () => {
             });
         }
 
+    }
+}
+
+export const deleteBookById = (id) => {
+    return async dispatch => {
+        try {
+            const res = await axios.delete(`book/${id}`);
+
+            if (res.status === 200) {
+                await toast.error(res.data.error, { autoClose: 2000 });
+                dispatch({
+                    type: bookConstants.DELETE_BOOK_BY_ID,
+                    payload: res.data
+                });
+
+            }
+        }
+        catch (err) {
+            {
+                await toast.error(err.response.data.error, { autoClose: 2000 });
+                dispatch({
+                    type: bookConstants.GET_ERROR,
+                    payload: { error: true }
+                });
+            }
+        }
     }
 }

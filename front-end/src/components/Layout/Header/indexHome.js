@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './indexHome.css';
 import bookLogo from '../../../images/logo/logo.png';
+import { ToastContainer } from 'react-toastify';
 // import goldenStar from '../../images/logo/golden-star.png';
 import { IoIosArrowDown, IoIosCart, IoIosSearch } from 'react-icons/io';
 import {
@@ -32,6 +33,7 @@ const IndexHome = (props) => {
 
     const logout = () => {
         dispatch(homesignout());
+
     };
     // const getInfo = () => { //mới thêm
     //     dispatch(getUserInfo(auth.user._id));
@@ -53,7 +55,7 @@ const IndexHome = (props) => {
                     menus={[
                         { label: 'Thông tin cá nhân', href: `/user/${auth.user._id}`, icon: null },
                         { label: 'Chi tiết đơn hàng', href: '/user/cartPayment', icon: null },
-                        { label: "Logout", href: '/', icon: '', onClick: logout }
+                        { label: "Logout", href: '', icon: '', onClick: logout }
                     ]}
 
                 />
@@ -126,11 +128,11 @@ const IndexHome = (props) => {
 
                             />
 
-
                         </div>
                     </div>
                 </div>
             </Modal>
+
             <div className="subHeader">
                 <div className="logo">
                     <a href="/">
@@ -173,7 +175,10 @@ const IndexHome = (props) => {
                 </div>
 
             </div>
+            <ToastContainer />
         </div>
+
+
     )
 
 }

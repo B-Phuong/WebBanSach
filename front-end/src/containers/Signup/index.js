@@ -5,6 +5,7 @@ import { Input } from '../../components/UI/input';
 import { Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../../actions'
+import { ToastContainer } from 'react-toastify';
 /**
 * @author
 * @function Signup
@@ -33,50 +34,54 @@ export const Signup = (props) => {
     return <Redirect to={`/`} />
   }
 
-  if (user.loading) {
-    return <p>Loading...!</p>
-  }
+  // if (user.loading) {
+  //   return <p>Loading...!</p>
+  // }
 
   return (
-    <Layout>
-      <Container>
-        {user.message}
-        <Row style={{ marginTop: '50px', marginLeft: '265px' }}>
-          <Col md={{ span: 6, offset: 3 }}>
-            <Form onSubmit={userSignup}>
-              <Input
-                Label="Tên người dùng"
-                placeholder="Nhập tên người dùng"
-                value={tenNguoiDung}
-                type="text"
-                onChange={(e) => settenNguoiDung(e.target.value)}
-              />
-              <Input
-                Label="Email"
-                placeholder="Nhập email"
-                value={email}
-                type="text"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Input
-                Label="Mật khẩu"
-                placeholder="Nhập mật khẩu"
-                value={matKhau}
-                type="password"
-                onChange={(e) => setMatkhau(e.target.value)}
-              />
-              <Form.Group className="mb-3" >
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </Col>
+    <>
+      <Layout>
+        <Container>
+          {user.message}
+          <Row style={{ marginTop: '50px', marginLeft: '265px' }}>
+            <Col md={{ span: 6, offset: 3 }}>
+              <Form onSubmit={userSignup}>
+                <Input
+                  Label="Tên người dùng"
+                  placeholder="Nhập tên người dùng"
+                  value={tenNguoiDung}
+                  type="text"
+                  onChange={(e) => settenNguoiDung(e.target.value)}
+                />
+                <Input
+                  Label="Email"
+                  placeholder="Nhập email"
+                  value={email}
+                  type="text"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <Input
+                  Label="Mật khẩu"
+                  placeholder="Nhập mật khẩu"
+                  value={matKhau}
+                  type="password"
+                  onChange={(e) => setMatkhau(e.target.value)}
+                />
+                <Form.Group className="mb-3" >
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </Col>
 
-        </Row>
+          </Row>
 
-      </Container>
-    </Layout>
+        </Container>
+
+      </Layout>
+      <ToastContainer />
+    </>
   )
 
 }

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBooks } from '../../../actions';
+import { deleteBookById, getAllBooks } from '../../../actions';
 import { NavLink } from 'react-router-dom'
 import BookControl from './bookcontrol'
 import './bookcontrol.css'
 import { Modal } from 'react-bootstrap';
 import { IoMdBrush, IoMdCloseCircleOutline } from 'react-icons/io';
-
-import axiosIntance from '../../../helpers/axios';
-
+import Pagination from '../../../components/Pagination';
+import { ToastContainer } from 'react-toastify';
 
 export const BookList = (props) => {
 
@@ -18,6 +17,10 @@ export const BookList = (props) => {
     const categories = useSelector(state => state.category.categories);
     const [ID, setID] = useState('')
     const [tenSach, setTenSach] = useState('')
+    const [currentPage, setCurrentPage] = useState(1);
+    const [booksPerPage] = useState(9);
+
+
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
     // const { page } = product;
     useEffect(() => {
@@ -29,19 +32,28 @@ export const BookList = (props) => {
         dispatch(getAllBooks());
         //setSach(books)
     }, []);
-    const confirmDelete = () => {
+    const confirmDelete = async () => {
         const id = ID;
-        axiosIntance.delete(`/book/${id}`)
-            .then(res => {
-                if (res.status === 200) {
-                    console.log('Xóa thành công')
-                }
-            })
-            .catch(err => console.log('Lỗi'))
+        dispatch(deleteBookById(id))
+        //     await axiosIntance.delete(`/book/${id}`)
+        //         .then(res => {
+        //             if (res.status === 200) {
+        //                 toast.success(res.data.message, { autoClose: 2000 });
+        //                 console.log('Xóa thành công')
+        //             }
+        //         })
+        //         .catch(err => {
+        //             toast.error(err.response.data.message, { autoClose: 2000 });
+        //             console.log('Không thể xóa')
+        //         })
         setIsOpen(false);
         props.history.push('/admin/book/all')
     }
-    const [isOpen, setIsOpen] = React.useState(false);
+    const indexOfLastBook = currentPage * booksPerPage;
+    const indexOfFirstBook = indexOfLastBook - booksPerPage;
+    const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+    const [isOpen, setIsOpen] = useState(false);
 
     // const showModal = () => {
 
@@ -81,7 +93,7 @@ export const BookList = (props) => {
                         <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{book.tenSach}</td>
-                            <td><img src={book.hinhAnh} alt="" /></td>
+                            <td><img src={`http://localhost:3000/images/${book.hinhAnh}`} alt="Ảnh bị lỗi hiển thị" /></td>
                             <td>{book.giaTien}</td>
                             <td>{book.soLuongConLai}</td>
                             <td>
@@ -99,7 +111,14 @@ export const BookList = (props) => {
 
                     )}
                 </table>
+                {/* <Pagination
+                    booksPerPage={booksPerPage}
+                    totalBooks={books.length}
+                    paginate={paginate}
+                /> */}
+
             </div>
+            <ToastContainer />
             <Modal show={isOpen} onHide={hideModal}>
                 <Modal.Header>
                     <Modal.Title>Xóa thông tin sách</Modal.Title>
@@ -115,6 +134,7 @@ export const BookList = (props) => {
 
                 </Modal.Footer>
             </Modal>
+
         </>
 
 

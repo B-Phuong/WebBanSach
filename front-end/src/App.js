@@ -23,12 +23,13 @@ import StaffList from './containers/Admin/StaffControl/liststaff';
 import StaffEdit from './containers/Admin/StaffControl/editstaff';
 import StaffAdd from './containers/Admin/StaffControl/addstaff';
 import BookByGenres from './containers/Book/bookbygenres';
-import User from './containers/User/user';
+
 import UserInfo from './containers/User/userinfo';
 
 import Donhang from './containers/Donhang/';
 import Chart from './containers/Admin/ChartControl/chart';
 import Payment from './containers/Payment/payment';
+
 
 
 function App() {
@@ -39,10 +40,10 @@ function App() {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     }
-    if(auth.authenticate){
+    if (auth.authenticate) {
       dispatch(getInitialData());
     }
-    
+
 
   }, [auth.authenticate]);
 
@@ -52,8 +53,8 @@ function App() {
     <div className="App">
 
       <Switch>
-      <Route path="/cart" component={CartPage} />
-      <Route path="/anh" exact component={Book} />
+        <Route path="/cart" component={CartPage} />
+        {/* <Route path="/anh" exact component={Book} /> */}
 
         <Route path="/" exact component={Book} />
         <Route path="/book/:id" component={BookDetail} />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBooks, getAllCategories } from '../../actions';
+import { getAllBooks, getAllCategories, getDetailBook } from '../../actions';
 import Card from '../../components/UI/Card';
 import Layout from '../../components/Layout';
 import IndexHome from '../../components/Layout/Header/indexHome'
@@ -84,14 +84,26 @@ const Book = (props) => {
                                                 <img style={{
 
                                                     width: '100%',
-                                                    height: '250px'
-                                                }} src={`http://localhost:3000/images/${abook.hinhAnh}`} alt="logo192.png" />
+                                                    height: '220px'
+                                                }} src={`http://localhost:3000/images/${abook.hinhAnh}`} alt="Ảnh bị lỗi hiển thị" />
                                                 <span className="name" >
                                                     {abook.tenSach}</span>
                                             </div>
-                                            <div> <span className="price" >
-                                                <b>{Format(abook.giaTien)}</b></span></div>
-
+                                            {abook.giamGia > 0 ?
+                                                <div className="price">
+                                                    <span className="price_before_sale" ><b>{Format(abook.giaTien)}</b> </span>
+                                                    <span className="price_after_sale" ><b>{Format(abook.giaTien * (1 - abook.giamGia / 100))}</b></span>
+                                                    <span className="sale_off_percent"><b>-{abook.giamGia}%</b></span>
+                                                </div>
+                                                :
+                                                <div className="price">
+                                                    <span ><b>{Format(abook.giaTien)}</b> </span>
+                                                    {/* <span className="price_after_sale" ><b>{Format(abook.giaTien * (1 - abook.giamGia * 100))}</b></span> */}
+                                                </div>
+                                            }
+                                            <div className='item-sold'>
+                                                <span><>Đã bán {abook.soLuongBan}</> </span>
+                                            </div>
 
                                         </Card>
                                     </div> </NavLink>
@@ -116,6 +128,7 @@ const Book = (props) => {
                         paginate={paginate}
                     />
                     </div> 
+
 
                 </div>
 

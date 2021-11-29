@@ -48,22 +48,22 @@ class AdminController {
     User.find({ vaiTro: "admin", daXoa: false||null })
     .then(data => {
         if (data.length != 0)
-            res.status(200).json(data)
+          res.status(200).json(data)
         else {
-            res.status(200).json({ message: 'Hiện không có sách nào' })
+          res.status(200).json({ message: 'Hiện không có sách nào' })
         }//
-    }
-    )
-    .catch(err => {
+      }
+      )
+      .catch(err => {
         res.status(500).json({ message: err || 'Lỗi hệ thống' });
-    })
+      })
   }
   // Update a new idetified user by user id
   update(req, res) {
     if (!req.body) {
       return res
         .status(400)
-        .send({ message: "Data to update can not be empty" });
+        .send({ error: "Data to update can not be empty" });
     }
 
     const id = req.params.id;
@@ -71,14 +71,14 @@ class AdminController {
       .then((data) => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot Update user with ${id}. Maybe user not found!`,
+            error: `Cannot Update user with ${id}. Maybe user not found!`,
           });
         } else {
           res.send(data);
         }
       })
       .catch((err) => {
-        res.status(500).send({ message: "Error Update user information" });
+        res.status(500).send({ error: "Error Update user information" });
       });
   }
 
@@ -116,7 +116,7 @@ class AdminController {
           return res.status(404).send({
             status: 400,
             message: `Cannot block with userId ${req.params.id}. Maybe id is wrong`,
-            data : null,
+            data: null,
           });
         } else {
           res.send({
@@ -126,17 +126,18 @@ class AdminController {
           });
         }
       })
-      .catch( 
-        () =>{
-        res.status(500).send({
-        message: `Cannot block with userId ${req.params.id}. Maybe id is wrong222`,
-      })});
+      .catch(
+        () => {
+          res.status(500).send({
+            message: `Cannot block with userId ${req.params.id}. Maybe id is wrong222`,
+          })
+        });
   }
 
   // tạo tài khoản nhân viên
   // [POST] /admin/addstaff
   addStaff(req, res, next) {
-      
+
     //kiểm tra các trường bắt buộc
     if (
       !req.body.tenNguoiDung ||
@@ -148,7 +149,7 @@ class AdminController {
         status: 400,
         message:
           "tên user, số điện thoại, tên đăng nhập, mật khẩu không được bỏ trống",
-        data: null,  
+        data: null,
       });
       return;
     }
@@ -174,7 +175,7 @@ class AdminController {
                 data: user,
               })
             )
-            .catch(() =>{
+            .catch(() => {
               res.status(500).json({
                 status: 500,
                 message: "Lỗi thêm nhân viên, vui lòng thử lại!!!",
@@ -183,22 +184,22 @@ class AdminController {
             });
         }
       })
-      .catch(() =>{
+      .catch(() => {
         res.status(500).json({
           status: 500,
           message: "Lỗi thêm nhân viên, vui lòng thử lại!!!",
           data: null,
         })
-      } );
+      });
   }
 
   async signupStaff(req, res) {
     User.findOne({ email: req.body.email }).exec(async (error, user) => {
-      if(error) return res.status(400).json({error})
-        if (user)
-            return res.status(400).json({
-                error: "Tài khoản admin đã có người đăng ký",
-            });
+      if (error) return res.status(400).json({ error })
+      if (user)
+        return res.status(400).json({
+          error: "Tài khoản admin đã có người đăng ký",
+        });
 
         const { tenNguoiDung, email, matKhau,soDienThoai, xacNhanMatKhau } = req.body;
         if(matKhau.trim() !== xacNhanMatKhau.trim()) {
@@ -214,21 +215,23 @@ class AdminController {
             vaiTro: 'admin'
         });
 
-        _user.save((error, user) => {
-            if (error) {
-                return res.status(400).json({
-                    message: "Có gì đó không ổn",
-                });
-            }
 
-            if (user) {
-                return res.status(201).json({
-                    message: "Tài khoản admin được tạo thành công"
-                });
-            }
-        });
+      _user.save((error, user) => {
+        if (error) {
+          return res.status(400).json({
+            error: "Có gì đó không ổn",
+          });
+        }
+
+        if (user) {
+          return res.status(201).json({
+            message: "Tài khoản admin được tạo thành công"
+          });
+        }
+      });
     });
-}
+  }
+
 
 deleteStaff(req, res) {
   const id = req.params.id;
@@ -248,7 +251,6 @@ deleteStaff(req, res) {
 
 }
 
-  
 }
 
 module.exports = new AdminController();

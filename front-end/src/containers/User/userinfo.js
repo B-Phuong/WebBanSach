@@ -6,6 +6,7 @@ import IndexHome from '../../components/Layout/Header/indexHome';
 import './user.css'
 import { updatePassword, updatetUserInfo } from '../../actions';
 import axiosIntance from '../../helpers/axios';
+import { ToastContainer } from 'react-toastify';
 export const UserInfo = (props) => {
 
     let user = useSelector(state => state.user.userinfor) //.userinfor
@@ -216,7 +217,7 @@ export const UserInfo = (props) => {
                     <button className="button" onClick={UpdatePassword}>Lưu</button>
                 </Modal.Footer>
             </Modal>
-
+            <ToastContainer />
         </>
     )
 

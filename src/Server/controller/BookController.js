@@ -17,7 +17,7 @@ class BookController {
                 if (data.length != 0)
                     res.status(200).json(data)
                 else {
-                    res.status(200).json({ error: 'Hiện không có sách nào' })
+                    res.status(204).json({ message: 'Hiện không có sách nào' })
                 }//
             }
             )
@@ -29,8 +29,9 @@ class BookController {
     create(req, res) {  //CHƯA KIỂM TRA ĐƯỢC ĐIỀU KIỆN TRÙNG GIÁ TRỊ
         const book = new Book(req.body)
         if (req.file) {
-            book.hinhAnh = req.file.filename
+            //     book.hinhAnh = req.file.filename
         }
+        //else res.status(400).json({ error: 'Hãy chọn hình ảnh' })
         Book.find({ tenSach: book.tenSach })
             .then(data => {
                 if (data.length != 0) {
@@ -85,12 +86,12 @@ class BookController {
             .then((data) => {
                 console.log((data))
                 if (data.length > 0)
-                    return res.status(200).json({ error: "Sách này đang trong giỏ hàng của khách hàng" })
+                    return res.status(400).json({ error: "Sách này đang trong giỏ hàng của khách hàng" })
                 else {
                     Book.findByIdAndUpdate(id, { daXoa: 'true' })
                         .then((book) => {
                             // if (data)
-                            res.status(200).json({ error: "Đã xóa sách  " + book.tenSach })
+                            res.status(200).json({ message: "Đã xóa sách  " + book.tenSach })
                             //else res.status(500).json({ message:"Không thể xóa"});
                         })
                         .catch(err => {

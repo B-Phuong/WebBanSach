@@ -20,7 +20,7 @@ export default (state = initState, action) => {
             };
             break;
         case staffConstants.GET_DETAIL_STAFF:
-            console.log('té',action)
+            console.log('té', action)
             state = {
                 ...state,
                 // loading: false,
@@ -45,7 +45,7 @@ export default (state = initState, action) => {
             };
 
             break;
-        
+
     }
     return state;
 

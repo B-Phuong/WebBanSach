@@ -16,7 +16,7 @@ const BookByGenres = (props) => {
     const bookbygenres = useSelector(state => state.book.books);
     const categories = useSelector(state => state.category.categories);
     const [currentPage, setCurrentPage] = useState(1);
-    const [booksPerPage] = useState(6);
+    const [booksPerPage, setbooksPerPage] = useState(6);
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
     // const { page } = product;
     useEffect(() => {
@@ -84,12 +84,24 @@ const BookByGenres = (props) => {
 
                                                     width: '100%',
                                                     height: '250px'
-                                                }} src={book.hinhAnh} alt="Ảnh bị lỗi hiển thị" />
+                                                }} src={`http://localhost:3000/images/${book.hinhAnh}`} alt="Ảnh bị lỗi hiển thị" />
                                                 <span className="name" >
                                                     {book.tenSach}</span>
                                             </div>
-                                            <div> <span className="price" >
-                                                <b>{Format(book.giaTien)} đ</b></span></div>
+                                            {book.giamGia > 0 ?
+                                                <div className="price">
+                                                    <span className="price_before_sale" ><b>{Format(book.giaTien)}</b> </span>
+                                                    <span className="price_after_sale" ><b>{Format(book.giaTien * (1 - book.giamGia / 100))}</b></span>
+                                                    <span className="sale_off_percent"><b>-{book.giamGia}%</b></span>
+                                                </div>
+                                                :
+                                                <div className="price">
+                                                    <span ><b>{Format(book.giaTien)}</b> </span>
+                                                    {/* <span className="price_after_sale" ><b>{Format(abook.giaTien * (1 - abook.giamGia * 100))}</b></span> */}
+                                                </div>
+                                            }
+                                            {/* <div> <span className="price" >
+                                                <b>{Format(book.giaTien)} đ</b></span></div> */}
 
 
                                         </Card>
@@ -100,11 +112,21 @@ const BookByGenres = (props) => {
 
 
                     </div>
+                    <select id='bookPerPage'>
+                        <option value='9' onClick={() => setbooksPerPage(9)}>9</option>
+                        <option value='12' onClick={() => setbooksPerPage(12)}>12</option>
+                        <option value='15' onClick={() => setbooksPerPage(15)}>15</option>
+                    </select>
+                    <button onClick={() => {
+                        const value = document.getElementById('bookPerPage')
+                        setbooksPerPage(value.options[value.selectedIndex].value)
+                    }}>Xác nhận</button>
                     <Pagination
                         booksPerPage={booksPerPage}
                         totalBooks={bookbygenres.length}
                         paginate={paginate}
                     />
+
                 </div>
 
             </div>

@@ -51,8 +51,22 @@
 .category  li:hover .sub-category{
     display: block;
 }
-.book .price{
+.price{
     color: black;
+    justify-content: space-between;
+}
+
+.price_after_sale{
+    color: orange;
+    margin-left: 8px;
+}
+.price_before_sale{
+    color: slategrey;
+    text-decoration: line-through;
+}
+.book .item-sold{
+    display: flex;
+color: black;
 }
 .cart {
     font-weight: bold;
@@ -61,4 +75,9 @@
     align-items: center;
     justify-content: center;
     margin: 0 20px
+  }
+.price .sale_off_percent{
+float: right;
+background: yellow;
+color: orange;
   }
