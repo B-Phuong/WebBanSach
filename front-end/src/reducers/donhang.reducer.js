@@ -9,7 +9,7 @@ export default (state = initState, action) => {
     case orderConstants.GET_CUSTOMER_ORDER_SUCCESS:
       state = {
         ...state,
-        bills: action.payload.bills,
+        bills: action.payload.bill,
       };
       break;
   }

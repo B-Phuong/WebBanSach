@@ -3,6 +3,7 @@ height: 400px;
 width: 1000px;
 background:whitesmoke;
 margin: 20px;
+
 }
 .comment{
   height: 200px;
@@ -105,6 +106,8 @@ background:white;
   justify-content: center;
   border: 1px solid whitesmoke;
   background:whitesmoke;
+
+overflow: hidden;
 }
 
 

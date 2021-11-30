@@ -61,7 +61,7 @@ export const getUserInfo = (id) => {
     }
 }
 
-export const updatetUserInfo = (id, newinfo,setNguoiDung) => {
+export const updatetUserInfo = (id, newinfo, setNguoiDung) => {
     console.log(id);
     return async (dispatch) => {
         //dispatch({ type: userContants.UPDATE_USER_INFO });
@@ -140,29 +140,29 @@ export const updatePassword = (id, newinfo) => {
             }
         }
     }
-    
+
 }
 export const getOrders = () => {
     return async (dispatch) => {
-      try {
-        const res = await axios.get(`/hoadon/getOrders`);
-        dispatch({ type: userContants.GET_USER_ORDER_REQUEST });
-        if (res.status === 200) {
-          console.log(res);
-          const { bills } = res.data;
-          dispatch({
-            type: userContants.GET_USER_ORDER_SUCCESS,
-            payload: { bills },
-          });
-        } else {
-          const { error } = res.data;
-          dispatch({
-            type: userContants.GET_USER_ORDER_FAILURE,
-            payload: { error },
-          });
+        try {
+            const res = await axios.get(`/hoadon/getOrders`);
+            dispatch({ type: userContants.GET_USER_ORDER_REQUEST });
+            if (res.status === 200) {
+                console.log(res);
+                const { bill } = res.data;
+                dispatch({
+                    type: userContants.GET_USER_ORDER_SUCCESS,
+                    payload: { bill },
+                });
+            } else {
+                const { error } = res.data;
+                dispatch({
+                    type: userContants.GET_USER_ORDER_FAILURE,
+                    payload: { error },
+                });
+            }
+        } catch (error) {
+            console.log(error);
         }
-      } catch (error) {
-        console.log(error);
-      }
     };
-  };
+};
