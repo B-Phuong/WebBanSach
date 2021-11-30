@@ -61,7 +61,7 @@ export const getUserInfo = (id) => {
     }
 }
 
-export const updatetUserInfo = (id, newinfo,setNguoiDung) => {
+export const updatetUserInfo = (id, newinfo, setNguoiDung, setIsOpen) => {
     console.log(id);
     return async (dispatch) => {
         //dispatch({ type: userContants.UPDATE_USER_INFO });
@@ -71,6 +71,7 @@ export const updatetUserInfo = (id, newinfo,setNguoiDung) => {
 
             if (res.status === 200) {
                 setNguoiDung(newinfo)
+                setIsOpen(false)
                 await toast.success('Thành công', { autoClose: 2000 });
                 dispatch({
                     type: userContants.UPDATE_USER_INFO,
@@ -117,7 +118,7 @@ export const getPayPal = () => {
     }
 }
 
-export const updatePassword = (id, newinfo) => {
+export const updatePassword = (id, newinfo, setnguoiDung, setIsOpenModal) => {
     //console.log(id);
     return async (dispatch) => {
         try {
@@ -127,6 +128,8 @@ export const updatePassword = (id, newinfo) => {
             //console.log('tổng tiền', res)
             //const { message, error } = res.data;
             if (res.status === 200) {
+                setnguoiDung(newinfo)
+                setIsOpenModal(false)
                 await toast.success(res.data.message, { autoClose: 2000 });
                 dispatch({
                     type: userContants.UPDATE_PASSWORD,

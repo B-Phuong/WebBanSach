@@ -58,18 +58,18 @@ export const UserInfo = (props) => {
     const updateInfo = (e) => {
         const newinfo = { ...nguoiDung, tenNguoiDung, tenTaiKhoan, soDienThoai, diaChi, matKhauMoi, nhapLaiMatKhau }
         const { id } = props.match.params;
-        dispatch(updatetUserInfo(id, newinfo,setnguoiDung))
+        dispatch(updatetUserInfo(id, newinfo, setnguoiDung, setIsOpen))
         //setnguoiDung(newinfo)
-        setIsOpen(false)
+        //setIsOpen(false)
     }
     const UpdatePassword = (e) => {
         const newinfo = { ...nguoiDung, matKhau, matKhauMoi, nhapLaiMatKhau }
         const { id } = props.match.params;
-        dispatch(updatePassword(id, newinfo))
+        dispatch(updatePassword(id, newinfo, setnguoiDung, setIsOpenModal))
         setMatKhauMoi('')
         setMatKhau('')
         setNhapLaiMatKhau('')
-        setIsOpenModal(false)
+        //setIsOpenModal(false)
     }
     //console.log('người dùng 2', user)
 
