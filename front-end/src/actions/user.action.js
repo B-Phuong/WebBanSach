@@ -1,5 +1,5 @@
 import axiosIntance from "../helpers/axios";
-import { authConstants, userContants, userOrderConstant } from "./constants"
+import { authConstants, userContants } from "./constants"
 import axios from "../helpers/axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -139,28 +139,8 @@ export const updatePassword = (id, newinfo) => {
                 await toast.error(err.response.data.error, { autoClose: 2000 });
             }
         }
-    }
 
-}
 
-export const getuserBill = () =>{
-    return async (dispatch) => {
-        try {
-            dispatch({ type: userOrderConstant.USER_ORDER_SUCCESS });
 
-            const res = await axios.get(`user/bill`)
-            if (res.status === 200) {
-                await toast.success("Lay thanh cong", { autoClose: 2000 });
-                dispatch({
-                    type: userOrderConstant.USER_ORDER_SUCCESS,
-                    payload: res.data
-                });
-            }
-        }
-        catch (err) {
-            {
-                await toast.error(err.response.data.error, { autoClose: 2000 });
-            }
-        }
     }
 }
