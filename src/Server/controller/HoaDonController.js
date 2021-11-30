@@ -171,6 +171,16 @@ class BillController {
       .catch((err) => res.json(err));
   }
   
-
+  getOrders(req, res){
+    Bill.find({ user: req.user._id })
+      .select("_id orderStatus chiTietHoaDon")
+      .populate("chiTietHoaDon.maSach", "_id tenSach ")
+      .exec((error, bill) => {
+        if (error) return res.status(400).json({ error });
+        if (bill) {
+          res.status(200).json({ bill });
+        }
+      });
+  };
 }
 module.exports = new BillController();

@@ -139,8 +139,30 @@ export const updatePassword = (id, newinfo) => {
                 await toast.error(err.response.data.error, { autoClose: 2000 });
             }
         }
-
-
-
     }
+    
 }
+export const getOrders = () => {
+    return async (dispatch) => {
+      try {
+        const res = await axios.get(`/hoadon/getOrders`);
+        dispatch({ type: userContants.GET_USER_ORDER_REQUEST });
+        if (res.status === 200) {
+          console.log(res);
+          const { bills } = res.data;
+          dispatch({
+            type: userContants.GET_USER_ORDER_SUCCESS,
+            payload: { bills },
+          });
+        } else {
+          const { error } = res.data;
+          dispatch({
+            type: userContants.GET_USER_ORDER_FAILURE,
+            payload: { error },
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  };
