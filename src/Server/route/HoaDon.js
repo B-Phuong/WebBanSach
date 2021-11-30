@@ -9,6 +9,7 @@ const HoaDonController = require('../controller/HoaDonController');
 router.put('/chapNhanHuy/:id', HoaDonController.acceptCancel);
 router.post('/taohoadon',requireSignin,userMiddleware,validationOders, isRequestValidated, HoaDonController.orderBooks);
 router.put('/duyetdon/:id', HoaDonController.duyetdon)
-router.get('/', HoaDonController.show);
 router.get("/getOrders", requireSignin, userMiddleware, HoaDonController.getOrders)
+router.get('/', HoaDonController.show);
+
 module.exports=router;
