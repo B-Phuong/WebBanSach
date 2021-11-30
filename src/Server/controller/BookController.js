@@ -17,12 +17,12 @@ class BookController {
                 if (data.length != 0)
                     res.status(200).json(data)
                 else {
-                    res.status(204).json({ message: 'Hiện không có sách nào' })
+                    res.status(204).json({ error: 'Hiện không có sách nào' })
                 }//
             }
             )
             .catch(err => {
-                res.status(500).json({ error: err || 'Lỗi hệ thống' });
+                res.status(500).json({ error: err  });
             })
     }
     //[POST] /book/create

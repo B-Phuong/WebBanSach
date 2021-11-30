@@ -69,6 +69,10 @@ export const addToCart = (product, newQty = 1) => {
           );
         }
       } catch (err) {
+        dispatch({
+          type: cartConstants.ADD_TO_CART_SUCCESS,
+          payload: { cartItems },
+        });
         await toast.error(err.response.data.error, { autoClose: 2000 });
       }
     } else {
