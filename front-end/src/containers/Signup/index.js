@@ -5,7 +5,6 @@ import { Input } from '../../components/UI/input';
 import { Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../../actions'
-import { ToastContainer } from 'react-toastify';
 /**
 * @author
 * @function Signup
@@ -80,7 +79,6 @@ export const Signup = (props) => {
         </Container>
 
       </Layout>
-      <ToastContainer />
     </>
   )
 

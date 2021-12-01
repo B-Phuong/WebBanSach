@@ -16,7 +16,6 @@ import {
   getPayPal,
 } from "../../actions";
 import PriceDetails from "../../components/PriceDetails";
-import { ToastContainer, toast } from "react-toastify";
 
 import PayPal from "../Payment/Paypal";
 import axiosIntance from '../../helpers/axios';
@@ -212,7 +211,6 @@ const CartPage = (props) => {
           }, 0)}
         />
       </div>
-      {/* <ToastContainer /> */}
      
       <Modal
         show={isOpen}

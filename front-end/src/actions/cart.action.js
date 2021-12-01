@@ -107,7 +107,6 @@ export const orderDefault = (info) => {
     //   ...product,
     //   qty,
     // };
-
     if (auth.authenticate) {
       dispatch({ type: cartConstants.ORDER_DEFAULT_REQUEST });
       const payload = {

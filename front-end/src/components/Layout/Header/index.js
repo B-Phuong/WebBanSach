@@ -3,7 +3,6 @@ import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom'
 import { signout } from '../../../actions';
-import { ToastContainer } from 'react-toastify';
 /**
 * @author
 * @function Header
@@ -54,7 +53,7 @@ export const Header = (props) => {
 
                 </Navbar.Collapse>
             </Container>
-            <ToastContainer />
+    
         </Navbar>
     )
 

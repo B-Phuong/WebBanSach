@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './indexHome.css';
 import bookLogo from '../../../images/logo/logo.png';
-import { ToastContainer } from 'react-toastify';
 // import goldenStar from '../../images/logo/golden-star.png';
 import { IoIosArrowDown, IoIosCart, IoIosSearch } from 'react-icons/io';
 import {
@@ -175,7 +174,7 @@ const IndexHome = (props) => {
                 </div>
 
             </div>
-            <ToastContainer />
+    
         </div>
 
 

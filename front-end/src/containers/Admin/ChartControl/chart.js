@@ -38,7 +38,19 @@ export const Chart = () => {
     let totalAmount = 0;
     donHang &&
         donHang.bills.forEach((item) => {
-            totalAmount += item.tongTien
+
+            if(item.daThanhToan == true) 
+            {
+            totalAmount += item.tongTien 
+            
+            }
+            else{
+            item.orderStatus.forEach(xa=> {
+                if(xa.type == 'delivered' && xa.isCompleted === true )
+                totalAmount += item.tongTien
+            }) 
+        }
+            
         })
     
     let tongDonHang = 0;
@@ -53,6 +65,7 @@ export const Chart = () => {
     return (
         <div>
             <Home />
+            <div className='chart-content'></div>
             <center>
                 <div className="dashboardSummary">
                     <div>
@@ -68,7 +81,7 @@ export const Chart = () => {
             </center>
             <center><h5>THỐNG KÊ SỐ SÁCH BÁN CHẠY</h5></center>
             <div >
-
+                <div className="BarChartCss">
                 <BarChart
                     width={1000}
                     height={300}
@@ -76,7 +89,7 @@ export const Chart = () => {
                     margin={{
                         top: 20,
                         right: 10,
-                        left: 400,
+                        left: 200,
                         bottom: 5,
                     }}
                     barSize={20}
@@ -93,9 +106,9 @@ export const Chart = () => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <Bar dataKey="soLuongBan" fill="#8884d8" background={{ fill: "#eee" }} />
                 </BarChart>
-
+                </div>
             </div>
-
+            <div className='staff-content'></div>
         </div>
     )
 }

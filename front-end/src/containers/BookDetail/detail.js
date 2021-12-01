@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDetailBook , addToCart} from '../../actions';
 import IndexHome from '../../components/Layout/Header/indexHome'
 import './detail.css'
-import { ToastContainer, toast } from 'react-toastify';
 
 const BookDetail = (props) => {
     const dispatch = useDispatch();
@@ -116,7 +115,6 @@ const BookDetail = (props) => {
                     <div style={{ margin: '20px' }}>Nội dung bình luận</div>
                 </div>
             </div>
-            <ToastContainer /> 
 
         </>
     )

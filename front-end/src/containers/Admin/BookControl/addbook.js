@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { Input } from '../../../components/UI/input';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { NavLink } from 'react-router-dom'
 import BookControl from './bookcontrol'
@@ -205,7 +204,7 @@ export const BookAdd = (props) => {
                     Submit
                 </Button>
             </Form>
-            <ToastContainer />
+
         </>
 
 

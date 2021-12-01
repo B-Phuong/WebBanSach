@@ -5,7 +5,6 @@ import { Input } from '../../../components/UI/input';
 import BookControl from './bookcontrol'
 import './bookcontrol.css'
 import { putEditBook, getDetailBook } from '../../../actions';
-import { ToastContainer } from 'react-toastify';
 import axios from '../../../helpers/axios';
 
 
@@ -198,7 +197,7 @@ export const BookEdit = (props) => {
                     Submit
                 </Button>
             </Form>
-            <ToastContainer />
+        
         </>
 
 

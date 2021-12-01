@@ -16,6 +16,12 @@ exports.validationUser = [
   .isLength({ min: 8 })
   .withMessage('Mật khẩu phải trên 8 ký tự')
 ];
+exports.validationUser = [
+  check("tenNguoiDung").notEmpty().withMessage("Nhập tên người dùng"),
+  check("tenTaiKhoan").notEmpty().withMessage("Nhập tên tài khoản"),
+  check("email").notEmpty().withMessage("Nhập email"),
+  check("soDienThoai").isMobilePhone().withMessage("Số điện thoại phải có dạng số")
+];
 
 exports.validationCart = [
   check("maSach").notEmpty().withMessage("Thiếu mã sách"),

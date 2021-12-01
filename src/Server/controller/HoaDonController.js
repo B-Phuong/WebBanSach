@@ -34,7 +34,6 @@ class BillController {
 
     let checkAvailableBooks = await Book.find({ _id: listIdBooks })
       .then((listBook) => {
-
         // kiểm tra số lượng oder >
         if (listOderSort.length != listBook.length)
           return res.status(400).json({ error: `Kiểm tra lại mã sách, số lượng sách gửi yêu cầu: ${listOderSort.length}, số lượng sách tìm thấy ${listBook.length}` })

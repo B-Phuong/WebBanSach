@@ -1,3 +1,13 @@
+.BarChartCss{
+  margin-left:250px
+}
+.BarChartCss .button{
+  background-color: aquamarine;
+  width: fit-content;
+  height: fit-content;
+}
+
+
 .dashboard {
     width: 100vw;
     max-width: 100%;
@@ -90,6 +100,10 @@
     .dashboardSummaryBox2 > a {
       padding: 0.5rem;
       margin: 1rem;
+    }
+
+    .BarChartCss {
+
     }
   }
   
