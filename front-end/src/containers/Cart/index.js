@@ -23,6 +23,7 @@ import axiosIntance from '../../helpers/axios';
 
 import "./style.css";
 import { MaterialButton } from "../../components/MaterialUI";
+import Paypal from "../Payment/Paypal";
 
 /**
  * @author
@@ -51,7 +52,8 @@ const CartPage = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [soDienThoai, setsoDienThoai] = useState('')
   const [diaChi, setDiaChi] = useState('')
-
+  const [usePaypal, setPaypal] = useState(false);
+  // var usePaypal = false;
   // cart
   const cart = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
@@ -98,7 +100,17 @@ const CartPage = (props) => {
     setIsOpen(true);
   };
   const OrderSubmit = () => {
-    dispatch(orderDefault({ diaChiGiaoHang: diaChi, soDienThoai: soDienThoai }));
+
+    if (usePaypal === true) {
+
+      setCheckOut(true);
+
+      setIsOpen(false)
+
+    } else {
+      dispatch(orderDefault({ diaChiGiaoHang: diaChi, soDienThoai: soDienThoai, daThanhToan: false }))
+      setIsOpen(false)
+    };
   };
 
   const hideModal = () => {
@@ -176,13 +188,12 @@ const CartPage = (props) => {
 
                   <div className="payment-option">
                     {checkout ? (
-                      <PayPal total={totalBill} />
+                      <PayPal total={totalBill} diaChiGiaoHang={diaChi} soDienThoai={soDienThoai} />
                     ) : (
                       <MaterialButton
-                        title="Thanh toán khi trực tuyến"
-                        onClick={() => {
-                          setCheckOut(true);
-                        }}
+                        title="Thanh toán trực tuyến"
+                        onClick={() => (setIsOpen(true), setPaypal(true))}
+                      // setCheckOut(true);
                       />
                     )}
                   </div>
