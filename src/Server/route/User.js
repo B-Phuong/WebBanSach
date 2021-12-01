@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const paypal = require('paypal-rest-sdk');
 const userController = require('../controller/UserController');
-const { validationOders, isRequestValidated, validationUser } = require('../validators/value');
+const { validationOders, isRequestValidated,validationEditPassword, validationUser } = require('../validators/value');
 const hoaDonController = require('../controller/HoaDonController');
 const { requireSignin, userMiddleware } = require('../common-middleware');
 
-router.put('/:id/editpassword', requireSignin, userMiddleware, userController.editPassword);
+router.put('/:id/editpassword', requireSignin, userMiddleware,validationEditPassword,isRequestValidated, userController.editPassword);
 router.get('/purchase/:orderstatus', userController.getOrderByStatus);
 router.get('/pay', requireSignin, userMiddleware, userController.getPaypal);
 router.get('/bill', requireSignin, userMiddleware, userController.getOrderByStatus);

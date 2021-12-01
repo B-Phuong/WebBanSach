@@ -219,7 +219,7 @@ const CartPage = (props) => {
         }}
       >
         <Modal.Header>
-          <Modal.Title>Thay đổi mật khẩu</Modal.Title>
+          <Modal.Title>Thông tin người nhận</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div>Số điện thoại</div>

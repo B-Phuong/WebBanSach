@@ -16,12 +16,21 @@ exports.validationUser = [
   .isLength({ min: 8 })
   .withMessage('Mật khẩu phải trên 8 ký tự')
 ];
-exports.validationUser = [
+
+exports.validationEditPassword = [
   check("tenNguoiDung").notEmpty().withMessage("Nhập tên người dùng"),
   check("tenTaiKhoan").notEmpty().withMessage("Nhập tên tài khoản"),
   check("email").notEmpty().withMessage("Nhập email"),
-  check("soDienThoai").isMobilePhone().withMessage("Số điện thoại phải có dạng số")
+  check("soDienThoai").isMobilePhone().withMessage("Số điện thoại phải có dạng số"),
+  check('matKhau').notEmpty().withMessage("Vui lòng nhập mật khẩu cũ!")
+  .isLength({ min: 8 })
+  .withMessage('Mật khẩu phải trên 8 ký tự'),
+  check('matKhauMoi').notEmpty().withMessage("Vui lòng nhập mật khẩu cũ!")
+  .isLength({ min: 8 })
+  .withMessage('Mật khẩu phải trên 8 ký tự'),
+  
 ];
+
 
 exports.validationCart = [
   check("maSach").notEmpty().withMessage("Thiếu mã sách"),
@@ -46,7 +55,7 @@ exports.validationOders = [
     .withMessage("Thiếu phiGiaoHang")
     .isFloat({ min: 0 })
     .withMessage("Phí giao hàng >= 0 "),
-  check("soDienThoai").notEmpty().withMessage("Thiếu số điện thoại"),
+  check("soDienThoai").isMobilePhone().withMessage("Số điện thoại chưa hợp lệ"),
 ];
 
 exports.isRequestValidated = (req, res, next) => {
