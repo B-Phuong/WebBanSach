@@ -1,0 +1,89 @@
+.orderItemContainer{
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+}
+.orderImgContainer{
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    text-align: center;
+}
+.orderImg{
+    max-width: 80px;
+    max-height: 80px;
+}
+.orderRow{
+    display: flex;
+    flex: 1;
+}
+.orderName{
+    width: 300px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    font-size: 12px;
+}
+.orderPrice{
+    box-sizing: border-box;
+    padding: 0 40px;
+    display: flex;
+    align-items: flex-start;
+    font-size: 14px;
+  }
+  .orderTrack{
+    width: 500px;
+    display: flex;
+}
+.orderStatus{
+    width: 28%;
+    height: 5px;
+    background: #777;
+    position: relative;
+    font-size: 12px;
+}
+.orderStatus.active{
+    background: #2874f0;
+}
+.orderStatus:last-child{
+    width: 0;
+}
+.orderStatus .point{
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    border-radius: 8px;
+    background-color: #777;
+    top: -5px;
+}
+.orderStatus .point.active{
+    background-color: #2874f0;
+}
+.orderInfo{
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: -26px;
+    transform: translateX(-50%);
+}
+
+.title{
+    font-size: 16px;
+    font-weight: 600;
+}
+.value{
+    font-size: 13px;
+    text-transform: capitalize;
+}
+.button {
+    background-color: #2874f0;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }

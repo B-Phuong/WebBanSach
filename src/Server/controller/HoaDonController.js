@@ -177,6 +177,19 @@ class BillController {
       .catch((err) => res.json(err));
   }
 
+  getOrders(req, res){
+    let userId = req.user._id;
+    Bill.find({maKhachHang:userId})
+      .then((orders) => {
+        res.send({
+          status: 200,
+          data: orders,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      });
+  }
 
 }
 module.exports = new BillController();

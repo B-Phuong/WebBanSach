@@ -7,7 +7,7 @@ import donHangReducer from "./donhang.reducer";
 import publisherReducer from "./publisher.reducer";
 import cartReducer from './cart.reducer';
 import staffReducer from './staff.reducer';
-
+import userbillReducer from './userbill.reducer';
 const rootReducer = combineReducers({
     auth: authReducer,
     user: userReducer,
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
     publisher: publisherReducer,
     cart: cartReducer,
     staff: staffReducer,
-
+    userbill: userbillReducer
 });
 
 export default rootReducer;
