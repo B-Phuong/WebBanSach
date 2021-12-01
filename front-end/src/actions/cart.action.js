@@ -19,7 +19,10 @@ const getCartItems = () => {
         }
       }
     } catch (error) {
-      console.log(error);
+      await toast.error("Lỗi gửi yêu cầu, vui lòng thử lại!", {
+        autoClose: 2000,
+      });
+      
     }
   };
 };

@@ -5,7 +5,7 @@ import Home from './containers/Home';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
 import PrivateRoute from './components/HOC/PrivateRoute';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch,Router } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { isUserLoggedIn, getInitialData } from './actions';
 import { ToastContainer, toast } from "react-toastify";
@@ -54,6 +54,7 @@ function App() {
     <div className="App">
 
       <Switch>
+     
         <Route path="/cart" component={CartPage} />
         {/* <Route path="/anh" exact component={Book} /> */}
 
@@ -80,6 +81,7 @@ function App() {
         <PrivateRoute path="/admin/chart" component={Chart} />
         <Route path="/:theLoai" component={BookByGenres} />
       </Switch>
+     
       <ToastContainer />
     </div>
     

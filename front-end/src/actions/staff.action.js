@@ -6,8 +6,6 @@ import axios from "../helpers/axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
 export const getAllStaffs = () => {
     return async dispatch => {
 
@@ -88,13 +86,14 @@ export const AddStaff = (newstaff) => {
                     type: staffConstants.POST_ADD_STAFF,
                     payload: res.data.staff
                 });
+                
             }
         }
         catch (err) {
-            await toast.error(err.response.data.error, { autoClose: 2000 });
+            await toast.error(err.response?.data?.error, { autoClose: 2000 });
             dispatch({
                 type: staffConstants.POST_ADD_STAFF,
-                payload: { error: err.response.data.error }
+                payload: { error: err.response?.data?.error }
             });
         }
     }

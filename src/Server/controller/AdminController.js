@@ -45,7 +45,7 @@ class AdminController {
 
   //[Get] /staff
   listStaff(req, res, next) {
-    User.find({ vaiTro: "admin", daXoa: false||null })
+    User.find({ vaiTro: "admin", daXoa: { "$ne":'true'}  })
     .then(data => {
         if (data.length != 0)
           res.status(200).json(data)

@@ -1,3 +1,9 @@
+// tham khảo: https://stackoverflow.com/questions/55102156/how-to-give-action-buttons-in-muidatatable --> thêm button vào table
+// https://www.npmjs.com/package/mui-datatables --> thư viện
+
+// https://github.com/gregnb/mui-datatables/issues/228 --> ẩn selectbox
+
+//https://github.com/gregnb/mui-datatables/issues/1379 --> hiện thị số thứ tự dòng
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllStaffs } from '../../../actions';
@@ -6,12 +12,83 @@ import StaffControl from './staffcontrol'
 import './staffcontrol.css'
 import { Modal } from 'react-bootstrap';
 import { IoMdBrush, IoMdCloseCircleOutline } from 'react-icons/io';
-
+import MUIDataTable from "mui-datatables";
 import axiosIntance from '../../../helpers/axios';
+import { toast } from 'react-toastify';
 
 
 export const StaffList = (props) => {
 
+   // const columns = ["tenNguoiDung", "email", "vaiTro", "State"];
+
+    const columns = [
+        {
+            name: '',
+            label: '',
+            options: {filter: false,
+                customBodyRender : (value, tableMeta, update) => {
+                    let rowIndex = Number(tableMeta.rowIndex) + 1;
+                    return ( <span>{rowIndex}</span> )
+                }
+            },
+        },
+        {
+            name: "_id",
+            options: {
+              display: false,
+            }
+        },   
+        {
+         name: "tenNguoiDung",
+         label: "Tên người dùng",
+         options: {
+          filter: true,
+          sort: true,
+         }
+        },
+        {
+         name: "email",
+         label: "Email",
+         options: {
+          filter: true,
+          sort: false,
+         }
+        },
+        {
+         name: "vaiTro",
+         label: "Vai Trò",
+         options: {
+          filter: true,
+          sort: false,
+         }
+        },
+        {
+         name: "State",
+         label: "State",
+         options: {
+            sort: false,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                return (
+                     //    <button onClick={() => console.log(tableMeta.rowData) }>
+                    //   <button onClick={() => console.log(value,'aaaaa', tableMeta) }>
+               
+                    //    edit
+                    // </button>
+
+                    <IoMdCloseCircleOutline onClick={() => { setIsOpen(true); setID(tableMeta.rowData[1]); setTenNguoiDung(tableMeta.rowData[2]) }}>
+
+                    </IoMdCloseCircleOutline>
+                    
+                )
+            }
+         }
+        },
+       ];
+
+const options = {
+  filterType: 'checkbox',
+  selectableRows: false, // tắt ô checkbox row
+};
     const dispatch = useDispatch();
     const staffs = useSelector(state => state.staff.staffs);
     //const [sach, setSach] = useState('');
@@ -33,6 +110,8 @@ export const StaffList = (props) => {
         axiosIntance.delete(`/admin/staff/${id}`)
             .then(res => {
                 if (res.status === 200) {
+                    dispatch(getAllStaffs());
+                    toast.success('Xóa thành công', { autoClose: 2000 });
                     console.log('Xóa thành công')
                 }
             })
@@ -52,6 +131,7 @@ export const StaffList = (props) => {
     };
     return (
         <>
+           
             <StaffControl />
             {/* <div className='list-book'>
                 <div>
@@ -64,9 +144,15 @@ export const StaffList = (props) => {
 
                 </div>
             </div> */}
-
+            {Array.isArray(staffs)?
             <div class="table_responsive">
-                <table>
+            <MUIDataTable
+  title={"Employee List"}
+  data={Array.isArray(staffs)?staffs:[]}
+  columns={columns}
+  options={options}
+/>
+<table>
                     <tr>
                         <th>STT</th>
                         <th >Tên Người dùng</th>
@@ -98,8 +184,9 @@ export const StaffList = (props) => {
 
 
                     )}
-                </table>
-            </div>
+                </table>   
+            </div> : <div class="table_responsive">Danh sách trống!</div>
+}
             <Modal show={isOpen} onHide={hideModal}>
                 <Modal.Header>
                     <Modal.Title>Xóa thông tin nhân viên</Modal.Title>
