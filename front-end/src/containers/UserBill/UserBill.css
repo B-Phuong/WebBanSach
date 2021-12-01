@@ -35,7 +35,7 @@
     display: flex;
 }
 .orderStatus{
-    width: 33.33%;
+    width: 28%;
     height: 5px;
     background: #777;
     position: relative;

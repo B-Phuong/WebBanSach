@@ -173,10 +173,10 @@ class BillController {
   getOrders(req, res){
     let userId = req.user._id;
     Bill.find({maKhachHang:userId})
-      .then((oders) => {
+      .then((orders) => {
         res.send({
           status: 200,
-          data: oders,
+          data: orders,
         });
       })
       .catch((err) => {

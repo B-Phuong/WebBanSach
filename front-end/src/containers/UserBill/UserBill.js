@@ -19,6 +19,9 @@ export const UserBill = (props) => {
     useEffect(() => {
         dispatch(getOrders())
     }, [])
+    const Format = (x) => {
+        return x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
+      }
 
     const formatDate = (date) => {
         if (date) {
@@ -33,16 +36,16 @@ export const UserBill = (props) => {
             {
                 userbill.data.map(bill => {
                     return bill.chiTietHoaDon.map(item =>
-                        <Card style={{ maxWidth: "1200px", maxHeight: "500px", margin: "20px auto" }}>
+                        <Card style={{ maxWidth: "1340px", margin: "10px auto" }}>
 
                             <div style={{
-                                display: "flex",
+                                display: "inline-flex",
                                 justifyContent: "space-between",
-                                padding: "50px 50px",
+                                padding: "60px 0px",
                                 alignItems: "center",
                             }}>
-                                <div>{item.tenSach}</div>
-                                <div>{item.tongTienSauGiam}</div>
+                                <div>{item.tenSach}|</div>
+                                <div>{Format(item.tongTienSauGiam)}</div>
                                 <div className="orderTrack">
                                     {bill.orderStatus.map((status) => (
                                         <div
