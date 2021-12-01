@@ -193,13 +193,14 @@ export const getTop10Book = () => {
     }
 }
 
-export const deleteBookById = (id) => {
+export const deleteBookById = (id, setIsOpen) => {
     return async dispatch => {
         try {
             const res = await axios.delete(`book/${id}`);
 
             if (res.status === 200) {
-                await toast.error(res.data.error, { autoClose: 2000 });
+                await toast.success(res.data.message, { autoClose: 2000 });
+                setIsOpen(false)
                 dispatch({
                     type: bookConstants.DELETE_BOOK_BY_ID,
                     payload: res.data

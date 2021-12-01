@@ -124,20 +124,21 @@ export const orderDefault = (info) => {
         diaChiGiaoHang: info.diaChiGiaoHang,
         soDienThoai: info.soDienThoai,
         phiGiaoHang: 20000,
+        daThanhToan: info.daThanhToan
       };
       console.log(payload);
-      try{
-      const res = await axios.post(`/hoadon/taohoadon`, payload);
-      console.log(res);
-      if (res.status === 200) {
-        await toast.success("Đặt hàng thành công", { autoClose: 2000 });
+      try {
+        const res = await axios.post(`/hoadon/taohoadon`, payload);
+        console.log(res);
+        if (res.status === 200) {
+          await toast.success("Đặt hàng thành công", { autoClose: 2000 });
 
-        dispatch(getCartItems());
+          dispatch(getCartItems());
+        }
       }
-    }
-    catch (err) {
-      await toast.error(err.response.data.error, { autoClose: 2000 });
-    }
+      catch (err) {
+        await toast.error(err.response.data.error, { autoClose: 2000 });
+      }
 
 
 

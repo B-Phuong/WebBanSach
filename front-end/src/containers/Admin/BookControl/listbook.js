@@ -19,6 +19,7 @@ export const BookList = (props) => {
     const [tenSach, setTenSach] = useState('')
     const [currentPage, setCurrentPage] = useState(1);
     const [booksPerPage] = useState(9);
+    const [isOpen, setIsOpen] = useState(false);
 
 
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
@@ -30,11 +31,11 @@ export const BookList = (props) => {
         //     params
         // }
         dispatch(getAllBooks());
-        //setSach(books)
-    }, []);
+        console.log(isOpen)
+    }, [isOpen]);
     const confirmDelete = async () => {
         const id = ID;
-        dispatch(deleteBookById(id))
+        dispatch(deleteBookById(id, setIsOpen))
         //     await axiosIntance.delete(`/book/${id}`)
         //         .then(res => {
         //             if (res.status === 200) {
@@ -46,14 +47,13 @@ export const BookList = (props) => {
         //             toast.error(err.response.data.message, { autoClose: 2000 });
         //             console.log('Không thể xóa')
         //         })
-        setIsOpen(false);
-        props.history.push('/admin/book/all')
+        // setIsOpen(false);
+        //props.history.push('/admin/book/all')
     }
     const indexOfLastBook = currentPage * booksPerPage;
     const indexOfFirstBook = indexOfLastBook - booksPerPage;
     const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
     const paginate = pageNumber => setCurrentPage(pageNumber);
-    const [isOpen, setIsOpen] = useState(false);
 
     // const showModal = () => {
 

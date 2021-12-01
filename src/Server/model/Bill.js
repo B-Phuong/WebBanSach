@@ -12,13 +12,15 @@ const bill = new Schema(
     },
     chiTietHoaDon: [
       {
-        maSach: { type: mongoose.Schema.Types.ObjectId,
-                  ref: "Book" },
+        maSach: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Book"
+        },
         tenSach: { type: String, required: true },
         soLuong: { type: Number, required: true },
-        giamGia: { type: Number, default:0 },
-        giaTien: { type: Number, default:0 },
-        tongTienSauGiam: { type: Number, default:0 },
+        giamGia: { type: Number, default: 0 },
+        giaTien: { type: Number, default: 0 },
+        tongTienSauGiam: { type: Number, default: 0 },
       },
     ],
     orderStatus: [
@@ -40,6 +42,7 @@ const bill = new Schema(
     diaChiGiaoHang: { type: String, required: [true, "Chưa có địa chỉ giao hàng"] },
     phiGiaoHang: { type: Number, required: [true, "Chưa có phí giao hàng"] },
     soDienThoai: { type: String, required: [true, "Số điện thoại"] },
+    daThanhToan: { type: Boolean }
   },
   { timestamps: true }
 );
