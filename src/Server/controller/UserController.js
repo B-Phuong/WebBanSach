@@ -61,7 +61,7 @@ class UserController {
       .then(user => {
         console.log('người dùng', user)
         if (bcrypt.compareSync(req.body.matKhau, user.hash_matKhau)) {
-          if (req.body.matKhauMoi === req.body.nhapLaiMatKhau) {
+          if (req.body.matKhauMoi === req.body.nhapLaiMatKhau && req.body.matKhauMoi) {
             const hashPassword = bcrypt.hashSync(req.body.matKhauMoi, 10);
             User.findByIdAndUpdate(req.params.id, { hash_matKhau: hashPassword })
               .then(res.status(200).json({ message: 'Cập nhật thành công' }))
@@ -109,7 +109,7 @@ class UserController {
     //     // code block
     // }
     //Bill.find({maKhachHang:userId, trangThai: trangThai })
-    Bill.find({maKhachHang:userId})
+    Bill.find({ maKhachHang: userId })
       .then((oders) => {
         res.send({
           status: 200,

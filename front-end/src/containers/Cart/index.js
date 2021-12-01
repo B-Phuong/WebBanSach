@@ -46,7 +46,7 @@ const CartPage = (props) => {
     dispatch(getPayPal());
     setCheckOut(false);
   }, []);
-  let user = useSelector(state => state.user.userinfor) 
+  let user = useSelector(state => state.user.userinfor)
   const [checkout, setCheckOut] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [soDienThoai, setsoDienThoai] = useState('')
@@ -64,18 +64,18 @@ const CartPage = (props) => {
     console.log(id)
     // dispatch(getUserInfo(id));
     axiosIntance.get(`user`)
-        .then(res => {
-            if (res.status === 200) {
-                user = res.data[0]
-                setsoDienThoai(user.soDienThoai)
-                setDiaChi(user.diaChi)
-                console.log('lấy chi tiết', res.data[0])
-            }
-        })
-        .catch(err => console.log('Lỗi'))
+      .then(res => {
+        if (res.status === 200) {
+          user = res.data[0]
+          setsoDienThoai(user.soDienThoai)
+          setDiaChi(user.diaChi)
+          console.log('lấy chi tiết', res.data[0])
+        }
+      })
+      .catch(err => console.log('Lỗi'))
 
 
-}, []);
+  }, []);
 
   useEffect(() => {
     setCartItems(cart.cartItems);
@@ -98,14 +98,14 @@ const CartPage = (props) => {
     setIsOpen(true);
   };
   const OrderSubmit = () => {
-    dispatch(orderDefault({diaChiGiaoHang: diaChi, soDienThoai: soDienThoai}));
+    dispatch(orderDefault({ diaChiGiaoHang: diaChi, soDienThoai: soDienThoai }));
   };
-  
+
   const hideModal = () => {
     setIsOpen(false);
   };
   const onOrderDefault = () => {
-    
+
     //dispatch(orderDefault());
   };
 
