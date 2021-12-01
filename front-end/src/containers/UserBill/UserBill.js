@@ -34,36 +34,60 @@ export const UserBill = (props) => {
         <>
             <IndexHome />
             {
-                userbill.data.map(bill => {
-                    return bill.chiTietHoaDon.map(item =>
-                        <Card style={{ maxWidth: "1340px", margin: "10px auto" }}>
-
-                            <div style={{
-                                display: "inline-flex",
-                                justifyContent: "space-between",
-                                padding: "60px 0px",
-                                alignItems: "center",
-                            }}>
-                                <div>{item.tenSach}|</div>
-                                <div>{Format(item.tongTienSauGiam)}</div>
-                                <div className="orderTrack">
-                                    {bill.orderStatus.map((status) => (
-                                        <div
-                                            className={`orderStatus ${status.isCompleted ? "active" : ""}`}
-                                        >
-                                            <div
-                                                className={`point ${status.isCompleted ? "active" : ""}`}
-                                            ></div>
-                                            <div className="orderInfo">
-                                                <div className="status">{status.type}</div>
-                                                <div className="date">{formatDate(status.date)}</div>
-                                            </div>
-                                        </div>
-                                    ))}
+                userbill.data.map((chiTietDonHang, index) => (
+                    <Card
+                      style={{
+                        margin: "10px 0",
+                      }}
+                      key={index}
+                      headerLeft={chiTietDonHang._id}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          padding: "50px 50px",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div>
+                          <div className="title">Hàng đã mua</div>
+                          {chiTietDonHang.chiTietHoaDon.map((item, index) => (
+                            <div className="value" key={index}>
+                              {item.tenSach}
+                            </div>
+                          ))}
+                        </div>
+                        <div>
+                          <span className="title">Tổng giá tiền</span>
+                          <br />
+                          <span className="value">{Format(chiTietDonHang.tongTien)}</span>
+                        </div>
+                        </div>
+                        <div
+                      style={{
+                        boxSizing: "border-box",
+                        padding: "100px",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                        <div className="orderTrack">
+                          {chiTietDonHang.orderStatus.map((status)=>(
+                            <div
+                              className={`orderStatus ${status.isCompleted?"active":""}`}
+                              >
+                                <div
+                                  className={`point ${status.isCompleted ? "active":""}`}
+                                ></div>
+                                <div className="orderInfo">
+                                  <div className="status">{status.type}</div>
+                                  <div className="date">{formatDate(status.date)}</div> 
                                 </div>
                             </div>
-                        </Card>)
-                })
+                          ))}
+                        </div>
+                        </div>
+                    </Card>))
             }
 
         </>
