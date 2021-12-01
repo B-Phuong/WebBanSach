@@ -85,3 +85,8 @@ export const cartConstants = {
     ORDER_ONLINE_FAILURE: "ORDER_ONLINE_FAILURE",
   };
   
+export const userBillConstants = {
+    USER_BILL_REQUEST: "USER_BILL_REQUEST",
+    USER_BILL_SUCCESS: "USER_BILL_SUCCESS",
+    USER_BILL_FAILURE: "USER_BILL_FAILURE"
+}

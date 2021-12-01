@@ -171,16 +171,18 @@ class BillController {
       .catch((err) => res.json(err));
   }
   getOrders(req, res){
-    Bill.find({ user: req.user._id })
-      .select("_id orderStatus chiTietHoaDon")
-      .populate("chiTietHoaDon.maSach", "_id tenSach")
-      .exec((error, bills) => {
-        if (error) return res.status(400).json({ error });
-        if (bills) {
-          res.status(200).json({ bills });
-        }
+    let userId = req.user._id;
+    Bill.find({maKhachHang:userId})
+      .then((oders) => {
+        res.send({
+          status: 200,
+          data: oders,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json(err);
       });
-  };
+  }
 
 }
 module.exports = new BillController();
