@@ -46,7 +46,7 @@ class AuthController {
                     if (isMatKhau && (user.vaiTro === 'super-admin' || user.vaiTro === 'admin')) {
                         const token = jwt.sign({ _id: user._id, vaiTro: user.vaiTro }, JWT_SECRET, { expiresIn: '1h' });
                         const { _id, tenNguoiDung, email, vaiTro } = user;
-                        res.cookie('token', token, { expiresIn: '1h' });
+                        res.cookie('token', token, { expiresIn: '10h' });
                         res.status(200).json({
                             token,
                             user: { _id, tenNguoiDung, email, vaiTro }

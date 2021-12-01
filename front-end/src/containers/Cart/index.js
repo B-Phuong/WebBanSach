@@ -201,8 +201,8 @@ const CartPage = (props) => {
           }, 0)}
         />
       </div>
-      <ToastContainer />
-
+      {/* <ToastContainer /> */}
+     
       <Modal
         show={isOpen}
         onHide={() => {

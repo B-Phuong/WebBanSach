@@ -8,6 +8,7 @@ import PrivateRoute from './components/HOC/PrivateRoute';
 import { Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { isUserLoggedIn, getInitialData } from './actions';
+import { ToastContainer, toast } from "react-toastify";
 
 
 import CartPage from "./containers/Cart";
@@ -79,7 +80,9 @@ function App() {
         <PrivateRoute path="/admin/chart" component={Chart} />
         <Route path="/:theLoai" component={BookByGenres} />
       </Switch>
+      <ToastContainer />
     </div>
+    
   );
 }
 

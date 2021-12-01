@@ -7,8 +7,11 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^4.6.1",
     "chart.js": "^3.6.0",
+    "datatables.net": "^1.11.3",
+    "datatables.net-dt": "^1.11.3",
+    "jquery": "^3.6.0",
     "reacharts": "^0.4.5",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.2",
@@ -25,7 +28,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "set PORT=4000 && react-scripts --openssl-legacy-provider start",
+    "start": "set PORT=4000 && react-scripts  start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

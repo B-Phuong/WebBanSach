@@ -86,7 +86,7 @@ export const StaffList = (props) => {
                             <td>{staff.soDienThoai}</td>
                             <td>
                                 <span class="action_btn">
-                                    <NavLink to={`/admin/staff/${staff._id}/edit`}><IoMdBrush></IoMdBrush></NavLink>
+                                    {/* <NavLink to={`/admin/staff/${staff._id}/edit`}><IoMdBrush></IoMdBrush></NavLink> */}
                                     {/* <NavLink to={`/admin/book/${book._id}/edit`}>Edit</NavLink> */}
 
                                     <IoMdCloseCircleOutline onClick={() => { setIsOpen(true); setID(staff._id); setTenNguoiDung(staff.tenNguoiDung) }}></IoMdCloseCircleOutline>

@@ -28,7 +28,7 @@ export const getAllBooks = () => {
         }
         catch (err) {
             {
-                await toast.error(err.response.data.error, { autoClose: 2000 });
+                await toast.error(err?err:"Lỗi lấy danh sách sách", { autoClose: 2000 });
                 dispatch({
                     type: bookConstants.GET_ERROR,
                     payload: { error: true }
