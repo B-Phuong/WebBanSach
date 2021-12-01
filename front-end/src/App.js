@@ -30,6 +30,7 @@ import Donhang from './containers/Donhang/';
 import Chart from './containers/Admin/ChartControl/chart';
 import Payment from './containers/Payment/payment';
 
+import UserBill from './containers/UserBill/UserBill'
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
 
         <Route path="/" exact component={Book} />
         <Route path="/book/:id" component={BookDetail} />
+        <PrivateRoute path="/user/userbill" component={UserBill} />
         <Route path="/user/cartPayment" exact component={Payment} />
 
         <Route path="/user/:id" exact component={UserInfo} />
