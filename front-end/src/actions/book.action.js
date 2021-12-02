@@ -58,7 +58,7 @@ export const getDetailBook = (id) => {
 
     }
 }
-export const putEditBook = (id, newbook, fd) => {
+export const putEditBook = (id, newbook, fd=null) => {
     return async dispatch => {
         try {
             const res = await axios.put(`book/${id}`, { ...newbook });
@@ -66,6 +66,7 @@ export const putEditBook = (id, newbook, fd) => {
             console.log('>>>>cập nhật', newbook)
 
             if (res.status === 200) {
+                if(fd != null) {
                 axios.post("http://localhost:3000/upload", fd, {
                     onUploadProgress: progressEvent => {
                         console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + '%')
@@ -82,6 +83,7 @@ export const putEditBook = (id, newbook, fd) => {
                         toast.error('Chỉnh sửa thất bại', { autoClose: 2000 });
                         console.error('Error', e)
                     })
+                }
             }
         }
         catch (err) {

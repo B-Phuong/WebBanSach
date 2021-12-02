@@ -31,9 +31,14 @@ exports.validateSignupStaffRequest = [
 ]
 exports.validateSigninRequest = [
     check('email')
-        .isEmail()
-        .withMessage('Bạn phải nhập đúng email'),
+    .notEmpty()
+    .withMessage('Vui lòng nhập đủ Email, mật khẩu'),
+        // .isEmail()
+        // .withMessage('Bạn phải nhập đúng email'),
     
+    check('matKhau')
+    .notEmpty()
+    .withMessage('Mật khẩu không bỏ trống!')
 ]
 exports.isRequestValidated = (req, res, next) => {
     const errors = validationResult(req)

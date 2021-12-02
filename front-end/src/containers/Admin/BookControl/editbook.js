@@ -17,7 +17,7 @@ export const BookEdit = (props) => {
     const [tenSach, setTenSach] = useState('');
     const [giaTien, setGiaTien] = useState('');
     const [giamGia, setGiamGia] = useState('');
-    const [fileHinhAnh, setFileHinhAnh] = useState('');
+    const [fileHinhAnh, setFileHinhAnh] = useState(null);
     const [hinhAnh, setHinhAnh] = useState('');
     const [moTa, setMoTa] = useState('');
     const [tacGia, setTacGia] = useState('');
@@ -97,7 +97,8 @@ export const BookEdit = (props) => {
         console.log('>>trước khi cập nhật', Book)
         console.log('>>sẽ cập nhật:', updatebook);
         const fd = new FormData();
-        fd.append('file', fileHinhAnh, hinhAnh)
+        if(fileHinhAnh!=null)
+            fd.append('file', fileHinhAnh, hinhAnh)
         //const update = JSON.stringify(updatebook)
         dispatch(putEditBook(id, updatebook, fd));
         //setSach(update)

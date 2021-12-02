@@ -16,7 +16,7 @@ export const homelogin = (user) => {
                 const { token, user } = res.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
-                toast.success(res.data.message, { autoClose: 2000 });
+                toast.success("Đăng nhập thành công", { autoClose: 2000 });
                 dispatch({
                     type: authConstants.LOGIN_SUCCESS,
                     payload: {

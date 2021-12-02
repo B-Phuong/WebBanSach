@@ -38,6 +38,10 @@ class AuthController {
         });
     }
     signin(req, res) {
+        if(req.body.email.length == 0 && req.body.matKhau.length ==0)
+        return res.status(400).json({
+            error: 'Vui lòng nhập đủ Email và mật khẩu'
+        })
         User.findOne({ email: req.body.email })
             .exec(async (error, user) => {
                 if (error) return res.status(400).json({ error });
@@ -53,11 +57,11 @@ class AuthController {
                         });
                     } else {
                         return res.status(400).json({
-                            error: 'Tên tài khoản hoặc mật khẩu không đúng'
+                            error: 'email hoặc mật khẩu không đúng'
                         })
                     }
                 } else {
-                    return res.status(400).json({ error: "Có gì đó hông ổn" });
+                    return res.status(400).json({ error: "Sai email hoặc mật khẩu" });
                 }
             });
     }

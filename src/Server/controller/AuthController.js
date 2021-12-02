@@ -53,7 +53,7 @@ class AuthController {
                         });
                     } else {
                         return res.status(400).json({
-                            error: 'Tên tài khoản hoặc mật khẩu không đúng'
+                            error: 'Email hoặc mật khẩu không đúng'
                         })
                     }
                 } else {
