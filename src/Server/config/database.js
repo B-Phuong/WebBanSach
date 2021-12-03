@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
+const env = require('dotenv');
+env.config()
 async function connect() { 
     try {
-        await mongoose.connect('mongodb://127.0.0.1/BanSach', {
-          //  useNewUrlParser: true,
-           // useUnifiedopology: true
+        await mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.an7m2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
+           useNewUrlParser: true,
+           useUnifiedTopology: true
         });
         console.log('Connect successfully');
     } catch (error) {
-        console.log('Connect failure!');
+        console.log('Connect failure2!');
     }
 }
 
