@@ -36,7 +36,7 @@ export const BookAdd = (props) => {
         //await setHinhAnh(ramdom+'_'+hinhAnh)
         const fd = new FormData();
         fd.append('file', filehinhAnh, hinhAnh)
-        axios.post("http://localhost:3000/upload", fd, {
+        axios.post("https://api-webbanhang-nhom07.herokuapp.com/upload", fd, {
             onUploadProgress: progressEvent => {
                 console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + '%')
             }

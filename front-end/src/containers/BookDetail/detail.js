@@ -55,7 +55,7 @@ const BookDetail = (props) => {
 
                 <div className='tam'>
                     <div id='image'>
-                        <img src={`http://localhost:3000/images/${book.hinhAnh}`} alt="Ảnh bị lỗi hiển thị" />
+                        <img src={`https://api-webbanhang-nhom07.herokuapp.com/images/${book.hinhAnh}`} alt="Ảnh bị lỗi hiển thị" />
                     </div>
                     <div id='author'>
                         <span>Tác giả:<> <b>{book.tacGia}</b></></span>

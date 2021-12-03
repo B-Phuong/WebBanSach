@@ -77,7 +77,7 @@ export const AddStaff = (newstaff) => {
     return async dispatch => {
         // const { id } = payload.params;
         try {
-            const res = await axios.post(`http://localhost:3000/admin/staff`, { ...newstaff });
+            const res = await axios.post(`https://api-webbanhang-nhom07.herokuapp.com/admin/staff`, { ...newstaff });
 
             console.log('>>>>cập nhật', newstaff)
             if (res.status === 200) {

@@ -46,7 +46,7 @@ export const BookList = (props) => {
           return (
             <img
               className="Hinhanhcss"
-              src={`http://localhost:3000/images/${tableMeta.rowData[3]}`}
+              src={`https://api-webbanhang-nhom07.herokuapp.com/images/${tableMeta.rowData[3]}`}
               alt="Ảnh bị lỗi hiển thị"
             />
           );

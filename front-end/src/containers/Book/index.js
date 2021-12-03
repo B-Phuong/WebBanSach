@@ -85,7 +85,7 @@ const Book = (props) => {
 
                                                     width: '100%',
                                                     height: '220px'
-                                                }} src={`http://localhost:3000/images/${abook.hinhAnh}`} alt="Ảnh bị lỗi hiển thị" />
+                                                }} src={`https://api-webbanhang-nhom07.herokuapp.com/images/${abook.hinhAnh}`} alt="Ảnh bị lỗi hiển thị" />
                                                 <span className="name" >
                                                     {abook.tenSach}</span>
                                             </div>

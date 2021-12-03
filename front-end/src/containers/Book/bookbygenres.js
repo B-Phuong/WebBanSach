@@ -104,7 +104,7 @@ const BookByGenres = (props) => {
                             width: "100%",
                             height: "220px",
                           }}
-                          src={`http://localhost:3000/images/${book.hinhAnh}`}
+                          src={`https://api-webbanhang-nhom07.herokuapp.com/images/${book.hinhAnh}`}
                           alt="Ảnh bị lỗi hiển thị"
                         />
                         <span className="name">{book.tenSach}</span>

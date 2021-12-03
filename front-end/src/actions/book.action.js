@@ -67,7 +67,7 @@ export const putEditBook = (id, newbook, fd=null) => {
 
             if (res.status === 200) {
                 if(fd != null) {
-                axios.post("http://localhost:3000/upload", fd, {
+                axios.post("https://api-webbanhang-nhom07.herokuapp.com/upload", fd, {
                     onUploadProgress: progressEvent => {
                         console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + '%')
                     }
@@ -108,11 +108,11 @@ export const putEditBook = (id, newbook, fd=null) => {
 export const AddBook = (newbook, fd) => {
     return async dispatch => {
         try {
-            const res = await axios.post(`http://localhost:3000/admin/book`, { ...newbook });
+            const res = await axios.post(`https://api-webbanhang-nhom07.herokuapp.com/admin/book`, { ...newbook });
 
             console.log('>>>>cập nhật', newbook)
             if (res.status === 200) {
-                axios.post("http://localhost:3000/upload", fd, {
+                axios.post("https://api-webbanhang-nhom07.herokuapp.com/upload", fd, {
                     onUploadProgress: progressEvent => {
                         console.log("Upload Progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + '%')
                     }
@@ -155,7 +155,7 @@ export const getBookByGenres = (genres) => {
     return async dispatch => {
         // const { id } = payload.params;
         console.log('láy ds theo thể loại')
-        const res = await axios.get(`http://localhost:3000/book/search/${genres}`);
+        const res = await axios.get(`https://api-webbanhang-nhom07.herokuapp.com/book/search/${genres}`);
 
         console.log('danh sách sách đã được lấy', res)
         if (res.status === 200) {
@@ -177,7 +177,7 @@ export const getTop10Book = () => {
     return async dispatch => {
         // const { id } = payload.params;
 
-        const res = await axios.get(`http://localhost:3000/book/top10`);
+        const res = await axios.get(`https://api-webbanhang-nhom07.herokuapp.com/book/top10`);
 
         console.log('danh sách sách đã được lấy', res)
         if (res.status === 200) {

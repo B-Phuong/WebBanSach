@@ -1,2 +1,2 @@
-export const api = 'http://localhost:3000/';
+export const api = 'https://api-webbanhang-nhom07.herokuapp.com/';
 

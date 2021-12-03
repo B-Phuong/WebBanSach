@@ -38,7 +38,7 @@ const CartItem = (props) => {
     <div className="cartItemContainer">
       <div className="flexRow">
         <div className="cartProImgContainer">
-          <img src={`http://localhost:3000/images/${hinhAnh}`} alt={""} />
+          <img src={`https://api-webbanhang-nhom07.herokuapp.com/images/${hinhAnh}`} alt={""} />
         </div>
         <div className="cartItemDetails">
           <div>
