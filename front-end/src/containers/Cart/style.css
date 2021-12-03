@@ -4,3 +4,11 @@
     margin: 15px auto;
     justify-content: space-between;
 }
+
+.spiner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}

@@ -5,6 +5,7 @@ import Layout from "../../components/Layout";
 import Card from "../../components/UI/Card";
 import CartItem from "./CartItem";
 import { Form, Row, Col, Button, Modal } from 'react-bootstrap'
+import ClipLoader from "react-spinners/ClipLoader";
 
 import {
   orderDefault,
@@ -40,10 +41,14 @@ if logged in then add products to users cart database from localStorage
 */
 
 const CartPage = (props) => {
+  const [loading,setLoading] = useState(false);
+
   //paymen
   const totalBill = useSelector((state) => state.user.totalCurrentBill);
   useEffect(() => {
-    dispatch(getPayPal());
+    setLoading(true);
+
+    dispatch(getPayPal()).then(data => {setLoading(false);});
     setCheckOut(false);
   }, []);
   let user = useSelector(state => state.user.userinfor)
