@@ -6,12 +6,13 @@ import Layout from '../../components/Layout';
 import IndexHome from '../../components/Layout/Header/indexHome'
 import { Link, NavLink } from "react-router-dom";
 import Pagination from '../.././components/Pagination';
+import ClipLoader from "react-spinners/ClipLoader";
 //import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 //import { Carousel } from 'react-responsive-carousel';
 import "./book.css";
 
 const Book = (props) => {
-
+    const [loading,setLoading] = useState(false);
     const dispatch = useDispatch();
     const books = useSelector(state => state.book.books);
     const categories = useSelector(state => state.category.categories);
@@ -24,10 +25,14 @@ const Book = (props) => {
     // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
     // const { page } = product;
     useEffect(() => {
+        setLoading(true);
+        // setTimeout(() => {
+        //     setLoading(false);
+        // },3000)
         // const payload = {
         //     params
         // }
-        dispatch(getAllBooks());
+        dispatch(getAllBooks()).then(data => {setLoading(false);});
         // setBook(books)
     }, []);
     useEffect(() => {
@@ -68,7 +73,12 @@ const Book = (props) => {
                         flexWrap: 'wrap',
                         margin: '10px 0'
                     }}>
-                        {
+                        { loading?
+                        <ClipLoader className="spiner"
+                        size = {60}
+                        color = {'#123abc'}
+                        loading = {loading}
+                         /> :
                             currentBooks && currentBooks.map((abook) =>
                                 <NavLink to={`/book/${abook._id}`}>
                                     <div className="book">
