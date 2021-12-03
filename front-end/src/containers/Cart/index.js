@@ -154,6 +154,12 @@ const CartPage = (props) => {
       <IndexHome />
 
       <div className="cartContainer" style={{ alignItems: "flex-start" }}>
+        {loading?
+                        <ClipLoader className="spiner"
+                        size = {60}
+                        color = {'#123abc'}
+                        loading = {loading}
+                         /> :
         <Card
           headerLeft={`Giỏ hàng`}
           headerRight={<div>Số tiền</div>}
@@ -206,6 +212,7 @@ const CartPage = (props) => {
             </>
           )}
         </Card>
+        }
         <PriceDetails
           totalItem={Object.keys(cart.cartItems).reduce(function (qty, key) {
             return qty + cart.cartItems[key].soLuong;

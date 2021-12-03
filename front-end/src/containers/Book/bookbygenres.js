@@ -9,8 +9,11 @@ import Pagination from "../.././components/Pagination";
 //import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 //import { Carousel } from 'react-responsive-carousel';
 import "./book.css";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const BookByGenres = (props) => {
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
   const bookbygenres = useSelector((state) => state.book.books);
   const categories = useSelector((state) => state.category.categories);
@@ -19,19 +22,27 @@ const BookByGenres = (props) => {
   // const books = [{ tenSach: 'sách1' }, { tenSach: 'ténach2' }]
   // const { page } = product;
   useEffect(() => {
+    setLoading(true);
+
     const { theLoai } = props.match.params;
     console.log("mục thể loại", theLoai);
 
     // const payload = {
     //     params
     // }
-    dispatch(getBookByGenres(theLoai));
+    dispatch(getBookByGenres(theLoai)).then((data) => {
+      setLoading(false);
+    });;
   }, []);
   useEffect(() => {
+    setLoading(true);
+
     dispatch(getAllCategories());
   }, []);
   const renderBook = (theLoai) => {
-    dispatch(getBookByGenres(theLoai));
+    dispatch(getBookByGenres(theLoai)).then((data) => {
+      setLoading(false);
+    });
   };
   const Format = (x) => {
     return x.toLocaleString("it-IT", { style: "currency", currency: "VND" });
@@ -78,6 +89,7 @@ const BookByGenres = (props) => {
             ))}
         </div>
         <div style={{ margin: "10px 10px" }}>
+
           <div
             style={{
               display: "flex",
@@ -86,7 +98,18 @@ const BookByGenres = (props) => {
               margin: "10px 0",
             }}
           >
-            {currentBooks &&
+
+            
+            {
+               loading ? (
+                <ClipLoader
+                  className="spiner"
+                  size={60}
+                  color={"#123abc"}
+                  loading={loading}
+                />
+              ) :
+            currentBooks &&
               currentBooks.map((book, index) => (
                 <NavLink to={`/book/${book._id}`}>
                   <div className="book">
@@ -142,6 +165,7 @@ const BookByGenres = (props) => {
                   </div>{" "}
                 </NavLink>
               ))}
+
           </div>
           <div> kích thước trang: 
                     <select name="cars" id="cars" margin="20px" onChange={(e)=>setbooksPerPage(e.target.value)} >
